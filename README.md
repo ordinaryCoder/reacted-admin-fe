@@ -42,7 +42,6 @@ Open http://localhost:3000 with your favorite browser to see your project.
 │   ├── styles                      # Styles folder
 │   ├── templates                   # Default template
 │   └── utils                       # Utility functions
-├── tailwind.config.js              # Tailwind CSS configuration
 └── tsconfig.json                   # TypeScript configuration
 ```
 
