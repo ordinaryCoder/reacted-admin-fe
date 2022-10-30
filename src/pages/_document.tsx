@@ -56,6 +56,8 @@ MyDocument.getInitialProps = async (ctx) => {
   // 3. app.render
   // 4. page.render
 
+  // Render app and page and get the context of the page with collected side effects. //not working
+  // const sheets = new ServerStyleSheets();
   const originalRenderPage = ctx.renderPage;
 
   // You can consider sharing the same Emotion cache between all the SSR requests to speed up performance.
