@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <div>
       © Copyright {new Date().getFullYear()} {AppConfig.title}.{' '}
-      <a href="https://github.com/ordinaryCoder/reacted-admin-fe">OVAA Tech</a>
+      <a href="https://github.com/ordinaryCoder">OVAA Tech</a>
     </div>
   );
 };

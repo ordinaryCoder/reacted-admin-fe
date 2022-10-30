@@ -6,7 +6,7 @@ describe('Navigation', () => {
 
       // The index page should contain an h1
       cy.findByRole('heading', {
-        name: 'Boilerplate code for your Nextjs project with Tailwind CSS',
+        name: 'Boilerplate code for your Nextjs project with Material UI',
       });
 
       // Find a link containing "About" text and click it
