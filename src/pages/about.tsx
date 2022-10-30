@@ -1,4 +1,4 @@
-import { Meta } from '@/layouts/Meta';
+import { Meta } from '@/components/meta/Meta';
 import { Main } from '@/templates/Main';
 
 const About = () => (
