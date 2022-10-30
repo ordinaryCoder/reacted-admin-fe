@@ -95,7 +95,7 @@ Developer experience first:
 - 💖 Code Formatter with [Prettier](https://prettier.io)
 - 🦊 Husky for Git Hooks
 - 🚫 Lint-staged for running linters on Git staged files
-- 🚓 Lint git commit with Commitlint
+- 🚓 Lint git commit with Commitlint with already configured rules[Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) 
 - 🦺 Unit Testing with Jest and React Testing Library
 - 🧪 E2E Testing with Cypress
 - 💡 Absolute Imports using `@` prefix
