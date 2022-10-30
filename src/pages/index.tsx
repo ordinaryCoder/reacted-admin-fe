@@ -5,16 +5,9 @@ import { Main } from '@/templates/Main';
 
 const Index = () => {
   return (
-    <Main
-      meta={
-        <Meta
-          title="Reacted Admin Front end"
-          description="Reacted Admin Front end"
-        />
-      }
-    >
+    <Main meta={<Meta title="lorem ipsum" description="lorem ipsum" />}>
       <Container>
-        <h1>Boilerplate code for your Nextjs project with Tailwind CSS</h1>
+        <h1>Boilerplate code for your Nextjs project with Material UI</h1>
       </Container>
     </Main>
   );
