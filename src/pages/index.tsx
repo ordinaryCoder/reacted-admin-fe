@@ -14,6 +14,7 @@ const Index = () => {
       }
     >
       <Container>
+        {/* Dashboard - Stats, Recent Celebrity/Creator, Recent Orders, Total(all mentioned before) */}
         <h1>Boilerplate code for your Nextjs project with Tailwind CSS</h1>
       </Container>
     </Main>

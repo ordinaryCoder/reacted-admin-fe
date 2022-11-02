@@ -1,10 +1,10 @@
 import { Meta } from '@/components/meta/Meta';
 import { Main } from '@/templates/Main';
 
-const Users = () => (
+const Master = () => (
   <Main meta={<Meta title="User List" description="User List" />}>
-    User List Here
+    {/* list, view, edit, add */}
   </Main>
 );
 
-export default Users;
+export default Master;
