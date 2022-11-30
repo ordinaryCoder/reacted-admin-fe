@@ -1,4 +1,4 @@
-# Reacted frontend built with Next JS 12+, bootstrap 5 and TypeScript
+# Reacted frontend built with Next JS 12+, Material UI and TypeScript
 
 ### Requirements
 
@@ -50,8 +50,10 @@ Open http://localhost:3000 with your favorite browser to see your project.
 You can easily configure Next js Boilerplate. Please change the following file:
 
 - `public/apple-touch-icon.png`, `public/favicon.ico`, `public/favicon-16x16.png` and `public/favicon-32x32.png`: your website favicon, you can generate from https://favicon.io/favicon-converter/
+
 - `src/styles/global.css`: your CSS file
 - `src/utils/AppConfig.ts`: configuration file
+- `src/config/Theme.ts`: configuration file for material ui theme
 - `src/templates/Main.tsx`: default theme
 
 ### Deploy to production
@@ -73,7 +75,8 @@ npm run build-prod
 
 ### Testing
 
-All tests are colocated with the source code inside the same directory. So, it makes it easier to find them. Unfortunately, it is not possible with the `pages` folder which is used by Next.js for routing. So, what is why we have a `pages.test` folder to write tests from files located in `pages` folder.
+All tests are colocated with the source code inside the same directory. So, it makes it easier to find them. 
+We have a `pages.test` folder to write tests from files located in `pages` folder.
 
 ### VSCode information (optional)
 
@@ -89,17 +92,17 @@ Developer experience first:
 
 - ⚡ [Next.js](https://nextjs.org) for Static Site Generator
 - 🔥 Type checking [TypeScript](https://www.typescriptlang.org)
-- 💎 Integrate with [Tailwind CSS](https://tailwindcss.com)
+- 💎 Integrate with [Material UI](https://mui.com)
 - ✅ Strict Mode for TypeScript and React 18
-- 📏 Linter with [ESLint](https://eslint.org) (default NextJS, NextJS Core Web Vitals, Tailwind CSS and Airbnb configuration)
+- 📏 Linter with [ESLint](https://eslint.org) (default NextJS, NextJS Core Web Vitals, Material-UI and Airbnb configuration)
 - 💖 Code Formatter with [Prettier](https://prettier.io)
 - 🦊 Husky for Git Hooks
 - 🚫 Lint-staged for running linters on Git staged files
-- 🚓 Lint git commit with Commitlint
+- 🚓 Lint git commit with Commitlint with already configured rules[Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) 
 - 🦺 Unit Testing with Jest and React Testing Library
 - 🧪 E2E Testing with Cypress
 - 💡 Absolute Imports using `@` prefix
-- 🗂 VSCode configuration: Debug, Settings, Tasks and extension for PostCSS, ESLint, Prettier, TypeScript, Jest
+- 🗂 VSCode configuration: Debug, Settings, Tasks and extension for ESLint, Prettier, TypeScript, Jest
 - 🤖 SEO metadata, JSON-LD and Open Graph tags with Next SEO
 - ⚙️ [Bundler Analyzer](https://www.npmjs.com/package/@next/bundle-analyzer)
 - 🖱️ One click deployment with Vercel or Netlify (or manual deployment to any hosting services)
