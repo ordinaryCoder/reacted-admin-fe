@@ -9,7 +9,7 @@ import {
   Divider,
   useTheme,
 } from '@mui/material';
-// import { Bar } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 
 export const Sales = (props: any) => {
   const theme = useTheme();
@@ -40,7 +40,7 @@ export const Sales = (props: any) => {
     labels: ['1 Aug', '2 Aug', '3 Aug', '4 Aug', '5 Aug', '6 Aug', '7 aug'],
   };
 
-  const options = {
+  const options: any = {
     animation: false,
     cornerRadius: 20,
     layout: { padding: 0 },
@@ -89,9 +89,6 @@ export const Sales = (props: any) => {
     },
   };
 
-  // eslint-disable-next-line no-console
-  console.log(data, options);
-
   return (
     <Card {...props}>
       <CardHeader
@@ -110,7 +107,7 @@ export const Sales = (props: any) => {
             position: 'relative',
           }}
         >
-          {/* <Bar data={data} options={options} /> */}
+          <Bar data={data} options={options} />
         </Box>
       </CardContent>
       <Divider />

@@ -12,11 +12,11 @@ import {
   TableSortLabel,
   Tooltip,
 } from '@mui/material';
+
 // import { format } from 'date-fns';
 // import PerfectScrollbar from 'react-perfect-scrollbar';
 // import { v4 as uuid } from 'uuid';
-
-// import { SeverityPill } from '../severity-pill';
+import { SeverityPill } from '@/components/common/severity-pill/SeverityPill';
 
 // Temp function
 const uuid = (num: number): number => num;
@@ -111,15 +111,15 @@ export const RecentOrders = (props: any) => (
               <TableCell>{order.customer.name}</TableCell>
               {/* <TableCell>{format(order.createdAt, 'dd/MM/yyyy')}</TableCell> */}
               <TableCell>
-                {/* <SeverityPill
+                <SeverityPill
                   color={
                     (order.status === 'delivered' && 'success') ||
                     (order.status === 'refunded' && 'error') ||
                     'warning'
                   }
-                > */}
-                {order.status}
-                {/* </SeverityPill> */}
+                >
+                  {order.status}
+                </SeverityPill>
               </TableCell>
             </TableRow>
           ))}
