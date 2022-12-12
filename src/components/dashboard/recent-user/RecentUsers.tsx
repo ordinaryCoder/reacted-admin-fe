@@ -12,6 +12,7 @@ import {
   ListItemAvatar,
   ListItemText,
 } from '@mui/material';
+import { useRouter } from 'next/router';
 // import { formatDistanceToNow, subHours } from 'date-fns';
 // import { v4 as uuid } from 'uuid';
 
@@ -21,82 +22,87 @@ const uuid = (num: number): number => num;
 const products = [
   {
     id: uuid(1),
-    name: 'Dropbox',
-    imageUrl: '/static/images/products/product_1.png',
+    name: 'Raymond Bryce',
+    role: 'celebrity',
+    imageUrl: '/public/assets/images/favicon-32x32.png',
     // updatedAt: subHours(Date.now(), 2),
   },
   {
     id: uuid(2),
     name: 'Medium Corporation',
-    imageUrl: '/static/images/products/product_2.png',
+    role: 'Creator',
+    imageUrl: '/public/assets/images/favicon-32x32.png',
     // updatedAt: subHours(Date.now(), 2),
   },
   {
     id: uuid(3),
-    name: 'Slack',
-    imageUrl: '/static/images/products/product_3.png',
+    name: 'Tommy Hanks',
+    role: 'Celebrity',
+    imageUrl: '/public/assets/images/favicon-32x32.png',
     // updatedAt: subHours(Date.now(), 3),
   },
   {
     id: uuid(4),
-    name: 'Lyft',
-    imageUrl: '/static/images/products/product_4.png',
+    name: 'Ranbeer Kapeer',
+    role: 'Celebrity',
+    imageUrl: '/public/assets/images/favicon-32x32.png',
     // updatedAt: subHours(Date.now(), 5),
   },
   {
     id: uuid(5),
-    name: 'GitHub',
-    imageUrl: '/static/images/products/product_5.png',
+    name: 'Moses Brasixka',
+    role: 'Creator',
+    imageUrl: '/public/assets/images/favicon-32x32.png',
     // updatedAt: subHours(Date.now(), 9),
   },
 ];
 
-export const RecentUsers = (props: any) => (
-  <Card {...props}>
-    <CardHeader
-      subtitle={`${products.length} in total`}
-      title="Latest Products"
-    />
-    <Divider />
-    <List>
-      {products.map((product, i) => (
-        <ListItem divider={i < products.length - 1} key={product.id}>
-          <ListItemAvatar>
-            <img
-              alt={product.name}
-              src={product.imageUrl}
-              style={{
-                height: 48,
-                width: 48,
-              }}
-            />
-          </ListItemAvatar>
-          <ListItemText
-            primary={product.name}
-            // secondary={`Updated ${formatDistanceToNow(product.updatedAt)}`}
-          />
-          <IconButton edge="end" size="small">
-            <MoreVertIcon />
-          </IconButton>
-        </ListItem>
-      ))}
-    </List>
-    <Divider />
-    <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'flex-end',
-        p: 2,
-      }}
-    >
-      <Button
-        color="primary"
-        endIcon={<ArrowRightIcon />}
-        size="small"
-        variant="text"
+export const RecentUsers = (props: any) => {
+  const router = useRouter();
+  return (
+    <Card {...props}>
+      <CardHeader
+        subtitle={`${products.length} in total`}
+        title="Recent Users"
+      />
+      <Divider />
+      <List>
+        {products.map((product, i) => (
+          <ListItem divider={i < products.length - 1} key={product.id}>
+            <ListItemAvatar>
+              <img
+                alt={product.name}
+                src={`${router.basePath}/favicon-16x16.png`}
+                style={{
+                  height: 48,
+                  width: 48,
+                }}
+              />
+            </ListItemAvatar>
+            <ListItemText primary={product.name} secondary={product.role} />
+            <IconButton edge="end" size="small">
+              <MoreVertIcon />
+            </IconButton>
+          </ListItem>
+        ))}
+      </List>
+      <Divider />
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          p: 2,
+        }}
       >
-        View all
-      </Button>
-    </Box>
-  </Card>
-);
+        <Button
+          color="primary"
+          endIcon={<ArrowRightIcon />}
+          size="small"
+          variant="text"
+        >
+          View all
+        </Button>
+      </Box>
+    </Card>
+  );
+};

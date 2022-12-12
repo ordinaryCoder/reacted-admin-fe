@@ -1,11 +1,8 @@
 import { Box, Container } from '@mui/material';
 
+import Register from '@/components/Forms/AddUser';
 import { Meta } from '@/components/meta/Meta';
-import { UserListResults } from '@/components/Users/Celebrity/List/List';
-import { UserListToolbar } from '@/components/Users/Celebrity/Toolbar/ToolBar';
 import { Main } from '@/templates/Main';
-
-import { customers } from '../__mocks__/users';
 
 // list, view, edit, add
 const Celebrity = () => (
@@ -18,10 +15,7 @@ const Celebrity = () => (
       }}
     >
       <Container maxWidth={false}>
-        <UserListToolbar />
-        <Box sx={{ mt: 3 }}>
-          <UserListResults customers={customers} />
-        </Box>
+        <Register />
       </Container>
     </Box>
   </Main>

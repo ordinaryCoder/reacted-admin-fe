@@ -1,10 +1,13 @@
 import { AccountCircle } from '@mui/icons-material';
+import AlbumIcon from '@mui/icons-material/Album';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import InsertChartIcon from '@mui/icons-material/InsertChart';
 import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import SpatialAudioOffIcon from '@mui/icons-material/SpatialAudioOff';
+import SpatialTrackingIcon from '@mui/icons-material/SpatialTracking';
 import { Badge, MenuItem } from '@mui/material';
 import type { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import MuiAppBar from '@mui/material/AppBar';
@@ -13,11 +16,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import MuiDrawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 import type { CSSObject, Theme } from '@mui/material/styles';
 import { styled, useTheme } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
@@ -25,7 +23,31 @@ import Typography from '@mui/material/Typography';
 import Link from 'next/link';
 import * as React from 'react';
 
+import { SideNavItem } from '@/components/common/side-nav-item/SideNavItem';
 import Footer from '@/components/footer/Footer';
+
+const items = [
+  {
+    href: '/',
+    icon: <InsertChartIcon fontSize="small" />,
+    title: 'Dashboard',
+  },
+  {
+    href: '/celebrity',
+    icon: <SpatialTrackingIcon fontSize="small" />,
+    title: 'Celebrity',
+  },
+  {
+    href: '/creator',
+    icon: <SpatialAudioOffIcon fontSize="small" />,
+    title: 'Creator',
+  },
+  {
+    href: '/orders',
+    icon: <AlbumIcon fontSize="small" />,
+    title: 'Orders',
+  },
+];
 
 type IMainProps = {
   meta: React.ReactNode;
@@ -185,6 +207,39 @@ const Main = (props: IMainProps) => {
         </AppBar>
         <Drawer variant="permanent" open={open}>
           <DrawerHeader>
+            <div>
+              <Box sx={{ p: 3 }}>
+                <Link href="/" passHref>
+                  <a>
+                    {/* <Logo
+                      sx={{
+                        height: 42,
+                        width: 42,
+                      }}
+                    /> */}
+                  </a>
+                </Link>
+              </Box>
+              <Box sx={{ px: 2 }}>
+                <Box
+                  sx={{
+                    alignItems: 'center',
+                    backgroundColor: 'rgba(255, 255, 255, 0.04)',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    px: 3,
+                    py: '11px',
+                    borderRadius: 1,
+                  }}
+                >
+                  <Typography color="inherit" variant="subtitle1">
+                    Robby Tarts
+                  </Typography>
+                </Box>
+              </Box>
+            </div>
+
             <IconButton onClick={handleDrawerClose}>
               {theme.direction === 'rtl' ? (
                 <ChevronRightIcon />
@@ -193,37 +248,23 @@ const Main = (props: IMainProps) => {
               )}
             </IconButton>
           </DrawerHeader>
-          <Divider />
-          <List>
-            {['dashboard', 'users', 'orders', 'settings'].map((text, index) => (
-              <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-                <Link href={`/${text}`}>
-                  <ListItemButton
-                    sx={{
-                      minHeight: 48,
-                      justifyContent: open ? 'initial' : 'center',
-                      px: 2.5,
-                    }}
-                  >
-                    <ListItemIcon
-                      sx={{
-                        minWidth: 0,
-                        mr: open ? 3 : 'auto',
-                        justifyContent: 'center',
-                      }}
-                    >
-                      {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                    </ListItemIcon>
-                    <ListItemText
-                      primary={text}
-                      sx={{ opacity: open ? 1 : 0 }}
-                    />
-                  </ListItemButton>
-                </Link>
-              </ListItem>
+          <Divider
+            sx={{
+              borderColor: '#2D3748',
+              my: 3,
+            }}
+          />
+          <Box sx={{ flexGrow: 1 }}>
+            {items.map((item) => (
+              <SideNavItem
+                key={item.title}
+                icon={item.icon}
+                href={item.href}
+                title={item.title}
+              />
             ))}
-          </List>
-          <Divider />
+          </Box>
+          <Divider sx={{ borderColor: '#2D3748' }} />
         </Drawer>
         <Box component="main" sx={{ flexGrow: 1, m: 10 }}>
           {props.children}
@@ -234,3 +275,37 @@ const Main = (props: IMainProps) => {
   );
 };
 export { Main };
+
+// eslint-disable-next-line no-lone-blocks
+{
+  /* raw implementation of side bar list
+<List>
+{['dashboard', 'users', 'orders', 'settings'].map((text, index) => (
+  <ListItem key={text} disablePadding sx={{ display: 'block' }}>
+    <Link href={`/${text}`}>
+      <ListItemButton
+        sx={{
+          minHeight: 48,
+          justifyContent: open ? 'initial' : 'center',
+          px: 2.5,
+        }}
+      >
+        <ListItemIcon
+          sx={{
+            minWidth: 0,
+            mr: open ? 3 : 'auto',
+            justifyContent: 'center',
+          }}
+        >
+          {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+        </ListItemIcon>
+        <ListItemText
+          primary={text}
+          sx={{ opacity: open ? 1 : 0 }}
+        />
+      </ListItemButton>
+    </Link>
+  </ListItem>
+))}
+</List> */
+}

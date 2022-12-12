@@ -1,6 +1,5 @@
 import { Box, Container, Grid } from '@mui/material';
 
-import { Sales } from '@/components/dashboard/recent-orders/OrderChart';
 import { RecentOrders } from '@/components/dashboard/recent-orders/RecentOrders';
 import { RecentUsers } from '@/components/dashboard/recent-user/RecentUsers';
 import { OngoingOrders } from '@/components/dashboard/stats-cards/OngoingOrders';
@@ -42,9 +41,9 @@ const Index = () => {
             <Grid item xl={3} lg={3} sm={6} xs={12}>
               <Profit sx={{ height: '100%' }} />
             </Grid>
-            <Grid item lg={8} md={12} xl={9} xs={12}>
-              <Sales />
-            </Grid>
+            {/* <Grid item lg={8} md={12} xl={9} xs={12}>
+              <OrderChart />
+            </Grid> */}
             <Grid item lg={4} md={6} xl={3} xs={12}>
               <RecentUsers sx={{ height: '100%' }} />
             </Grid>

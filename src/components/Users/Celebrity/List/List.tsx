@@ -18,7 +18,7 @@ import { useState } from 'react';
 // import PerfectScrollbar from 'react-perfect-scrollbar';
 import { getInitials } from '@/utils/GetInitials';
 
-export const CustomerListResults = ({ customers, ...rest }: any) => {
+export const UserListResults = ({ customers, ...rest }: any) => {
   const [selectedCustomerIds, setSelectedCustomerIds] = useState<Array<any>>(
     []
   );
@@ -37,7 +37,7 @@ export const CustomerListResults = ({ customers, ...rest }: any) => {
     setSelectedCustomerIds(newSelectedCustomerIds);
   };
 
-  const handleSelectOne = (event: Event, id: any) => {
+  const handleSelectOne = (id: any) => {
     const selectedIndex = selectedCustomerIds.indexOf(id);
     let newSelectedCustomerIds: Array<any> = [];
 
@@ -68,7 +68,7 @@ export const CustomerListResults = ({ customers, ...rest }: any) => {
     setLimit(event.target.value);
   };
 
-  const handlePageChange = (event: any, newPage: any) => {
+  const handlePageChange = (newPage: any) => {
     setPage(newPage);
   };
 
@@ -107,9 +107,7 @@ export const CustomerListResults = ({ customers, ...rest }: any) => {
                 <TableCell padding="checkbox">
                   <Checkbox
                     checked={selectedCustomerIds.indexOf(customer.id) !== -1}
-                    onChange={(event: any) =>
-                      handleSelectOne(event, customer.id)
-                    }
+                    onChange={() => handleSelectOne(customer.id)}
                     value="true"
                   />
                 </TableCell>
@@ -155,6 +153,6 @@ export const CustomerListResults = ({ customers, ...rest }: any) => {
   );
 };
 
-CustomerListResults.propTypes = {
+UserListResults.propTypes = {
   customers: PropTypes.array.isRequired,
 };

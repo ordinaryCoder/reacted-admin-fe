@@ -34,6 +34,7 @@
     "react": "^18.2.0",
     "react-chartjs-2": "^5.0.1",
     "react-dom": "^18.2.0",
+    "uuid": "^9.0.0",
     "yup": "^0.32.11",
     "zustand": "^4.1.2"
   },
@@ -47,6 +48,7 @@
     "@types/jest": "^29.0.0",
     "@types/node": "^18.7.16",
     "@types/react": "^18.0.18",
+    "@types/uuid": "^9.0.0",
     "@typescript-eslint/eslint-plugin": "^5.36.2",
     "@typescript-eslint/parser": "^5.36.2",
     "cross-env": "^7.0.3",
