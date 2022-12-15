@@ -14,7 +14,7 @@ import {
   FormControlLabel
 } from "@mui/material";
 import { DashboardLayout } from "../components/dashboard-layout";
-import { CreateMusicCreator } from "../components/music-creator/create-music-creator";
+import { CreateCelebrity } from "../components/celebrity/create-celebrity-component";
 
 
 
@@ -22,7 +22,7 @@ const Page = () => (
   
   <>
     <Head>
-      <title>Create Music Creator | Reacted</title>
+      <title>Create Celebrity | Reacted</title>
     </Head>
     <Box
       component="main"
@@ -33,11 +33,11 @@ const Page = () => (
     >
       <Container maxWidth="lg">
         <Typography sx={{ mb: 3 }} variant="h4">
-          Music Creator
+        Create Celebrity
         </Typography>
         <Grid container spacing={2}>
           <Grid item lg={12} md={12} xs={12}>
-            <CreateMusicCreator />            
+            <CreateCelebrity />            
           </Grid>
         </Grid>
       </Container>
