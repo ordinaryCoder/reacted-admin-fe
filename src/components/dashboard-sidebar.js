@@ -16,6 +16,10 @@ import { XCircle as XCircleIcon } from '../icons/x-circle';
 import { Logo } from './logo';
 import { NavItem } from './nav-item';
 import { Stack, Avatar } from '@mui/system';
+import Diversity2Icon from '@mui/icons-material/Diversity2';
+import CategoryIcon from '@mui/icons-material/Category';
+import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
+import FeaturedPlayListIcon from '@mui/icons-material/FeaturedPlayList';
 
 const items = [
   {
@@ -24,33 +28,53 @@ const items = [
     title: 'Dashboard'
   },
   {
-    href: '/music-creators',
+    href: '/create-music-creator',
     icon: (<UsersIcon fontSize="small" />),
-    title: 'Music Creators'
+    title: 'Add Music Creators'
   },
   {
-    href: '/celebrity',
-    icon: (<ShoppingBagIcon fontSize="small" />),
-    title: 'Celebrity'
+    href: '/music-creators',
+    icon: (<UsersIcon fontSize="small" />),
+    title: 'View Music Creators'
+  },
+  {
+    href: '/create-celebrity',
+    icon: (<SupervisedUserCircleIcon fontSize="small" />),
+    title: 'Add Celebrity'
+  },
+  {
+    href: '/celebrities',
+    icon: (<SupervisedUserCircleIcon fontSize="small" />),
+    title: 'View All Celebrities'
+  },
+  {
+    href: '/categories',
+    icon: (<CategoryIcon fontSize="small" />),
+    title: 'Categories'
+  },
+  {
+    href: '/social-media-platforms',
+    icon: (<Diversity2Icon fontSize="small" />),
+    title: 'Social Media Platforms'
+  },
+  {
+    href: '/orders',
+    icon: (<FeaturedPlayListIcon fontSize="small" />),
+    title: 'Orders'
+  },
+  {
+    href: '/customer-support',
+    icon: (<CogIcon fontSize="small" />),
+    title: 'Customer Support'
   },
   {
     href: '/account',
     icon: (<UserIcon fontSize="small" />),
-    title: 'Account'
-  },
-  {
-    href: '/orders',
-    icon: (<CogIcon fontSize="small" />),
-    title: 'Orders'
-  },
-  {
-    href: '/profile',
-    icon: (<LockIcon fontSize="small" />),
-    title: 'profile'
+    title: 'My Account'
   },
   {
     href: '/settings',
-    icon: (<UserAddIcon fontSize="small" />),
+    icon: (<CogIcon fontSize="small" />),
     title: 'Settings'
   },
   {
