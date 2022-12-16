@@ -13,9 +13,57 @@ import {
     FormControlLabel
   } from "@mui/material";
 
+  const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
+
+
+
+  const validationSchema = yup.object({
+    firstName: yup
+      .string('Enter your first name')
+      .min(3,'first name should contain at least 3 characters')
+      .required('Your first name is required'),
+    lastName: yup
+      .string('Enter your last name')
+      .min(3,'last name should contain at least 3 characters')
+      .required('Your last name is required'),
+    artistName: yup
+      .string('Enter your artist name')
+      .min(3,'artist name should contain at least 3 characters')
+      .required('Your artist name is required'),
+      email: yup
+      .string('Enter your email')
+      .email('email is invalid')
+      .required('This Field is required'),
+      phoneNumber: Yup.string()
+      .required("required")
+      .matches(phoneRegExp, 'Phone number is not valid')
+      .min(10, "too short")
+      .max(10, "too long"),
+      country: yup
+      .string('Enter your Country')
+      .min(3,'artist name should contain at least 3 characters')
+      .required('This Field is required'),
+      genre: Yup.array().required("At least one checkbox is required")
+  });
+
   export const CreateMusicCreator = (props) => {
+    const formik = useFormik({
+      initialValues: {
+        firstName: 'foo',
+        lastName: 'bar',
+        artistName: 'foo',
+        email: 'foobar@example.com',
+        phoneNumber: '0000000000',
+        country: 'India'
+      },
+      validationSchema: validationSchema,
+      onSubmit: (values) => {
+        alert(JSON.stringify(values, null, 2));
+      },
+    });
+
     return(
-        <form autoComplete="off" noValidate>
+        <form autoComplete="off" noValidate onSubmit={formik.handleSubmit}>
               <Card>
                 <CardHeader subheader="" title="Add Music Creator" />
                 <Divider />
@@ -40,11 +88,16 @@ import {
                     <Grid item md={6} xs={12}>
                       <TextField
                         fullWidth
-                        helperText="Please specify the first name"
+                      
                         label="First name"
                         name="firstName"
                         required
                         variant="outlined"
+                        value={formik.values.firstName}
+                        onChange={formik.handleChange}
+                        error={formik.touched.firstName && Boolean(formik.errors.firstName)}
+                          // helperText="Please specify the first name"
+                        helperText={formik.touched.firstName && formik.errors.firstName}
                       />
                     </Grid>
                     <Grid item md={6} xs={12}>
@@ -54,6 +107,11 @@ import {
                         name="lastName"
                         required
                         variant="outlined"
+                        value={formik.values.lastName}
+                        onChange={formik.handleChange}
+                        error={formik.touched.lastName && Boolean(formik.errors.lastName)}
+                          // helperText="Please specify the first name"
+                        helperText={formik.touched.lastName && formik.errors.lastName}
                       />
                     </Grid>
                     <Grid item md={6} xs={12}>
@@ -63,6 +121,11 @@ import {
                         name="artistName"
                         required
                         variant="outlined"
+                        value={formik.values.artistName}
+                        onChange={formik.handleChange}
+                        error={formik.touched.artistName && Boolean(formik.errors.artistName)}
+                          // helperText="Please specify the first name"
+                        helperText={formik.touched.artistName && formik.errors.artistName}
                       />
                     </Grid>
                     <Grid item md={6} xs={12}>
@@ -72,15 +135,25 @@ import {
                         name="email"
                         required
                         variant="outlined"
+                        value={formik.values.email}
+                        onChange={formik.handleChange}
+                        error={formik.touched.email && Boolean(formik.errors.email)}
+                          // helperText="Please specify the first name"
+                        helperText={formik.touched.email && formik.errors.email}
                       />
                     </Grid>
                     <Grid item md={6} xs={12}>
                       <TextField
                         fullWidth
                         label="Phone Number"
-                        name="phone"
+                        name="phoneNumber"
                         type="number"
                         variant="outlined"
+                        value={formik.values.phoneNumber}
+                        onChange={formik.handleChange}
+                        error={formik.touched.phoneNumber && Boolean(formik.errors.phoneNumber)}
+                          // helperText="Please specify the first name"
+                        helperText={formik.touched.phoneNumber && formik.errors.phoneNumber}
                       />
                     </Grid>
                     <Grid item md={6} xs={12}>
@@ -90,6 +163,11 @@ import {
                         name="country"
                         required
                         variant="outlined"
+                        value={formik.values.country}
+                        onChange={formik.handleChange}
+                        error={formik.touched.country && Boolean(formik.errors.country)}
+                          // helperText="Please specify the first name"
+                        helperText={formik.touched.country && formik.errors.country}
                       />
                     </Grid>
                   </Grid>
@@ -105,7 +183,6 @@ import {
                         fullWidth
                         label="Facebook"
                         name="facebook"
-                        required
                         variant="outlined"
                       />
                     </Grid>
@@ -114,7 +191,6 @@ import {
                         fullWidth
                         label="Instagram"
                         name="instagram"
-                        required
                         variant="outlined"
                       />
                     </Grid>
@@ -123,7 +199,6 @@ import {
                         fullWidth
                         label="TikTok"
                         name="tiktok"
-                        required
                         variant="outlined"
                       />
                     </Grid>
@@ -132,7 +207,6 @@ import {
                         fullWidth
                         label="Youtube"
                         name="youtube"
-                        type="number"
                         variant="outlined"
                       />
                     </Grid>
@@ -141,7 +215,6 @@ import {
                         fullWidth
                         label="Twitter"
                         name="twitter"
-                        required
                         variant="outlined"
                       />
                     </Grid>
@@ -150,7 +223,6 @@ import {
                         fullWidth
                         label="LinkedIn"
                         name="linkedin"
-                        required
                         variant="outlined"
                       />
                     </Grid>
@@ -166,7 +238,7 @@ import {
                     <FormControlLabel
                     control={
                         <Checkbox
-                            name="genere"
+                            name="genre"
                             value="Pop"
                         />
                     }
@@ -174,7 +246,7 @@ import {
                     <FormControlLabel
                     control={
                         <Checkbox
-                            name="genere"
+                            name="genre"
                             value="Electronic"
                         />
                     }
@@ -182,7 +254,7 @@ import {
                     <FormControlLabel
                     control={
                         <Checkbox
-                            name="genere"
+                            name="genre"
                             value="Hip Hop"
                         />
                     }
@@ -190,7 +262,7 @@ import {
                     <FormControlLabel
                     control={
                         <Checkbox
-                            name="genere"
+                            name="genre"
                             value="Country"
                         />
                     }
@@ -198,7 +270,7 @@ import {
                     <FormControlLabel
                     control={
                         <Checkbox
-                            name="genere"
+                            name="genre"
                             value="Latin"
                         />
                     }
@@ -231,7 +303,7 @@ import {
                     p: 2,
                   }}
                 >
-                  <Button color="primary" variant="contained">
+                  <Button color="primary" variant="contained" type="submit">
                     Save details
                   </Button>
                 </Box>
