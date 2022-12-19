@@ -4,7 +4,7 @@ import PeopleIcon from '@mui/icons-material/PeopleOutlined';
 
 export const TotalCustomers = (props) => (
   <Card {...props}>
-    <CardContent>
+    <CardContent sx={{padding: '30px 12px'}}>
       <Grid
         container
         spacing={3}
@@ -16,13 +16,13 @@ export const TotalCustomers = (props) => (
             gutterBottom
             variant="overline"
           >
-            TOTAL CUSTOMERS
+            TOTAL MUSIC CREATORS
           </Typography>
           <Typography
             color="textPrimary"
             variant="h4"
           >
-            1,6k
+            200
           </Typography>
         </Grid>
         <Grid item>
@@ -37,29 +37,7 @@ export const TotalCustomers = (props) => (
           </Avatar>
         </Grid>
       </Grid>
-      <Box
-        sx={{
-          alignItems: 'center',
-          display: 'flex',
-          pt: 2
-        }}
-      >
-        <ArrowUpwardIcon color="success" />
-        <Typography
-          variant="body2"
-          sx={{
-            mr: 1
-          }}
-        >
-          16%
-        </Typography>
-        <Typography
-          color="textSecondary"
-          variant="caption"
-        >
-          Since last month
-        </Typography>
-      </Box>
+
     </CardContent>
   </Card>
 );

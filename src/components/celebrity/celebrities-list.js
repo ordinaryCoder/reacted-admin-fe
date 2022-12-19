@@ -41,9 +41,6 @@ export const CelebrityList = (props) => {
                 Full Name
               </TableCell>
               <TableCell>
-                Artist Name
-              </TableCell>
-              <TableCell>
                 Email
               </TableCell>
               <TableCell>
@@ -83,9 +80,6 @@ export const CelebrityList = (props) => {
                   </Box>
                 </TableCell>
                 <TableCell>
-                  Test Artist Name
-                </TableCell>
-                <TableCell>
                   abhirpotdar@gmail.com
                 </TableCell>
                 <TableCell>
@@ -120,7 +114,7 @@ export const CelebrityList = (props) => {
                   
                 </TableCell>
                 <TableCell>
-                  08-12-2022 12:28:97
+                12-08-2022 12:28:97
                 </TableCell>
               </TableRow>
               <TableRow
@@ -145,9 +139,6 @@ export const CelebrityList = (props) => {
                   </Box>
                 </TableCell>
                 <TableCell>
-                  Test Artist Name
-                </TableCell>
-                <TableCell>
                   abhirpotdar@gmail.com
                 </TableCell>
                 <TableCell>
@@ -182,7 +173,7 @@ export const CelebrityList = (props) => {
                   
                 </TableCell>
                 <TableCell>
-                  08-12-2022 12:28:97
+                12-08-2022 12:28:97
                 </TableCell>
               </TableRow>
               <TableRow
@@ -207,9 +198,6 @@ export const CelebrityList = (props) => {
                   </Box>
                 </TableCell>
                 <TableCell>
-                  Test Artist Name
-                </TableCell>
-                <TableCell>
                   abhirpotdar@gmail.com
                 </TableCell>
                 <TableCell>
@@ -244,7 +232,7 @@ export const CelebrityList = (props) => {
                   
                 </TableCell>
                 <TableCell>
-                  08-12-2022 12:28:97
+                12-08-2022 12:28:97
                 </TableCell>
               </TableRow>
               <TableRow
@@ -269,9 +257,6 @@ export const CelebrityList = (props) => {
                   </Box>
                 </TableCell>
                 <TableCell>
-                  Test Artist Name
-                </TableCell>
-                <TableCell>
                   abhirpotdar@gmail.com
                 </TableCell>
                 <TableCell>
@@ -306,7 +291,7 @@ export const CelebrityList = (props) => {
                   
                 </TableCell>
                 <TableCell>
-                  08-12-2022 12:28:97
+                12-08-2022 12:28:97
                 </TableCell>
               </TableRow>
               <TableRow
@@ -331,9 +316,6 @@ export const CelebrityList = (props) => {
                   </Box>
                 </TableCell>
                 <TableCell>
-                  Test Artist Name
-                </TableCell>
-                <TableCell>
                   abhirpotdar@gmail.com
                 </TableCell>
                 <TableCell>
@@ -368,7 +350,7 @@ export const CelebrityList = (props) => {
                   
                 </TableCell>
                 <TableCell>
-                  08-12-2022 12:28:97
+                  12-08-2022 12:28:97
                 </TableCell>
               </TableRow>
           </TableBody>
