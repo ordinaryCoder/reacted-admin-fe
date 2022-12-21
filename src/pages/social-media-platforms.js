@@ -16,10 +16,34 @@ import {
 import { DashboardLayout } from "../components/dashboard-layout";
 import { AddSocialMediaComponent } from "../components/master-data/social-media-platforms/create-social-media";
 import { SoclaiMediaList } from "../components/master-data/social-media-platforms/social-media-list"
+import { useEffect, useState } from "react";
+import { baseUrl } from "../constants/api";
+import axios from "axios";
 
 
 
-const Page = () => (
+const Page = () => {
+
+  const [socialmedialist, setSocialMediaList] = useState([]);
+
+  const url = baseUrl+'/get_all_social_media_platforms'
+  useEffect(() => {
+    getSocialMediaList();
+  }, []);
+
+  function getSocialMediaList(){
+    axios.get(url).then((response) => {
+      //console.log(response); 
+      setSocialMediaList(response.data.data.reverse());
+      console.log(response.data.data);  
+    }).catch((response) => { 
+      console.log(response); 
+    });
+  }
+
+  
+  
+  return (
   
   <>
     <Head>
@@ -38,16 +62,18 @@ const Page = () => (
         </Typography>
         <Grid container spacing={2}>
           <Grid item lg={5} md={5} xs={12}>
-            <AddSocialMediaComponent />            
+            <AddSocialMediaComponent onSubmitForm={() => getSocialMediaList()}  />            
           </Grid>
           <Grid item lg={7}>
-            <SoclaiMediaList />
+            <SoclaiMediaList 
+            data={socialmedialist} 
+            onDeletePlatformItem={() => getSocialMediaList()}/>
           </Grid>
         </Grid>
       </Container>
     </Box>
   </>
-);
+)};
 
 Page.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 

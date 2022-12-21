@@ -16,11 +16,32 @@ import {
 import { DashboardLayout } from "../components/dashboard-layout";
 import { CategoryComponent } from "../components/master-data/categories/categories-component";
 import { CategoryList } from "../components/master-data/categories/categories-list"
+import { useEffect, useState } from "react";
+import { baseUrl } from "../constants/api";
+import axios from "axios";
 
 
 
-const Page = () => (
+const Page = () => {
   
+
+  const [categoryList, setCategoryList] = useState([]);
+
+  const url = baseUrl+'/get_all_categories'
+  useEffect(() => {
+    getCategoryList();
+  }, []);
+
+  function getCategoryList(){
+    axios.get(url).then((response) => {
+      //console.log(response); 
+      setCategoryList(response.data.data.reverse());
+    }).catch((response) => { 
+      console.log(response); 
+    });
+  }
+
+  return (  
   <>
     <Head>
       <title>Categories | Reacted</title>
@@ -41,13 +62,13 @@ const Page = () => (
             <CategoryComponent />            
           </Grid>
           <Grid item lg={7}>
-            <CategoryList />
+            <CategoryList data={categoryList}/>
           </Grid>
         </Grid>
       </Container>
     </Box>
   </>
-);
+)};
 
 Page.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 

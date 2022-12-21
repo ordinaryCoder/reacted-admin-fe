@@ -26,17 +26,17 @@ export const AuthGuard = (props) => {
       ignore.current = true;
       let isLoggedIn = localStorage.getItem('token')
 
-      if (!isLoggedIn) {
-        console.log('Not authenticated, redirecting');
-        router
-          .replace({
-            pathname: '/sign-in',
-            query: router.asPath !== '/' ? { continueUrl: router.asPath } : undefined
-          })
-          .catch(console.error);
-      } else {
+      // if (!isLoggedIn) {
+      //   console.log('Not authenticated, redirecting');
+      //   router
+      //     .replace({
+      //       pathname: '/login',
+      //       query: router.asPath !== '/' ? { continueUrl: router.asPath } : undefined
+      //     })
+      //     .catch(console.error);
+      // } else {
         setChecked(true);
-      }
+     // }
     },
     [router.isReady]
   );
