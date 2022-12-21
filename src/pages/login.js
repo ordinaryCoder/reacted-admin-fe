@@ -7,6 +7,8 @@ import { Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Facebook as FacebookIcon } from '../icons/facebook';
 import { Google as GoogleIcon } from '../icons/google';
+import axios from 'axios';
+import { baseUrl } from '../constants/api';
 
 const Login = () => {
   const formik = useFormik({
@@ -25,17 +27,16 @@ const Login = () => {
         .max(255)
         .required('Password is required')
     }),
-    onSubmit: () => {
-      Router
-        .push('/')
-        .catch(console.error);
+    onSubmit: (data) => {
+      console.log(data);
+      handleSubmit(data);
     }
   });
 
   return (
     <>
       <Head>
-        <title>Login | Material Kit</title>
+        <title>Login | Reacted</title>
       </Head>
       <Box
         component="main"

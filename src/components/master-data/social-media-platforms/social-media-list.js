@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import {
   Avatar,
@@ -18,17 +18,25 @@ import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 
 import DeleteIcon from '@mui/icons-material/Delete';
+import axios from 'axios';
+import { baseUrl } from '../../../constants/api';
 
 export const SoclaiMediaList = (props) => {
 
-    const categories = [
-        { name: 'Facebook', slug: 'pop' },
-        { name: 'Instagram', slug: 'HipHop' },
-        { name: 'Tiktok', slug: 'EDM' },
-        { name: 'Linkedin', slug: 'Rock' },
-        { name: 'Youtube', slug: 'Latin' },
-        { name: 'Twitter', slug: 'Indie' },
-      ];
+    const [socialmedialist, setSocialMediaList] = useState([]);
+
+    const url = baseUrl+'/get_all_social_media_platforms'
+    useEffect(() => {
+      axios.get(url).then((response) => {
+        //console.log(response); 
+        setSocialMediaList(response.data.data);     
+      }).catch((response) => { 
+        console.log(response); 
+      });
+    }, []);
+
+    console.log(socialmedialist, 'Social media');
+    
     return(
 <Card>
     <PerfectScrollbar>
@@ -53,7 +61,7 @@ export const SoclaiMediaList = (props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            { categories.map((category, index) => 
+            { socialmedialist.map((platform, index) => 
             <TableRow
             key={index}
                 hover
@@ -73,11 +81,11 @@ export const SoclaiMediaList = (props) => {
                     >
                       AB
                     </Avatar>
-                      {category.name}
+                      {platform.platform_name}
                   </Box>
                 </TableCell>
                 <TableCell>
-                <Chip label="Active" color="success" />
+                <Chip label={platform.status} color="success" />
                 </TableCell>
                 <TableCell>
                 <Stack direction="row">

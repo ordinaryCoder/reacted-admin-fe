@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import {
   Avatar,
@@ -17,9 +17,24 @@ import {
 import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 
+import { baseUrl } from '../../../constants/api';
+
 import DeleteIcon from '@mui/icons-material/Delete';
+import axios from 'axios';
 
 export const CategoryList = (props) => {
+    const [catList, setList] = useState([]);
+    const url = baseUrl+'/get_category';
+
+    useEffect(() => {
+      axios.get(url).then((response) => { 
+        console.log(response); 
+      })
+      .catch((response) => { 
+        console.log(response); 
+      });
+    });
+    
 
     const categories = [
         { name: 'Pop', slug: 'pop' },
