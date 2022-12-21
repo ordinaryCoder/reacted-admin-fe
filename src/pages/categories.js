@@ -23,52 +23,59 @@ import axios from "axios";
 
 
 const Page = () => {
-  
+
 
   const [categoryList, setCategoryList] = useState([]);
 
-  const url = baseUrl+'/get_all_categories'
+  const url = baseUrl + '/get_all_categories'
   useEffect(() => {
     getCategoryList();
-  }, []);
+  });
 
-  function getCategoryList(){
+  function getCategoryList() {
     axios.get(url).then((response) => {
       //console.log(response); 
       setCategoryList(response.data.data.reverse());
-    }).catch((response) => { 
-      console.log(response); 
+    }).catch((response) => {
+      console.log(response);
     });
   }
 
-  return (  
-  <>
-    <Head>
-      <title>Categories | Reacted</title>
-    </Head>
-    <Box
-      component="main"
-      sx={{
-        flexGrow: 1,
-        py: 8,
-      }}
-    >
-      <Container maxWidth="lg">
-        <Typography sx={{ mb: 3 }} variant="h4">
-          Categories
-        </Typography>
-        <Grid container spacing={2}>
-          <Grid item lg={5} md={5} xs={12}>
-            <CategoryComponent />            
+  return (
+    <>
+      <Head>
+        <title>Categories | Reacted</title>
+      </Head>
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          py: 8,
+        }}
+      >
+        <Container maxWidth="lg">
+          <Typography sx={{ mb: 3 }}
+            variant="h4">
+            Categories
+          </Typography>
+          <Grid container
+            spacing={2}>
+            <Grid item
+              lg={5}
+              md={5}
+              xs={12}>
+              <CategoryComponent />
+            </Grid>
+            <Grid item
+              lg={7}>
+              <CategoryList data={categoryList} />
+            </Grid>
           </Grid>
-          <Grid item lg={7}>
-            <CategoryList data={categoryList}/>
-          </Grid>
-        </Grid>
-      </Container>
-    </Box>
-  </>
-)};
+        </Container>
+      </Box>
+    </>
+  )
+};
 
 Page.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
