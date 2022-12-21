@@ -85,19 +85,30 @@ import { useState } from "react";
 
     return(
       <>
-      <Snackbar open={open} autoHideDuration={6000} anchorOrigin={{horizontal: "right", vertical: "top",}} onClose={() => setOpen(false)}>
-        <Alert sx={{ width: '100%', color: '#fff' }} variant="filled" severity="success">
+      <Snackbar open={open}
+autoHideDuration={6000}
+anchorOrigin={{horizontal: "right", vertical: "top",}}
+onClose={() => setOpen(false)}>
+        <Alert sx={{ width: '100%', color: '#fff' }}
+variant="filled"
+severity="success">
           {msg}
         </Alert>
       </Snackbar>
-        <form autoComplete="off" onSubmit={formik.handleSubmit} noValidate>
+        <form autoComplete="off"
+onSubmit={formik.handleSubmit}
+noValidate>
               <Card>
-                <CardHeader subheader="" title="Add Social Media Platform" />
+                <CardHeader subheader=""
+title="Add Social Media Platform" />
                 <Divider />
                 <CardContent>
-                  <Grid container spacing={3}>
+                  <Grid container
+spacing={3}>
 
-                    <Grid item md={12} xs={12}>
+                    <Grid item
+md={12}
+xs={12}>
                       <TextField
                         fullWidth
                         label="Title"
@@ -110,7 +121,9 @@ import { useState } from "react";
                         onChange={formik.handleChange}
                       />
                     </Grid>
-                    <Grid item md={12} xs={12}>
+                    <Grid item
+md={12}
+xs={12}>
                       <TextField
                         fullWidth
                         label="Link"
@@ -132,7 +145,9 @@ import { useState } from "react";
                     p: 2,
                   }}
                 >
-                  <Button color="primary" variant="contained" type="submit">
+                  <Button color="primary"
+variant="contained"
+type="submit">
                     Add Social Media Platform
                   </Button>
                 </Box>

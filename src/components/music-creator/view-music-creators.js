@@ -90,29 +90,41 @@ export const MusicCreatorsList = (props) => {
                 </TableCell>
                 <TableCell>
                 <Stack direction="row">
-                    <IconButton aria-label="Facebook" size="small">
+                    <IconButton aria-label="Facebook"
+size="small">
                     <FacebookIcon color="primary" />
                     </IconButton>
-                    <IconButton aria-label="Instagram" color="secondary" size="small">
+                    <IconButton aria-label="Instagram"
+color="secondary"
+size="small">
                     <InstagramIcon />
                     </IconButton>
-                    <IconButton color="error" aria-label="Youtube" size="small">
+                    <IconButton color="error"
+aria-label="Youtube"
+size="small">
                     <YouTubeIcon />
                     </IconButton>
-                    <IconButton color="primary" aria-label="LinkedIn" size="small">
+                    <IconButton color="primary"
+aria-label="LinkedIn"
+size="small">
                     <LinkedInIcon color="primary"/>
                     </IconButton>
                 </Stack>
                 </TableCell>
                 <TableCell>
-                <Chip label="Active" color="success" />
+                <Chip label="Active"
+color="success" />
                 </TableCell>
                 <TableCell>
                 <Stack direction="row">
-                    <IconButton aria-label="Facebook" color="primary" size="small">
+                    <IconButton aria-label="Facebook"
+color="primary"
+size="small">
                     <VisibilityIcon color="primary" />
                     </IconButton>
-                    <IconButton aria-label="Instagram" color="error" size="small">
+                    <IconButton aria-label="Instagram"
+color="error"
+size="small">
                     <DeleteIcon />
                     </IconButton>
                 </Stack>
@@ -152,29 +164,41 @@ export const MusicCreatorsList = (props) => {
                 </TableCell>
                 <TableCell>
                 <Stack direction="row">
-                    <IconButton aria-label="Facebook" size="small">
+                    <IconButton aria-label="Facebook"
+size="small">
                     <FacebookIcon color="primary" />
                     </IconButton>
-                    <IconButton aria-label="Instagram" color="secondary" size="small">
+                    <IconButton aria-label="Instagram"
+color="secondary"
+size="small">
                     <InstagramIcon />
                     </IconButton>
-                    <IconButton color="error" aria-label="Youtube" size="small">
+                    <IconButton color="error"
+aria-label="Youtube"
+size="small">
                     <YouTubeIcon />
                     </IconButton>
-                    <IconButton color="primary" aria-label="LinkedIn" size="small">
+                    <IconButton color="primary"
+aria-label="LinkedIn"
+size="small">
                     <LinkedInIcon color="primary"/>
                     </IconButton>
                 </Stack>
                 </TableCell>
                 <TableCell>
-                <Chip label="Active" color="success" />
+                <Chip label="Active"
+color="success" />
                 </TableCell>
                 <TableCell>
                 <Stack direction="row">
-                    <IconButton aria-label="Facebook" color="primary" size="small">
+                    <IconButton aria-label="Facebook"
+color="primary"
+size="small">
                     <VisibilityIcon color="primary" />
                     </IconButton>
-                    <IconButton aria-label="Instagram" color="error" size="small">
+                    <IconButton aria-label="Instagram"
+color="error"
+size="small">
                     <DeleteIcon />
                     </IconButton>
                 </Stack>
@@ -214,29 +238,41 @@ export const MusicCreatorsList = (props) => {
                 </TableCell>
                 <TableCell>
                 <Stack direction="row">
-                    <IconButton aria-label="Facebook" size="small">
+                    <IconButton aria-label="Facebook"
+size="small">
                     <FacebookIcon color="primary" />
                     </IconButton>
-                    <IconButton aria-label="Instagram" color="secondary" size="small">
+                    <IconButton aria-label="Instagram"
+color="secondary"
+size="small">
                     <InstagramIcon />
                     </IconButton>
-                    <IconButton color="error" aria-label="Youtube" size="small">
+                    <IconButton color="error"
+aria-label="Youtube"
+size="small">
                     <YouTubeIcon />
                     </IconButton>
-                    <IconButton color="primary" aria-label="LinkedIn" size="small">
+                    <IconButton color="primary"
+aria-label="LinkedIn"
+size="small">
                     <LinkedInIcon color="primary"/>
                     </IconButton>
                 </Stack>
                 </TableCell>
                 <TableCell>
-                <Chip label="Active" color="success" />
+                <Chip label="Active"
+color="success" />
                 </TableCell>
                 <TableCell>
                 <Stack direction="row">
-                    <IconButton aria-label="Facebook" color="primary" size="small">
+                    <IconButton aria-label="Facebook"
+color="primary"
+size="small">
                     <VisibilityIcon color="primary" />
                     </IconButton>
-                    <IconButton aria-label="Instagram" color="error" size="small">
+                    <IconButton aria-label="Instagram"
+color="error"
+size="small">
                     <DeleteIcon />
                     </IconButton>
                 </Stack>
@@ -276,29 +312,41 @@ export const MusicCreatorsList = (props) => {
                 </TableCell>
                 <TableCell>
                 <Stack direction="row">
-                    <IconButton aria-label="Facebook" size="small">
+                    <IconButton aria-label="Facebook"
+size="small">
                     <FacebookIcon color="primary" />
                     </IconButton>
-                    <IconButton aria-label="Instagram" color="secondary" size="small">
+                    <IconButton aria-label="Instagram"
+color="secondary"
+size="small">
                     <InstagramIcon />
                     </IconButton>
-                    <IconButton color="error" aria-label="Youtube" size="small">
+                    <IconButton color="error"
+aria-label="Youtube"
+size="small">
                     <YouTubeIcon />
                     </IconButton>
-                    <IconButton color="primary" aria-label="LinkedIn" size="small">
+                    <IconButton color="primary"
+aria-label="LinkedIn"
+size="small">
                     <LinkedInIcon color="primary"/>
                     </IconButton>
                 </Stack>
                 </TableCell>
                 <TableCell>
-                <Chip label="Active" color="success" />
+                <Chip label="Active"
+color="success" />
                 </TableCell>
                 <TableCell>
                 <Stack direction="row">
-                    <IconButton aria-label="Facebook" color="primary" size="small">
+                    <IconButton aria-label="Facebook"
+color="primary"
+size="small">
                     <VisibilityIcon color="primary" />
                     </IconButton>
-                    <IconButton aria-label="Instagram" color="error" size="small">
+                    <IconButton aria-label="Instagram"
+color="error"
+size="small">
                     <DeleteIcon />
                     </IconButton>
                 </Stack>
@@ -338,29 +386,41 @@ export const MusicCreatorsList = (props) => {
                 </TableCell>
                 <TableCell>
                 <Stack direction="row">
-                    <IconButton aria-label="Facebook" size="small">
+                    <IconButton aria-label="Facebook"
+size="small">
                     <FacebookIcon color="primary" />
                     </IconButton>
-                    <IconButton aria-label="Instagram" color="secondary" size="small">
+                    <IconButton aria-label="Instagram"
+color="secondary"
+size="small">
                     <InstagramIcon />
                     </IconButton>
-                    <IconButton color="error" aria-label="Youtube" size="small">
+                    <IconButton color="error"
+aria-label="Youtube"
+size="small">
                     <YouTubeIcon />
                     </IconButton>
-                    <IconButton color="primary" aria-label="LinkedIn" size="small">
+                    <IconButton color="primary"
+aria-label="LinkedIn"
+size="small">
                     <LinkedInIcon color="primary"/>
                     </IconButton>
                 </Stack>
                 </TableCell>
                 <TableCell>
-                <Chip label="Active" color="success" />
+                <Chip label="Active"
+color="success" />
                 </TableCell>
                 <TableCell>
                 <Stack direction="row">
-                    <IconButton aria-label="Facebook" color="primary" size="small">
+                    <IconButton aria-label="Facebook"
+color="primary"
+size="small">
                     <VisibilityIcon color="primary" />
                     </IconButton>
-                    <IconButton aria-label="Instagram" color="error" size="small">
+                    <IconButton aria-label="Instagram"
+color="error"
+size="small">
                     <DeleteIcon />
                     </IconButton>
                 </Stack>

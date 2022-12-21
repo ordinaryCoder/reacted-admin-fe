@@ -33,7 +33,8 @@ export const CustomerSupportList = (props) => {
 <Card>
     <PerfectScrollbar>
       <Box>
-        <Table stickyHeader aria-label="sticky table">
+        <Table stickyHeader
+aria-label="sticky table">
           <TableHead>
             <TableRow>
               <TableCell padding="checkbox">
@@ -93,11 +94,14 @@ export const CustomerSupportList = (props) => {
                 {category.message}
                 </TableCell>
                 <TableCell>
-                <Chip label="Active" color="success" />
+                <Chip label="Active"
+color="success" />
                 </TableCell>
                 <TableCell>
                 <Stack direction="row">
-                    <IconButton aria-label="Instagram" color="error" size="small">
+                    <IconButton aria-label="Instagram"
+color="error"
+size="small">
                     <DeleteIcon />
                     </IconButton>
                 </Stack>                  

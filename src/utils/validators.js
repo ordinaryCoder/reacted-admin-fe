@@ -1,12 +1,12 @@
 import * as Yup from 'yup';
 
-export const requiredMessage = (fieldName: string) =>
+export const requiredMessage = (fieldName) =>
   `${fieldName} is required`;
 
-export const validMessage = (fieldName: string) =>
+export const validMessage = (fieldName) =>
   `Please enter valid ${fieldName}`;
 
-export const minErrorMessage = (min: number) =>
+export const minErrorMessage = (min) =>
   `Please enter atleast ${min} characters`;
 
 const emailValidator = Yup.string()
