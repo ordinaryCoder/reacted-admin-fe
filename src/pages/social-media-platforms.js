@@ -29,7 +29,7 @@ const Page = () => {
   const url = baseUrl+'/get_all_social_media_platforms'
   useEffect(() => {
     getSocialMediaList();
-  }, []);
+  });
 
   function getSocialMediaList(){
     axios.get(url).then((response) => {
@@ -57,14 +57,20 @@ const Page = () => {
       }}
     >
       <Container maxWidth="lg">
-        <Typography sx={{ mb: 3 }} variant="h4">
+        <Typography sx={{ mb: 3 }}
+variant="h4">
           Social Media Platforms
         </Typography>
-        <Grid container spacing={2}>
-          <Grid item lg={5} md={5} xs={12}>
+        <Grid container
+spacing={2}>
+          <Grid item
+lg={5}
+md={5}
+xs={12}>
             <AddSocialMediaComponent onSubmitForm={() => getSocialMediaList()}  />            
           </Grid>
-          <Grid item lg={7}>
+          <Grid item
+lg={7}>
             <SoclaiMediaList 
             data={socialmedialist} 
             onDeletePlatformItem={() => getSocialMediaList()}/>

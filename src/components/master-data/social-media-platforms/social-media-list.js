@@ -55,15 +55,21 @@ export const SoclaiMediaList = (props) => {
     
     return(
       <>
-        <Snackbar open={open} autoHideDuration={1000} anchorOrigin={{horizontal: "right", vertical: "top",}} onClose={() => setOpen(false)}>
-        <Alert sx={{ width: '100%', color: '#fff' }} variant="filled" severity="success">
+        <Snackbar open={open}
+autoHideDuration={1000}
+anchorOrigin={{horizontal: "right", vertical: "top",}}
+onClose={() => setOpen(false)}>
+        <Alert sx={{ width: '100%', color: '#fff' }}
+variant="filled"
+severity="success">
           {msg}
         </Alert>
       </Snackbar>
 <Card>
     <PerfectScrollbar>
       <Box>
-        <Table stickyHeader aria-label="sticky table">
+        <Table stickyHeader
+aria-label="sticky table">
           <TableHead>
             <TableRow>
               <TableCell padding="checkbox">
@@ -107,11 +113,15 @@ export const SoclaiMediaList = (props) => {
                   </Box>
                 </TableCell>
                 <TableCell>
-                <Chip label={platform.status} color="success" />
+                <Chip label={platform.status}
+color="success" />
                 </TableCell>
                 <TableCell>
                 <Stack direction="row">
-                    <IconButton aria-label="Instagram" color="error" size="small" onClick={() => deletePlatform(platform.id)}>
+                    <IconButton aria-label="Instagram"
+color="error"
+size="small"
+onClick={() => deletePlatform(platform.id)}>
                     <DeleteIcon />
                     </IconButton>
                 </Stack>

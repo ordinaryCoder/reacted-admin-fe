@@ -15,16 +15,22 @@ import {
 
   export const CreateMusicCreator = (props) => {
     return(
-        <form autoComplete="off" noValidate>
+        <form autoComplete="off"
+noValidate>
               <Card>
-                <CardHeader subheader="" title="Add Music Creator" />
+                <CardHeader subheader=""
+title="Add Music Creator" />
                 <Divider />
                 <CardContent>
-                <Typography sx={{ mb: 3 }} variant="h6">
+                <Typography sx={{ mb: 3 }}
+variant="h6">
                   Basic Info
                 </Typography>
-                  <Grid container spacing={3}>
-                  <Grid item md={12} xs={12}>
+                  <Grid container
+spacing={3}>
+                  <Grid item
+md={12}
+xs={12}>
                   <Button
                     variant="contained"
                     component="label"
@@ -37,7 +43,9 @@ import {
                     />
                     </Button>
                     </Grid>
-                    <Grid item md={6} xs={12}>
+                    <Grid item
+md={6}
+xs={12}>
                       <TextField
                         fullWidth
                         helperText="Please specify the first name"
@@ -47,7 +55,9 @@ import {
                         variant="outlined"
                       />
                     </Grid>
-                    <Grid item md={6} xs={12}>
+                    <Grid item
+md={6}
+xs={12}>
                       <TextField
                         fullWidth
                         label="Last name"
@@ -56,7 +66,9 @@ import {
                         variant="outlined"
                       />
                     </Grid>
-                    <Grid item md={6} xs={12}>
+                    <Grid item
+md={6}
+xs={12}>
                       <TextField
                         fullWidth
                         label="Artist name"
@@ -65,7 +77,9 @@ import {
                         variant="outlined"
                       />
                     </Grid>
-                    <Grid item md={6} xs={12}>
+                    <Grid item
+md={6}
+xs={12}>
                       <TextField
                         fullWidth
                         label="Email Address"
@@ -74,7 +88,9 @@ import {
                         variant="outlined"
                       />
                     </Grid>
-                    <Grid item md={6} xs={12}>
+                    <Grid item
+md={6}
+xs={12}>
                       <TextField
                         fullWidth
                         label="Phone Number"
@@ -83,7 +99,9 @@ import {
                         variant="outlined"
                       />
                     </Grid>
-                    <Grid item md={6} xs={12}>
+                    <Grid item
+md={6}
+xs={12}>
                       <TextField
                         fullWidth
                         label="Country"
@@ -96,11 +114,15 @@ import {
                 </CardContent>
                 <Divider />
                 <CardContent>
-                <Typography sx={{ mb: 3 }} variant="h6">
+                <Typography sx={{ mb: 3 }}
+variant="h6">
                   Social Media Links
                 </Typography>
-                  <Grid container spacing={3}>
-                    <Grid item md={6} xs={12}>
+                  <Grid container
+spacing={3}>
+                    <Grid item
+md={6}
+xs={12}>
                     <TextField
                         fullWidth
                         label="Facebook"
@@ -109,7 +131,9 @@ import {
                         variant="outlined"
                       />
                     </Grid>
-                    <Grid item md={6} xs={12}>
+                    <Grid item
+md={6}
+xs={12}>
                       <TextField
                         fullWidth
                         label="Instagram"
@@ -118,7 +142,9 @@ import {
                         variant="outlined"
                       />
                     </Grid>
-                    <Grid item md={6} xs={12}>
+                    <Grid item
+md={6}
+xs={12}>
                       <TextField
                         fullWidth
                         label="TikTok"
@@ -127,7 +153,9 @@ import {
                         variant="outlined"
                       />
                     </Grid>
-                    <Grid item md={6} xs={12}>
+                    <Grid item
+md={6}
+xs={12}>
                       <TextField
                         fullWidth
                         label="Youtube"
@@ -136,7 +164,9 @@ import {
                         variant="outlined"
                       />
                     </Grid>
-                    <Grid item md={6} xs={12}>
+                    <Grid item
+md={6}
+xs={12}>
                       <TextField
                         fullWidth
                         label="Twitter"
@@ -145,7 +175,9 @@ import {
                         variant="outlined"
                       />
                     </Grid>
-                    <Grid item md={6} xs={12}>
+                    <Grid item
+md={6}
+xs={12}>
                       <TextField
                         fullWidth
                         label="LinkedIn"
@@ -158,11 +190,15 @@ import {
                 </CardContent>
                 <Divider/>
                 <CardContent>
-                <Typography sx={{ mb: 3 }} variant="h6">
+                <Typography sx={{ mb: 3 }}
+variant="h6">
                   Genre
                 </Typography>
-                  <Grid container spacing={3}>
-                    <Grid item md={6} xs={12}>
+                  <Grid container
+spacing={3}>
+                    <Grid item
+md={6}
+xs={12}>
                     <FormControlLabel
                     control={
                         <Checkbox
@@ -207,8 +243,11 @@ import {
                 </CardContent>
                 <Divider/>
                 <CardContent>
-                <Grid item md={12} xs={12}>
-                    <Typography sx={{ mb: 3 }} variant="h6">
+                <Grid item
+md={12}
+xs={12}>
+                    <Typography sx={{ mb: 3 }}
+variant="h6">
                   Upload Celebrity Music
                 </Typography>
                   <Button
@@ -231,7 +270,8 @@ import {
                     p: 2,
                   }}
                 >
-                  <Button color="primary" variant="contained">
+                  <Button color="primary"
+variant="contained">
                     Save details
                   </Button>
                 </Box>

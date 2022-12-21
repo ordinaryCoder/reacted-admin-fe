@@ -32,11 +32,14 @@ const Page = () => (
       }}
     >
       <Container maxWidth="lg">
-        <Typography sx={{ mb: 3 }} variant="h4">
+        <Typography sx={{ mb: 3 }}
+variant="h4">
           Customer Support
         </Typography>
-        <Grid container spacing={2}>
-          <Grid item lg={12}>
+        <Grid container
+spacing={2}>
+          <Grid item
+lg={12}>
             <CustomerSupportList />
           </Grid>
         </Grid>

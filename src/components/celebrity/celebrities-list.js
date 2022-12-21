@@ -253,27 +253,35 @@ export const CelebrityList = (props) => {
                       size="small">
                       <YouTubeIcon />
                     </IconButton>
-                    <IconButton color="primary"
+                    <IconButton 
+                    color="primary"
                       aria-label="LinkedIn"
                       size="small">
-                      <LinkedInIcon color="primary" />
+                      <LinkedInIcon 
+                      color="primary" />
                     </IconButton>
                   </Stack>
                 </TableCell>
                 <TableCell>
-                  <Chip label="Active"
+                  <Chip 
+                  label="Active"
                     color="success" />
                 </TableCell>
                 <TableCell>
-                  <Stack direction="row">
-                    <IconButton aria-label="Facebook"
+                  <Stack 
+                  direction="row"
+                  >
+                    <IconButton 
+                    aria-label="Facebook"
                       color="primary"
                       size="small">
                       <VisibilityIcon color="primary" />
                     </IconButton>
-                    <IconButton aria-label="Instagram"
+                    <IconButton 
+                    aria-label="Instagram"
                       color="error"
-                      size="small">
+                      size="small"
+                      >
                       <DeleteIcon />
                     </IconButton>
                   </Stack>
@@ -281,7 +289,9 @@ export const CelebrityList = (props) => {
                 <TableCell>12-08-2022 12:28:97</TableCell>
               </TableRow>
               <TableRow hover>
-                <TableCell padding="checkbox">
+                <TableCell 
+                padding="checkbox"
+                >
                   <Checkbox />
                 </TableCell>
                 <TableCell>
@@ -291,31 +301,46 @@ export const CelebrityList = (props) => {
                       display: "flex",
                     }}
                   >
-                    <Avatar sx={{ mr: 2 }}>AB</Avatar>
+                    <Avatar 
+                    sx={{ 
+                      mr: 2 
+                    }}
+                    >
+                      AB
+                      </Avatar>
                     Abhishek Potdar
                   </Box>
                 </TableCell>
                 <TableCell>abhirpotdar@gmail.com</TableCell>
                 <TableCell>
                   <Stack direction="row">
-                    <IconButton aria-label="Facebook"
-                      size="small">
-                      <FacebookIcon color="primary" />
+                    <IconButton 
+                    aria-label="Facebook"
+                      size="small"
+                      >
+                      <FacebookIcon 
+                      color="primary"
+                       />
                     </IconButton>
-                    <IconButton aria-label="Instagram"
+                    <IconButton 
+                    aria-label="Instagram"
                       color="secondary"
                       size="small">
                       <InstagramIcon />
                     </IconButton>
-                    <IconButton color="error"
+                    <IconButton
+                     color="error"
                       aria-label="Youtube"
                       size="small">
                       <YouTubeIcon />
                     </IconButton>
-                    <IconButton color="primary"
+                    <IconButton c
+                    olor="primary"
                       aria-label="LinkedIn"
                       size="small">
-                      <LinkedInIcon color="primary" />
+                      <LinkedInIcon 
+                      color="primary" 
+                      />
                     </IconButton>
                   </Stack>
                 </TableCell>
@@ -325,12 +350,14 @@ export const CelebrityList = (props) => {
                 </TableCell>
                 <TableCell>
                   <Stack direction="row">
-                    <IconButton aria-label="Facebook"
+                    <IconButton 
+                    aria-label="Facebook"
                       color="primary"
                       size="small">
                       <VisibilityIcon color="primary" />
                     </IconButton>
-                    <IconButton aria-label="Instagram"
+                    <IconButton 
+                    aria-label="Instagram"
                       color="error"
                       size="small">
                       <DeleteIcon />
