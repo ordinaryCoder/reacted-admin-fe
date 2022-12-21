@@ -7,7 +7,7 @@ export const Budget = (props) => (
     sx={{ height: '100%' }}
     {...props}
   >
-    <CardContent>
+    <CardContent sx={{padding: '30px 12px'}}>
       <Grid
         container
         spacing={3}
@@ -19,7 +19,7 @@ export const Budget = (props) => (
             gutterBottom
             variant="overline"
           >
-            BUDGET
+            Total Order Value
           </Typography>
           <Typography
             color="textPrimary"
@@ -40,30 +40,7 @@ export const Budget = (props) => (
           </Avatar>
         </Grid>
       </Grid>
-      <Box
-        sx={{
-          pt: 2,
-          display: 'flex',
-          alignItems: 'center'
-        }}
-      >
-        <ArrowDownwardIcon color="error" />
-        <Typography
-          color="error"
-          sx={{
-            mr: 1
-          }}
-          variant="body2"
-        >
-          12%
-        </Typography>
-        <Typography
-          color="textSecondary"
-          variant="caption"
-        >
-          Since last month
-        </Typography>
-      </Box>
+
     </CardContent>
   </Card>
 );

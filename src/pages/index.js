@@ -14,7 +14,7 @@ const Page = () => (
   <>
     <Head>
       <title>
-        Dashboard | Material Kit
+        Dashboard | Reacted
       </title>
     </Head>
     <Box
@@ -83,7 +83,7 @@ const Page = () => (
           >
             <TrafficByDevice sx={{ height: '100%' }} />
           </Grid>
-          <Grid
+          {/*<Grid
             item
             lg={4}
             md={6}
@@ -91,12 +91,12 @@ const Page = () => (
             xs={12}
           >
             <LatestProducts sx={{ height: '100%' }} />
-          </Grid>
+          </Grid>*/}
           <Grid
             item
-            lg={8}
+            lg={12}
             md={12}
-            xl={9}
+            xl={12}
             xs={12}
           >
             <LatestOrders />
