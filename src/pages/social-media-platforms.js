@@ -29,7 +29,7 @@ const Page = () => {
   const url = baseUrl+'/get_all_social_media_platforms'
   useEffect(() => {
     getSocialMediaList();
-  });
+  }, []);
 
   function getSocialMediaList(){
     axios.get(url).then((response) => {
