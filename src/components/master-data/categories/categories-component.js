@@ -88,6 +88,21 @@ export const CategoryComponent = (props) => {
                 onChange={formik.handleChange}
               />
             </Grid>
+
+            <Grid item md={12} xs={12}>
+            <Button
+                    variant="contained"
+                    component="label"
+                    >
+                    Upload Category Icon
+                    <input
+                        type="file"
+                        hidden
+                        name="catIcon"
+                    />
+                    </Button>
+            </Grid>
+
           </Grid>
         </CardContent>
         <Divider />

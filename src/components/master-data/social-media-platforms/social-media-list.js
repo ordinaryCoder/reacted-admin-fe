@@ -12,7 +12,9 @@ import {
   TablePagination,
   TableRow,
   Typography,
-  Chip
+  Chip,
+  Snackbar,
+  Alert
 } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
@@ -23,21 +25,41 @@ import { baseUrl } from '../../../constants/api';
 
 export const SoclaiMediaList = (props) => {
 
-    const [socialmedialist, setSocialMediaList] = useState([]);
+    const catList = props.data;
+    const [open, setOpen] = useState(false);
+    const [msg, setMessage] = useState('');
 
-    const url = baseUrl+'/get_all_social_media_platforms'
-    useEffect(() => {
-      axios.get(url).then((response) => {
-        //console.log(response); 
-        setSocialMediaList(response.data.data);     
-      }).catch((response) => { 
-        console.log(response); 
+    const {onDeletePlatformItem} = props;
+
+   let axiosConfig = {
+    headers: {
+        'Content-Type': 'multipart/form-data;'
+  
+    }
+  };
+
+    function deletePlatform(id){
+      let data = {'platform_id' : id};
+      const url = baseUrl+'/delete_social_media_platform';
+      axios
+      .post(url, data, axiosConfig)
+      .then((response) => {
+        setMessage(response.data.message);
+        setOpen(true);
+        onDeletePlatformItem();
+      })
+      .catch((error) => {
+        console.log(response, "Cat Error");
       });
-    }, []);
-
-    console.log(socialmedialist, 'Social media');
+    }
     
     return(
+      <>
+        <Snackbar open={open} autoHideDuration={1000} anchorOrigin={{horizontal: "right", vertical: "top",}} onClose={() => setOpen(false)}>
+        <Alert sx={{ width: '100%', color: '#fff' }} variant="filled" severity="success">
+          {msg}
+        </Alert>
+      </Snackbar>
 <Card>
     <PerfectScrollbar>
       <Box>
@@ -61,7 +83,7 @@ export const SoclaiMediaList = (props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            { socialmedialist.map((platform, index) => 
+            { catList.map((platform, index) => 
             <TableRow
             key={index}
                 hover
@@ -89,7 +111,7 @@ export const SoclaiMediaList = (props) => {
                 </TableCell>
                 <TableCell>
                 <Stack direction="row">
-                    <IconButton aria-label="Instagram" color="error" size="small">
+                    <IconButton aria-label="Instagram" color="error" size="small" onClick={() => deletePlatform(platform.id)}>
                     <DeleteIcon />
                     </IconButton>
                 </Stack>
@@ -114,6 +136,7 @@ export const SoclaiMediaList = (props) => {
       rowsPerPageOptions={[5, 10, 25]}
                 />*/}
   </Card>
+  </>
     )
 }
 

@@ -23,7 +23,7 @@ const App = (props) => {
     <CacheProvider value={emotionCache}>
       <Head>
         <title>
-          Material Kit Pro
+          Reacted Admin Panel
         </title>
         <meta
           name="viewport"

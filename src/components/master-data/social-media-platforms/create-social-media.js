@@ -16,7 +16,7 @@ import {
     Alert
   } from "@mui/material";
 
-  import Router from "next/router";
+  import Router, { useRouter } from "next/router";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
@@ -28,6 +28,10 @@ import { useState } from "react";
 
     const [open, setOpen] = useState(false);
     const [msg, setMessage] = useState('');
+
+    const {onSubmitForm} = props;
+
+    const router = useRouter();
 
     const formik = useFormik({
       initialValues: {
@@ -65,12 +69,15 @@ import { useState } from "react";
     axios
       .post(url, data, axiosConfig)
       .then((response) => {
+        if(response.data.success == 1){
         setOpen(true);
         setMessage(response.data.message);
-        console.log(response);
+        onSubmitForm();
+        formik.resetForm();
+        }
       })
       .catch((error) => {
-        console.log(response, "Cat Error");
+        console.log(error, "Cat Error");
       });
   };
 
@@ -90,7 +97,7 @@ import { useState } from "react";
                 <CardContent>
                   <Grid container spacing={3}>
 
-                    <Grid item md={6} xs={12}>
+                    <Grid item md={12} xs={12}>
                       <TextField
                         fullWidth
                         label="Title"
@@ -103,7 +110,7 @@ import { useState } from "react";
                         onChange={formik.handleChange}
                       />
                     </Grid>
-                    <Grid item md={6} xs={12}>
+                    <Grid item md={12} xs={12}>
                       <TextField
                         fullWidth
                         label="Link"

@@ -22,29 +22,10 @@ import { baseUrl } from '../../../constants/api';
 import DeleteIcon from '@mui/icons-material/Delete';
 import axios from 'axios';
 
-export const CategoryList = (props) => {
-    const [catList, setList] = useState([]);
-    const url = baseUrl+'/get_category';
+export const CategoryList = (props) => {    
 
-    useEffect(() => {
-      axios.get(url).then((response) => { 
-        console.log(response); 
-      })
-      .catch((response) => { 
-        console.log(response); 
-      });
-    });
-    
-
-    const categories = [
-        { name: 'Pop', slug: 'pop' },
-        { name: 'HipHop', slug: 'HipHop' },
-        { name: 'EDM', slug: 'EDM' },
-        { name: 'Rock', slug: 'Rock' },
-        { name: 'Latin', slug: 'Latin' },
-        { name: 'Indie', slug: 'Indie' },
-        { name: 'International', slug: 'International' },
-      ];
+    const categories = props.data;
+    console.log(categories);
     return(
 <Card>
     <PerfectScrollbar>
@@ -81,19 +62,7 @@ export const CategoryList = (props) => {
                   <Checkbox />
                 </TableCell>
                 <TableCell>
-                  <Box
-                    sx={{
-                      alignItems: 'center',
-                      display: 'flex'
-                    }}
-                  >
-                    <Avatar
-                      sx={{ mr: 2 }}
-                    >
-                      AB
-                    </Avatar>
-                      {category.name}
-                  </Box>
+                      {category.category_name}
                 </TableCell>
                 <TableCell>
                 {category.slug}
