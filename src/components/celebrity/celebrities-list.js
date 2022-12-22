@@ -57,7 +57,8 @@ export const CelebrityList = (props) => {
             </TableHead>
             <TableBody>
               {catList.map((cat, index) => 
-              <TableRow key={index} hover>
+              <TableRow key={index}
+hover>
                 <TableCell padding="checkbox">
                   <Checkbox />
                 </TableCell>

@@ -107,17 +107,25 @@ export const CreateCelebrity = (props) => {
   };
 
   return (
-    <form autoComplete="off" noValidate onSubmit={formik.handleSubmit}>
+    <form autoComplete="off"
+noValidate
+onSubmit={formik.handleSubmit}>
       <Card>
-        <CardHeader subheader="" title="Add Celebrity" />
+        <CardHeader subheader=""
+title="Add Celebrity" />
         <Divider />
         <CardContent>
-          <Typography sx={{ mb: 3 }} variant="h6">
+          <Typography sx={{ mb: 3 }}
+variant="h6">
             Basic Info
           </Typography>
-          <Grid container spacing={3}>
-            <Grid item md={12} xs={12}>
-              <Button variant="contained" component="label">
+          <Grid container
+spacing={3}>
+            <Grid item
+md={12}
+xs={12}>
+              <Button variant="contained"
+component="label">
                 Upload Profile Photos
                 <input
                   type="file"
@@ -131,7 +139,9 @@ export const CreateCelebrity = (props) => {
               </Button>
               <span style={{ paddingLeft: "1rem" }}>{uploadProfilePicture?.name} </span>
             </Grid>
-            <Grid item md={6} xs={12}>
+            <Grid item
+md={6}
+xs={12}>
               <TextField
                 fullWidth
                 label="First name"
@@ -144,7 +154,9 @@ export const CreateCelebrity = (props) => {
                 required
               />
             </Grid>
-            <Grid item md={6} xs={12}>
+            <Grid item
+md={6}
+xs={12}>
               <TextField
                 fullWidth
                 label="Last name"
@@ -157,7 +169,9 @@ export const CreateCelebrity = (props) => {
                 required
               />
             </Grid>
-            <Grid item md={6} xs={12}>
+            <Grid item
+md={6}
+xs={12}>
               <TextField
                 fullWidth
                 label="Title"
@@ -170,7 +184,9 @@ export const CreateCelebrity = (props) => {
                 required
               />
             </Grid>
-            <Grid item md={6} xs={12}>
+            <Grid item
+md={6}
+xs={12}>
               <TextField
                 fullWidth
                 label="Tag Line"
@@ -183,7 +199,9 @@ export const CreateCelebrity = (props) => {
                 required
               />
             </Grid>
-            <Grid item md={6} xs={12}>
+            <Grid item
+md={6}
+xs={12}>
               <Autocomplete
                 multiple
                 fullWidth
@@ -205,12 +223,16 @@ export const CreateCelebrity = (props) => {
                   </li>
                 )}
                 renderInput={(params) => (
-                  <TextField {...params} label="Categories" placeholder="" />
+                  <TextField {...params}
+label="Categories"
+placeholder="" />
                 )}
               />
             </Grid>
 
-            <Grid item md={6} xs={12}>
+            <Grid item
+md={6}
+xs={12}>
               <TextField
                 fullWidth
                 label="Email Address"
@@ -223,7 +245,9 @@ export const CreateCelebrity = (props) => {
                 required
               />
             </Grid>
-            <Grid item md={6} xs={12}>
+            <Grid item
+md={6}
+xs={12}>
               <TextField
                 fullWidth
                 label="Phone Number"
@@ -237,7 +261,9 @@ export const CreateCelebrity = (props) => {
                 required
               />
             </Grid>
-            <Grid item md={6} xs={12}>
+            <Grid item
+md={6}
+xs={12}>
               <TextField
                 fullWidth
                 label="Country"
@@ -250,7 +276,9 @@ export const CreateCelebrity = (props) => {
                 required
               />
             </Grid>
-            <Grid item md={6} xs={12}>
+            <Grid item
+md={6}
+xs={12}>
               <TextField
                 fullWidth
                 label="Price"
@@ -265,7 +293,9 @@ export const CreateCelebrity = (props) => {
               />{" "}
             </Grid>
 
-            <Grid item md={6} xs={12}>
+            <Grid item
+md={6}
+xs={12}>
               <FormControlLabel
                 control={
                   <Checkbox
@@ -279,7 +309,9 @@ export const CreateCelebrity = (props) => {
               />
             </Grid>
 
-            <Grid item md={12} xs={12}>
+            <Grid item
+md={12}
+xs={12}>
               <TextField
                 fullWidth
                 label="Short Description"
@@ -292,7 +324,9 @@ export const CreateCelebrity = (props) => {
                 required
               />
             </Grid>
-            <Grid item md={12} xs={12}>
+            <Grid item
+md={12}
+xs={12}>
               <TextField
                 fullWidth
                 label="Long Description"
@@ -311,11 +345,15 @@ export const CreateCelebrity = (props) => {
         </CardContent>
         <Divider />
         <CardContent>
-          <Typography sx={{ mb: 3 }} variant="h6">
+          <Typography sx={{ mb: 3 }}
+variant="h6">
             Payment Info
           </Typography>
-          <Grid container spacing={3}>
-            <Grid item md={12} xs={12}>
+          <Grid container
+spacing={3}>
+            <Grid item
+md={12}
+xs={12}>
               <TextField
                 fullWidth
                 label="Account Name"
@@ -328,7 +366,9 @@ export const CreateCelebrity = (props) => {
                 required
               />
             </Grid>
-            <Grid item md={6} xs={12}>
+            <Grid item
+md={6}
+xs={12}>
               <TextField
                 fullWidth
                 label="Bank Account Number"
@@ -341,7 +381,9 @@ export const CreateCelebrity = (props) => {
                 required
               />
             </Grid>
-            <Grid item md={6} xs={12}>
+            <Grid item
+md={6}
+xs={12}>
               <TextField
                 fullWidth
                 label="Bank Name"
@@ -354,7 +396,9 @@ export const CreateCelebrity = (props) => {
                 required
               />
             </Grid>
-            <Grid item md={6} xs={12}>
+            <Grid item
+md={6}
+xs={12}>
               <TextField
                 fullWidth
                 label="Bank Code"
@@ -368,7 +412,9 @@ export const CreateCelebrity = (props) => {
                 required
               />
             </Grid>
-            <Grid item md={6} xs={12}>
+            <Grid item
+md={6}
+xs={12}>
               <TextField
                 fullWidth
                 label="Bank Address"
@@ -513,7 +559,9 @@ export const CreateCelebrity = (props) => {
         anchorOrigin={{ horizontal: "right", vertical: "top" }}
         onClose={() => setOpen(false)}
       >
-        <Alert sx={{ width: "100%", color: "#fff" }} variant="filled" severity={severity}>
+        <Alert sx={{ width: "100%", color: "#fff" }}
+variant="filled"
+severity={severity}>
           {msg}
         </Alert>
       </Snackbar>

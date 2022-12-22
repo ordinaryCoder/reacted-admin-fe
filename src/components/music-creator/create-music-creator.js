@@ -116,17 +116,25 @@ export const CreateMusicCreator = (props) => {
       : setUploadMusicFile(event?.currentTarget?.files[0]);
   };
   return (
-    <form autoComplete="off" noValidate onSubmit={formik.handleSubmit}>
+    <form autoComplete="off"
+noValidate
+onSubmit={formik.handleSubmit}>
       <Card>
-        <CardHeader subheader="" title="Add Music Creator" />
+        <CardHeader subheader=""
+title="Add Music Creator" />
         <Divider />
         <CardContent>
-          <Typography sx={{ mb: 3 }} variant="h6">
+          <Typography sx={{ mb: 3 }}
+variant="h6">
             Basic Info
           </Typography>
-          <Grid container spacing={3}>
-            <Grid item md={12} xs={12}>
-              <Button variant="contained" component="label">
+          <Grid container
+spacing={3}>
+            <Grid item
+md={12}
+xs={12}>
+              <Button variant="contained"
+component="label">
                 Upload Profile Photos
                 <input
                   type="file"
@@ -141,7 +149,9 @@ export const CreateMusicCreator = (props) => {
               </Button>
               <span style={{ paddingLeft: "1rem" }}>{uploadProfilePicture?.name} </span>
             </Grid>
-            <Grid item md={6} xs={12}>
+            <Grid item
+md={6}
+xs={12}>
               <TextField
                 fullWidth
                 label="First name"
@@ -154,7 +164,9 @@ export const CreateMusicCreator = (props) => {
                 required
               />
             </Grid>
-            <Grid item md={6} xs={12}>
+            <Grid item
+md={6}
+xs={12}>
               <TextField
                 fullWidth
                 label="Last name"
@@ -167,7 +179,9 @@ export const CreateMusicCreator = (props) => {
                 required
               />
             </Grid>
-            <Grid item md={6} xs={12}>
+            <Grid item
+md={6}
+xs={12}>
               <TextField
                 fullWidth
                 label="Artist Name"
@@ -180,7 +194,9 @@ export const CreateMusicCreator = (props) => {
                 required
               />
             </Grid>
-            <Grid item md={6} xs={12}>
+            <Grid item
+md={6}
+xs={12}>
               <TextField
                 fullWidth
                 label="Email Address"
@@ -193,7 +209,9 @@ export const CreateMusicCreator = (props) => {
                 required
               />
             </Grid>
-            <Grid item md={6} xs={12}>
+            <Grid item
+md={6}
+xs={12}>
               <TextField
                 fullWidth
                 label="Phone Number"
@@ -207,7 +225,9 @@ export const CreateMusicCreator = (props) => {
                 required
               />
             </Grid>
-            <Grid item md={6} xs={12}>
+            <Grid item
+md={6}
+xs={12}>
               <TextField
                 fullWidth
                 label="Country"
@@ -220,7 +240,9 @@ export const CreateMusicCreator = (props) => {
                 required
               />
             </Grid>
-            <Grid item md={6} xs={12}>
+            <Grid item
+md={6}
+xs={12}>
               <Autocomplete
                 multiple
                 fullWidth
@@ -242,11 +264,15 @@ export const CreateMusicCreator = (props) => {
                   </li>
                 )}
                 renderInput={(params) => (
-                  <TextField {...params} label="Categories" placeholder="" />
+                  <TextField {...params}
+label="Categories"
+placeholder="" />
                 )}
               />
             </Grid>
-            <Grid item md={6} xs={12}>
+            <Grid item
+md={6}
+xs={12}>
               <TextField
                 fullWidth
                 label="Description"
@@ -263,11 +289,15 @@ export const CreateMusicCreator = (props) => {
         </CardContent>
         <Divider />
         <CardContent>
-          <Typography sx={{ mb: 3 }} variant="h6">
+          <Typography sx={{ mb: 3 }}
+variant="h6">
             Social Media Links
           </Typography>
-          <Grid container spacing={3}>
-            <Grid item md={6} xs={12}>
+          <Grid container
+spacing={3}>
+            <Grid item
+md={6}
+xs={12}>
               <TextField
                 fullWidth
                 label="Facebook"
@@ -280,7 +310,9 @@ export const CreateMusicCreator = (props) => {
                 helperText={formik.errors.facebook}
               />
             </Grid>
-            <Grid item md={6} xs={12}>
+            <Grid item
+md={6}
+xs={12}>
               <TextField
                 fullWidth
                 label="Instagram"
@@ -293,7 +325,9 @@ export const CreateMusicCreator = (props) => {
                 helperText={formik.errors.instagram}
               />
             </Grid>
-            <Grid item md={6} xs={12}>
+            <Grid item
+md={6}
+xs={12}>
               <TextField
                 fullWidth
                 label="LinkedIn"
@@ -305,7 +339,9 @@ export const CreateMusicCreator = (props) => {
                 helperText={formik.errors.linkedIn}
               />
             </Grid>
-            <Grid item md={6} xs={12}>
+            <Grid item
+md={6}
+xs={12}>
               <TextField
                 fullWidth
                 label="TikTok"
@@ -317,7 +353,9 @@ export const CreateMusicCreator = (props) => {
                 helperText={formik.errors.tiktok}
               />
             </Grid>
-            <Grid item md={6} xs={12}>
+            <Grid item
+md={6}
+xs={12}>
               <TextField
                 fullWidth
                 label="Youtube"
@@ -329,7 +367,9 @@ export const CreateMusicCreator = (props) => {
                 helperText={formik.errors.youtube}
               />
             </Grid>
-            <Grid item md={6} xs={12}>
+            <Grid item
+md={6}
+xs={12}>
               <TextField
                 fullWidth
                 label="Twitter"
@@ -347,12 +387,18 @@ export const CreateMusicCreator = (props) => {
 
         <Divider />
         <CardContent>
-          <Grid item md={12} xs={12}>
-            <Typography sx={{ mb: 3 }} variant="h6">
+          <Grid item
+md={12}
+xs={12}>
+            <Typography sx={{ mb: 3 }}
+variant="h6">
               Upload Celebrity Music
             </Typography>
-            <Grid item md={12} xs={12}>
-              <Button variant="contained" component="label">
+            <Grid item
+md={12}
+xs={12}>
+              <Button variant="contained"
+component="label">
                 Upload Music
                 <input
                   type="file"
@@ -375,7 +421,9 @@ export const CreateMusicCreator = (props) => {
             p: 2,
           }}
         >
-          <Button color="primary" variant="contained" type="submit">
+          <Button color="primary"
+variant="contained"
+type="submit">
             Save details
           </Button>
         </Box>
@@ -386,7 +434,9 @@ export const CreateMusicCreator = (props) => {
         anchorOrigin={{ horizontal: "right", vertical: "top" }}
         onClose={() => setOpen(false)}
       >
-        <Alert sx={{ width: "100%", color: "#fff" }} variant="filled" severity={severity}>
+        <Alert sx={{ width: "100%", color: "#fff" }}
+variant="filled"
+severity={severity}>
           {msg}
         </Alert>
       </Snackbar>
