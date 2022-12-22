@@ -141,6 +141,7 @@ export const CreateCelebrity = (props) => {
                 onChange={formik.handleChange}
                 error={Boolean(formik.errors.first_name)}
                 helperText={formik.errors.first_name}
+                required
               />
             </Grid>
             <Grid item md={6} xs={12}>
@@ -153,6 +154,7 @@ export const CreateCelebrity = (props) => {
                 onChange={formik.handleChange}
                 error={Boolean(formik.errors.last_name)}
                 helperText={formik.errors.last_name}
+                required
               />
             </Grid>
             <Grid item md={6} xs={12}>
@@ -165,6 +167,7 @@ export const CreateCelebrity = (props) => {
                 onChange={formik.handleChange}
                 error={Boolean(formik.errors.title)}
                 helperText={formik.errors.title}
+                required
               />
             </Grid>
             <Grid item md={6} xs={12}>
@@ -177,6 +180,7 @@ export const CreateCelebrity = (props) => {
                 onChange={formik.handleChange}
                 error={Boolean(formik.errors.tag_line)}
                 helperText={formik.errors.tag_line}
+                required
               />
             </Grid>
             <Grid item md={6} xs={12}>
@@ -216,6 +220,7 @@ export const CreateCelebrity = (props) => {
                 onChange={formik.handleChange}
                 error={Boolean(formik.errors.email)}
                 helperText={formik.errors.email}
+                required
               />
             </Grid>
             <Grid item md={6} xs={12}>
@@ -229,6 +234,7 @@ export const CreateCelebrity = (props) => {
                 onChange={formik.handleChange}
                 error={Boolean(formik.errors.phone)}
                 helperText={formik.errors.phone}
+                required
               />
             </Grid>
             <Grid item md={6} xs={12}>
@@ -241,6 +247,7 @@ export const CreateCelebrity = (props) => {
                 onChange={formik.handleChange}
                 error={Boolean(formik.errors.country)}
                 helperText={formik.errors.country}
+                required
               />
             </Grid>
             <Grid item md={6} xs={12}>
@@ -254,6 +261,7 @@ export const CreateCelebrity = (props) => {
                 onChange={formik.handleChange}
                 error={Boolean(formik.errors.price)}
                 helperText={formik.errors.price}
+                required
               />{" "}
             </Grid>
 
@@ -281,6 +289,7 @@ export const CreateCelebrity = (props) => {
                 onChange={formik.handleChange}
                 error={Boolean(formik.errors.short_description)}
                 helperText={formik.errors.short_description}
+                required
               />
             </Grid>
             <Grid item md={12} xs={12}>
@@ -295,6 +304,7 @@ export const CreateCelebrity = (props) => {
                 onChange={formik.handleChange}
                 error={Boolean(formik.errors.long_description)}
                 helperText={formik.errors.long_description}
+                required
               />
             </Grid>
           </Grid>
@@ -315,6 +325,7 @@ export const CreateCelebrity = (props) => {
                 onChange={formik.handleChange}
                 error={Boolean(formik.errors.account_name)}
                 helperText={formik.errors.account_name}
+                required
               />
             </Grid>
             <Grid item md={6} xs={12}>
@@ -327,6 +338,7 @@ export const CreateCelebrity = (props) => {
                 onChange={formik.handleChange}
                 error={Boolean(formik.errors.account_number)}
                 helperText={formik.errors.account_number}
+                required
               />
             </Grid>
             <Grid item md={6} xs={12}>
@@ -339,6 +351,7 @@ export const CreateCelebrity = (props) => {
                 onChange={formik.handleChange}
                 error={Boolean(formik.errors.bank_name)}
                 helperText={formik.errors.bank_name}
+                required
               />
             </Grid>
             <Grid item md={6} xs={12}>
@@ -352,6 +365,7 @@ export const CreateCelebrity = (props) => {
                 onChange={formik.handleChange}
                 error={Boolean(formik.errors.bank_code)}
                 helperText={formik.errors.bank_code}
+                required
               />
             </Grid>
             <Grid item md={6} xs={12}>
@@ -364,6 +378,7 @@ export const CreateCelebrity = (props) => {
                 onChange={formik.handleChange}
                 error={Boolean(formik.errors.bank_address)}
                 helperText={formik.errors.bank_address}
+                required
               />
             </Grid>
 
