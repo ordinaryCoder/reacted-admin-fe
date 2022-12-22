@@ -15,8 +15,9 @@ import {
   FormControlLabel,
   Snackbar,
   Alert,
-  Autocomplete,
 } from "@mui/material";
+import Autocomplete from "@mui/material/Autocomplete";
+
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import { useFormik } from "formik";
@@ -29,16 +30,15 @@ export const CreateMusicCreator = (props) => {
   const [selectedCategories, setSelectedCategories] = useState();
   const [uploadProfilePicture, setUploadProfilePicture] = useState("");
   const [severity, setSeverity] = useState("info");
-  const [uploadProfilePictureNames, setUploadProfilePictureNames] = useState("");
+  const [uploadMusicFile, setUploadMusicFile] = useState("");
+
   const [open, setOpen] = useState(false);
   const [msg, setMessage] = useState("");
 
   const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
-
   useEffect(() => {
     axios.get(baseUrl + "/get_category").then((response) => {
-      console.log("response", response?.data?.data);
       setCategoriesOptions(response?.data?.data);
     });
   }, []);
@@ -62,17 +62,29 @@ export const CreateMusicCreator = (props) => {
     validationSchema: createMusicCreatorSchema,
     onSubmit: (data) => {
       handleSubmit(data);
-      console.log(data);
     },
   });
-
   const handleSubmit = (data) => {
     let catIdArray = [];
+    let socialMediaLinksArray = [];
+
     selectedCategories.map((cat) => {
       catIdArray.push(cat.category_id);
     });
     data.categories = catIdArray.join(",");
+
+    socialMediaLinksArray.push(
+      data.instagram,
+      data.youtube,
+      data.twitter,
+      data.facebook,
+      data.tiktok,
+      data.linkedIn
+    );
+    data.social_media_links = socialMediaLinksArray;
+
     data.profile_picture = uploadProfilePicture;
+    data.music = uploadMusicFile;
     let formData = new FormData();
 
     Object.keys(data).forEach((key) => {
@@ -87,23 +99,22 @@ export const CreateMusicCreator = (props) => {
       })
       .then((response) => {
         if (response.data.success) {
-          console.log(response, "Celebrity added");
           setSeverity("success");
         } else {
-          console.log(response, "Could not add celebrity");
           setSeverity("error");
         }
         setOpen(true);
         setMessage(response.data.message);
       })
       .catch((error) => {
-        console.log(response, "Could not add celebrity");
+        console.log(response, "Could not add music creator");
       });
   };
-  const handleChangeProfilePicture = (event) => {
-    setUploadProfilePicture(event?.currentTarget?.files);
+  const handleChangeUpload = (event, type) => {
+    type === "profile"
+      ? setUploadProfilePicture(event?.currentTarget?.files[0])
+      : setUploadMusicFile(event?.currentTarget?.files[0]);
   };
-
   return (
     <form autoComplete="off" noValidate onSubmit={formik.handleSubmit}>
       <Card>
@@ -122,13 +133,13 @@ export const CreateMusicCreator = (props) => {
                   hidden
                   name="profile_picture"
                   accept="image/*"
-                  onChange={handleChangeProfilePicture}
+                  onChange={(e) => handleChangeUpload(e, "profile")}
                   error={Boolean(formik.errors.profile_picture)}
                   helperText={formik.errors.profile_picture}
                   multiple
                 />
               </Button>
-              <span style={{ paddingLeft: "1rem" }}>{uploadProfilePictureNames} </span>
+              <span style={{ paddingLeft: "1rem" }}>{uploadProfilePicture?.name} </span>
             </Grid>
             <Grid item md={6} xs={12}>
               <TextField
@@ -235,6 +246,19 @@ export const CreateMusicCreator = (props) => {
                 )}
               />
             </Grid>
+            <Grid item md={6} xs={12}>
+              <TextField
+                fullWidth
+                label="Description"
+                name="description"
+                variant="outlined"
+                value={formik.values.description}
+                onChange={formik.handleChange}
+                error={Boolean(formik.errors.description)}
+                helperText={formik.errors.description}
+                required
+              />
+            </Grid>
           </Grid>
         </CardContent>
         <Divider />
@@ -273,13 +297,12 @@ export const CreateMusicCreator = (props) => {
               <TextField
                 fullWidth
                 label="LinkedIn"
-                name="linkedin"
-                required
+                name="linkedIn"
                 variant="outlined"
-                value={formik.values.linkedin}
+                value={formik.values.linkedIn}
                 onChange={formik.handleChange}
-                error={Boolean(formik.errors.linkedin)}
-                helperText={formik.errors.linkedin}
+                error={Boolean(formik.errors.linkedIn)}
+                helperText={formik.errors.linkedIn}
               />
             </Grid>
             <Grid item md={6} xs={12}>
@@ -299,7 +322,6 @@ export const CreateMusicCreator = (props) => {
                 fullWidth
                 label="Youtube"
                 name="youtube"
-                type="number"
                 variant="outlined"
                 value={formik.values.youtube}
                 onChange={formik.handleChange}
@@ -336,12 +358,13 @@ export const CreateMusicCreator = (props) => {
                   type="file"
                   hidden
                   name="music"
-                  accept="mp3/*"
-                  // onChange={handleChangeMusic}
+                  accept=".mp3,audio/*"
+                  onChange={(e) => handleChangeUpload(e, "music")}
                   error={Boolean(formik.errors.music)}
                   helperText={formik.errors.music}
                 />
               </Button>
+              <span style={{ paddingLeft: "1rem" }}>{uploadMusicFile?.name} </span>
             </Grid>
           </Grid>
         </CardContent>
