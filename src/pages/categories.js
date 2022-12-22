@@ -30,7 +30,7 @@ const Page = () => {
   const url = baseUrl + '/get_all_categories'
   useEffect(() => {
     getCategoryList();
-  }, []);
+  });
 
   function getCategoryList() {
     axios.get(url).then((response) => {

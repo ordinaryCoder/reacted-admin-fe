@@ -124,7 +124,8 @@ spacing={3}>
             <Grid item
 md={12}
 xs={12}>
-              <Button variant="contained"
+              <Button 
+              variant="contained"
 component="label">
                 Upload Profile Photos
                 <input
