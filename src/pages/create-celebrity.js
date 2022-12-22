@@ -11,15 +11,12 @@ import {
   Button,
   Divider,
   Checkbox,
-  FormControlLabel
+  FormControlLabel,
 } from "@mui/material";
 import { DashboardLayout } from "../components/dashboard-layout";
 import { CreateCelebrity } from "../components/celebrity/create-celebrity-component";
 
-
-
 const Page = () => (
-  
   <>
     <Head>
       <title>Create Celebrity | Reacted</title>
@@ -32,17 +29,12 @@ const Page = () => (
       }}
     >
       <Container maxWidth="lg">
-        <Typography sx={{ mb: 3 }}
-variant="h4">
-        Create Celebrity
+        <Typography sx={{ mb: 3 }} variant="h4">
+          Create Celebrity
         </Typography>
-        <Grid container
-spacing={2}>
-          <Grid item
-lg={12}
-md={12}
-xs={12}>
-            <CreateCelebrity />            
+        <Grid container spacing={2}>
+          <Grid item lg={12} md={12} xs={12}>
+            <CreateCelebrity />
           </Grid>
         </Grid>
       </Container>
