@@ -39,7 +39,7 @@ export const MusicCreatorSchema = Yup.object({
     .string('Enter your last name')
     .min(3, minErrorMessage(3))
     .required(requiredMessage('Last Name')),
-  artistName: Yup
+    artistName: Yup
     .string('Enter your artist name')
     .min(3, minErrorMessage(3))
     .required('Your artist name is required'),
@@ -53,4 +53,43 @@ export const MusicCreatorSchema = Yup.object({
     .string('Enter your Country')
     .required('This Field is required'),
     // genre: Yup.array().required("At least one checkbox is required") 
+});
+
+
+export const CreateCelebrityScehma = Yup.object({
+  firstName: Yup
+  .string('Enter your first name')
+  .min(3, minErrorMessage(3))
+  .required(requiredMessage('First Name')),
+lastName: Yup
+  .string('Enter your last name')
+  .min(3, minErrorMessage(3))
+  .required(requiredMessage('Last Name')),
+  email:emailValidator,
+  phoneNumber: Yup.string()
+  .required("required")
+  .matches(phoneRegExp, 'Phone number is not valid')
+  .min(10, "too short")
+  .max(10, "too long"),
+  country: Yup
+  .string('Enter your Country')
+  .required('This Field is required'),
+  shortDesc: Yup
+  .string('Enter your Country')
+  .required('This Field is required'),
+  accountName:  Yup
+  .string('Enter your Account Name')
+  .min(3, minErrorMessage(3))
+  .required(requiredMessage('Account Name')),
+  accountNumber: Yup.string()
+  .required("required")
+  .min(10, "too short")
+  .max(10, "too long"),
+  bankName:  Yup
+  .string('Enter your Bank Name')
+  .min(3, minErrorMessage(3))
+  .required(requiredMessage('Bank Name')),
+  // bankCode: "",
+  // bankAddress: "",
+  // paypalID: "",
 });

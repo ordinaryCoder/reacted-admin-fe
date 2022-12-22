@@ -14,7 +14,7 @@ import {
   FormControlLabel
 } from "@mui/material";
 import { DashboardLayout } from "../components/dashboard-layout";
-import { CreateCelebrity } from "../components/celebrity/create-celebrity-component";
+import CreateCelebrity from "../components/celebrity/create-celebrity-component";
 
 
 
