@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import {
   Avatar,
@@ -23,8 +23,20 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import DeleteIcon from "@mui/icons-material/Delete";
+import axios from "axios";
+import { baseUrl } from "../../constants/api";
 
 export const CelebrityList = (props) => {
+
+  const [catList, setCatList] = useState([]);
+
+  useEffect(() => {
+    axios.get(baseUrl + "/get_celebrity").then((response) => {
+      console.log("response", response?.data?.data);
+      setCatList(response?.data?.data.reverse());
+    });
+  }, []);
+
   return (
     <Card>
       <PerfectScrollbar>
@@ -44,7 +56,8 @@ export const CelebrityList = (props) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              <TableRow hover>
+              {catList.map((cat, index) => 
+              <TableRow key={index} hover>
                 <TableCell padding="checkbox">
                   <Checkbox />
                 </TableCell>
@@ -56,10 +69,12 @@ export const CelebrityList = (props) => {
                     }}
                   >
                     <Avatar sx={{ mr: 2 }}>AB</Avatar>
-                    Abhishek Potdar
+                    {cat.title}
                   </Box>
                 </TableCell>
-                <TableCell>abhirpotdar@gmail.com</TableCell>
+                <TableCell>
+                {cat.email}
+                </TableCell>
                 <TableCell>
                   <Stack direction="row">
                     <IconButton aria-label="Facebook"
@@ -101,271 +116,11 @@ export const CelebrityList = (props) => {
                     </IconButton>
                   </Stack>
                 </TableCell>
-                <TableCell>12-08-2022 12:28:97</TableCell>
+                <TableCell>
+                  {cat.added_date}
+                </TableCell>
               </TableRow>
-              <TableRow hover>
-                <TableCell padding="checkbox">
-                  <Checkbox />
-                </TableCell>
-                <TableCell>
-                  <Box
-                    sx={{
-                      alignItems: "center",
-                      display: "flex",
-                    }}
-                  >
-                    <Avatar sx={{ mr: 2 }}>AB</Avatar>
-                    Abhishek Potdar
-                  </Box>
-                </TableCell>
-                <TableCell>abhirpotdar@gmail.com</TableCell>
-                <TableCell>
-                  <Stack direction="row">
-                    <IconButton aria-label="Facebook"
-                      size="small">
-                      <FacebookIcon color="primary" />
-                    </IconButton>
-                    <IconButton aria-label="Instagram"
-                      color="secondary"
-                      size="small">
-                      <InstagramIcon />
-                    </IconButton>
-                    <IconButton color="error"
-                      aria-label="Youtube"
-                      size="small">
-                      <YouTubeIcon />
-                    </IconButton>
-                    <IconButton color="primary"
-                      aria-label="LinkedIn"
-                      size="small">
-                      <LinkedInIcon color="primary" />
-                    </IconButton>
-                  </Stack>
-                </TableCell>
-                <TableCell>
-                  <Chip label="Active"
-                    color="success" />
-                </TableCell>
-                <TableCell>
-                  <Stack direction="row">
-                    <IconButton aria-label="Facebook"
-                      color="primary"
-                      size="small">
-                      <VisibilityIcon color="primary" />
-                    </IconButton>
-                    <IconButton aria-label="Instagram"
-                      color="error"
-                      size="small">
-                      <DeleteIcon />
-                    </IconButton>
-                  </Stack>
-                </TableCell>
-                <TableCell>12-08-2022 12:28:97</TableCell>
-              </TableRow>
-              <TableRow hover>
-                <TableCell padding="checkbox">
-                  <Checkbox />
-                </TableCell>
-                <TableCell>
-                  <Box
-                    sx={{
-                      alignItems: "center",
-                      display: "flex",
-                    }}
-                  >
-                    <Avatar sx={{ mr: 2 }}>AB</Avatar>
-                    Abhishek Potdar
-                  </Box>
-                </TableCell>
-                <TableCell>abhirpotdar@gmail.com</TableCell>
-                <TableCell>
-                  <Stack direction="row">
-                    <IconButton aria-label="Facebook"
-                      size="small">
-                      <FacebookIcon color="primary" />
-                    </IconButton>
-                    <IconButton aria-label="Instagram"
-                      color="secondary"
-                      size="small">
-                      <InstagramIcon />
-                    </IconButton>
-                    <IconButton color="error"
-                      aria-label="Youtube"
-                      size="small">
-                      <YouTubeIcon />
-                    </IconButton>
-                    <IconButton color="primary"
-                      aria-label="LinkedIn"
-                      size="small">
-                      <LinkedInIcon color="primary" />
-                    </IconButton>
-                  </Stack>
-                </TableCell>
-                <TableCell>
-                  <Chip label="Active"
-                    color="success" />
-                </TableCell>
-                <TableCell>
-                  <Stack direction="row">
-                    <IconButton aria-label="Facebook"
-                      color="primary"
-                      size="small">
-                      <VisibilityIcon color="primary" />
-                    </IconButton>
-                    <IconButton aria-label="Instagram"
-                      color="error"
-                      size="small">
-                      <DeleteIcon />
-                    </IconButton>
-                  </Stack>
-                </TableCell>
-                <TableCell>12-08-2022 12:28:97</TableCell>
-              </TableRow>
-              <TableRow hover>
-                <TableCell padding="checkbox">
-                  <Checkbox />
-                </TableCell>
-                <TableCell>
-                  <Box
-                    sx={{
-                      alignItems: "center",
-                      display: "flex",
-                    }}
-                  >
-                    <Avatar sx={{ mr: 2 }}>AB</Avatar>
-                    Abhishek Potdar
-                  </Box>
-                </TableCell>
-                <TableCell>abhirpotdar@gmail.com</TableCell>
-                <TableCell>
-                  <Stack direction="row">
-                    <IconButton aria-label="Facebook"
-                      size="small">
-                      <FacebookIcon color="primary" />
-                    </IconButton>
-                    <IconButton aria-label="Instagram"
-                      color="secondary"
-                      size="small">
-                      <InstagramIcon />
-                    </IconButton>
-                    <IconButton color="error"
-                      aria-label="Youtube"
-                      size="small">
-                      <YouTubeIcon />
-                    </IconButton>
-                    <IconButton 
-                    color="primary"
-                      aria-label="LinkedIn"
-                      size="small">
-                      <LinkedInIcon 
-                      color="primary" />
-                    </IconButton>
-                  </Stack>
-                </TableCell>
-                <TableCell>
-                  <Chip 
-                  label="Active"
-                    color="success" />
-                </TableCell>
-                <TableCell>
-                  <Stack 
-                  direction="row"
-                  >
-                    <IconButton 
-                    aria-label="Facebook"
-                      color="primary"
-                      size="small">
-                      <VisibilityIcon color="primary" />
-                    </IconButton>
-                    <IconButton 
-                    aria-label="Instagram"
-                      color="error"
-                      size="small"
-                      >
-                      <DeleteIcon />
-                    </IconButton>
-                  </Stack>
-                </TableCell>
-                <TableCell>12-08-2022 12:28:97</TableCell>
-              </TableRow>
-              <TableRow hover>
-                <TableCell 
-                padding="checkbox"
-                >
-                  <Checkbox />
-                </TableCell>
-                <TableCell>
-                  <Box
-                    sx={{
-                      alignItems: "center",
-                      display: "flex",
-                    }}
-                  >
-                    <Avatar 
-                    sx={{ 
-                      mr: 2 
-                    }}
-                    >
-                      AB
-                      </Avatar>
-                    Abhishek Potdar
-                  </Box>
-                </TableCell>
-                <TableCell>abhirpotdar@gmail.com</TableCell>
-                <TableCell>
-                  <Stack direction="row">
-                    <IconButton 
-                    aria-label="Facebook"
-                      size="small"
-                      >
-                      <FacebookIcon 
-                      color="primary"
-                       />
-                    </IconButton>
-                    <IconButton 
-                    aria-label="Instagram"
-                      color="secondary"
-                      size="small">
-                      <InstagramIcon />
-                    </IconButton>
-                    <IconButton
-                     color="error"
-                      aria-label="Youtube"
-                      size="small">
-                      <YouTubeIcon />
-                    </IconButton>
-                    <IconButton c
-                    olor="primary"
-                      aria-label="LinkedIn"
-                      size="small">
-                      <LinkedInIcon 
-                      color="primary" 
-                      />
-                    </IconButton>
-                  </Stack>
-                </TableCell>
-                <TableCell>
-                  <Chip label="Active"
-                    color="success" />
-                </TableCell>
-                <TableCell>
-                  <Stack direction="row">
-                    <IconButton 
-                    aria-label="Facebook"
-                      color="primary"
-                      size="small">
-                      <VisibilityIcon color="primary" />
-                    </IconButton>
-                    <IconButton 
-                    aria-label="Instagram"
-                      color="error"
-                      size="small">
-                      <DeleteIcon />
-                    </IconButton>
-                  </Stack>
-                </TableCell>
-                <TableCell>12-08-2022 12:28:97</TableCell>
-              </TableRow>
+              )}
             </TableBody>
           </Table>
         </Box>
