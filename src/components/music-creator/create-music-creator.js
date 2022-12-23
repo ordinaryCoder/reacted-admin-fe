@@ -23,7 +23,7 @@ import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import { useFormik } from "formik";
 import axios from "axios";
 import { baseUrl } from "../../constants/api";
-import { createMusicCreatorSchema } from "../../utils/validations";
+import { createMusicCreatorSchema } from "../../utils/validators";
 
 export const CreateMusicCreator = (props) => {
   const [categoriesOptions, setCategoriesOptions] = useState([]);

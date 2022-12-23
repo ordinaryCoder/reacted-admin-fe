@@ -21,10 +21,15 @@ import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import { baseUrl } from "../../constants/api";
 import { useFormik } from "formik";
-import { createCelebritySchema } from "../../utils/validations";
+import { createCelebritySchema } from "../../utils/validators";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Router } from "next/router";
+
+
+//TODO: 
+// validation message check,
+// catergory validation check
 export const CreateCelebrity = (props) => {
   const [categoriesOptions, setCategoriesOptions] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState();
@@ -42,6 +47,7 @@ export const CreateCelebrity = (props) => {
       setCategoriesOptions(response?.data?.data);
     });
   }, []);
+
   const formik = useFormik({
     initialValues: {
       first_name: "",
@@ -52,7 +58,7 @@ export const CreateCelebrity = (props) => {
       tag_line: "",
       short_description: "",
       long_description: "",
-      categories: "",
+      categories: [],
       price: "",
       is_featured: true,
       country: "",
@@ -71,6 +77,7 @@ export const CreateCelebrity = (props) => {
   });
 
   const handleSubmit = (data) => {
+  
     let catIdArray = [];
     selectedCategories.map((cat) => {
       catIdArray.push(cat.category_id);
@@ -82,7 +89,7 @@ export const CreateCelebrity = (props) => {
     Object.keys(data).forEach((key) => {
       formData.append(key, data[key]);
     });
-
+    console.log("in handle submit",formData);
     axios
       .post(baseUrl + "/add_celebrity", formData, {
         headers: {
@@ -90,12 +97,16 @@ export const CreateCelebrity = (props) => {
         },
       })
       .then((response) => {
-        if (response.data.success) {
+  
+        if (response.data.success === 1) {
           setSeverity("success");
+        } else if(response.data.success === 0){
+          setSeverity("warning");
         } else {
           setSeverity("error");
         }
         setOpen(true);
+        console.log("in success response", response);
         setMessage(response.data.message);
       })
       .catch((error) => {
@@ -107,26 +118,17 @@ export const CreateCelebrity = (props) => {
   };
 
   return (
-    <form autoComplete="off"
-noValidate
-onSubmit={formik.handleSubmit}>
+      <form autoComplete="off" noValidate onSubmit={formik.handleSubmit}>
       <Card>
-        <CardHeader subheader=""
-title="Add Celebrity" />
+        <CardHeader subheader="" title="Add Celebrity" />
         <Divider />
         <CardContent>
-          <Typography sx={{ mb: 3 }}
-variant="h6">
+          <Typography sx={{ mb: 3 }} variant="h6">
             Basic Info
           </Typography>
-          <Grid container
-spacing={3}>
-            <Grid item
-md={12}
-xs={12}>
-              <Button 
-              variant="contained"
-component="label">
+          <Grid container spacing={3}>
+            <Grid item md={12} xs={12}>
+              <Button variant="contained" component="label">
                 Upload Profile Photos
                 <input
                   type="file"
@@ -140,9 +142,7 @@ component="label">
               </Button>
               <span style={{ paddingLeft: "1rem" }}>{uploadProfilePicture?.name} </span>
             </Grid>
-            <Grid item
-md={6}
-xs={12}>
+            <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
                 label="First name"
@@ -155,9 +155,7 @@ xs={12}>
                 required
               />
             </Grid>
-            <Grid item
-md={6}
-xs={12}>
+            <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
                 label="Last name"
@@ -170,9 +168,7 @@ xs={12}>
                 required
               />
             </Grid>
-            <Grid item
-md={6}
-xs={12}>
+            <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
                 label="Title"
@@ -185,9 +181,7 @@ xs={12}>
                 required
               />
             </Grid>
-            <Grid item
-md={6}
-xs={12}>
+            <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
                 label="Tag Line"
@@ -200,9 +194,7 @@ xs={12}>
                 required
               />
             </Grid>
-            <Grid item
-md={6}
-xs={12}>
+            <Grid item md={6} xs={12}>
               <Autocomplete
                 multiple
                 fullWidth
@@ -224,16 +216,12 @@ xs={12}>
                   </li>
                 )}
                 renderInput={(params) => (
-                  <TextField {...params}
-label="Categories"
-placeholder="" />
+                  <TextField {...params} label="Categories" placeholder="" />
                 )}
               />
             </Grid>
 
-            <Grid item
-md={6}
-xs={12}>
+            <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
                 label="Email Address"
@@ -246,9 +234,7 @@ xs={12}>
                 required
               />
             </Grid>
-            <Grid item
-md={6}
-xs={12}>
+            <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
                 label="Phone Number"
@@ -262,9 +248,7 @@ xs={12}>
                 required
               />
             </Grid>
-            <Grid item
-md={6}
-xs={12}>
+            <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
                 label="Country"
@@ -277,9 +261,7 @@ xs={12}>
                 required
               />
             </Grid>
-            <Grid item
-md={6}
-xs={12}>
+            <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
                 label="Price"
@@ -294,9 +276,7 @@ xs={12}>
               />{" "}
             </Grid>
 
-            <Grid item
-md={6}
-xs={12}>
+            <Grid item md={6} xs={12}>
               <FormControlLabel
                 control={
                   <Checkbox
@@ -310,9 +290,7 @@ xs={12}>
               />
             </Grid>
 
-            <Grid item
-md={12}
-xs={12}>
+            <Grid item md={12} xs={12}>
               <TextField
                 fullWidth
                 label="Short Description"
@@ -325,9 +303,7 @@ xs={12}>
                 required
               />
             </Grid>
-            <Grid item
-md={12}
-xs={12}>
+            <Grid item md={12} xs={12}>
               <TextField
                 fullWidth
                 label="Long Description"
@@ -346,15 +322,11 @@ xs={12}>
         </CardContent>
         <Divider />
         <CardContent>
-          <Typography sx={{ mb: 3 }}
-variant="h6">
+          <Typography sx={{ mb: 3 }} variant="h6">
             Payment Info
           </Typography>
-          <Grid container
-spacing={3}>
-            <Grid item
-md={12}
-xs={12}>
+          <Grid container spacing={3}>
+            <Grid item md={12} xs={12}>
               <TextField
                 fullWidth
                 label="Account Name"
@@ -367,9 +339,7 @@ xs={12}>
                 required
               />
             </Grid>
-            <Grid item
-md={6}
-xs={12}>
+            <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
                 label="Bank Account Number"
@@ -382,9 +352,7 @@ xs={12}>
                 required
               />
             </Grid>
-            <Grid item
-md={6}
-xs={12}>
+            <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
                 label="Bank Name"
@@ -397,9 +365,7 @@ xs={12}>
                 required
               />
             </Grid>
-            <Grid item
-md={6}
-xs={12}>
+            <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
                 label="Bank Code"
@@ -413,9 +379,7 @@ xs={12}>
                 required
               />
             </Grid>
-            <Grid item
-md={6}
-xs={12}>
+            <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
                 label="Bank Address"
@@ -556,13 +520,11 @@ xs={12}>
       </Card>
       <Snackbar
         open={open}
-        autoHideDuration={1000}
+        autoHideDuration={6000}
         anchorOrigin={{ horizontal: "right", vertical: "top" }}
         onClose={() => setOpen(false)}
       >
-        <Alert sx={{ width: "100%", color: "#fff" }}
-variant="filled"
-severity={severity}>
+        <Alert sx={{ width: "100%", color: "#fff" }} variant="filled" severity={severity}>
           {msg}
         </Alert>
       </Snackbar>

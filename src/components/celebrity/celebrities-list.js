@@ -9,10 +9,10 @@ import {
   TableBody,
   TableCell,
   TableHead,
-  TablePagination,
   TableRow,
-  Typography,
   Chip,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
@@ -23,19 +23,10 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import DeleteIcon from "@mui/icons-material/Delete";
-import axios from "axios";
-import { baseUrl } from "../../constants/api";
+
 
 export const CelebrityList = (props) => {
-
-  const [catList, setCatList] = useState([]);
-
-  useEffect(() => {
-    axios.get(baseUrl + "/get_celebrity").then((response) => {
-      console.log("response", response?.data?.data);
-      setCatList(response?.data?.data.reverse());
-    });
-  }, []);
+  const {celebList} = props;
 
   return (
     <Card>
@@ -56,7 +47,7 @@ export const CelebrityList = (props) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {catList.map((cat, index) => 
+              {celebList.map((cat, index) => 
               <TableRow key={index}
 hover>
                 <TableCell padding="checkbox">
