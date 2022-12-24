@@ -108,25 +108,25 @@ export const CreateCelebrity = (props) => {
 
   return (
     <form autoComplete="off"
-noValidate
-onSubmit={formik.handleSubmit}>
+      noValidate
+      onSubmit={formik.handleSubmit}>
       <Card>
         <CardHeader subheader=""
-title="Add Celebrity" />
+          title="Add Celebrity" />
         <Divider />
         <CardContent>
           <Typography sx={{ mb: 3 }}
-variant="h6">
+            variant="h6">
             Basic Info
           </Typography>
           <Grid container
-spacing={3}>
+            spacing={3}>
             <Grid item
-md={12}
-xs={12}>
-              <Button 
-              variant="contained"
-component="label">
+              md={12}
+              xs={12}>
+              <Button
+                variant="contained"
+                component="label">
                 Upload Profile Photos
                 <input
                   type="file"
@@ -141,8 +141,8 @@ component="label">
               <span style={{ paddingLeft: "1rem" }}>{uploadProfilePicture?.name} </span>
             </Grid>
             <Grid item
-md={6}
-xs={12}>
+              md={6}
+              xs={12}>
               <TextField
                 fullWidth
                 label="First name"
@@ -156,8 +156,8 @@ xs={12}>
               />
             </Grid>
             <Grid item
-md={6}
-xs={12}>
+              md={6}
+              xs={12}>
               <TextField
                 fullWidth
                 label="Last name"
@@ -171,8 +171,8 @@ xs={12}>
               />
             </Grid>
             <Grid item
-md={6}
-xs={12}>
+              md={6}
+              xs={12}>
               <TextField
                 fullWidth
                 label="Title"
@@ -186,8 +186,8 @@ xs={12}>
               />
             </Grid>
             <Grid item
-md={6}
-xs={12}>
+              md={6}
+              xs={12}>
               <TextField
                 fullWidth
                 label="Tag Line"
@@ -201,8 +201,8 @@ xs={12}>
               />
             </Grid>
             <Grid item
-md={6}
-xs={12}>
+              md={6}
+              xs={12}>
               <Autocomplete
                 multiple
                 fullWidth
@@ -225,15 +225,15 @@ xs={12}>
                 )}
                 renderInput={(params) => (
                   <TextField {...params}
-label="Categories"
-placeholder="" />
+                    label="Categories"
+                    placeholder="" />
                 )}
               />
             </Grid>
 
             <Grid item
-md={6}
-xs={12}>
+              md={6}
+              xs={12}>
               <TextField
                 fullWidth
                 label="Email Address"
@@ -247,8 +247,8 @@ xs={12}>
               />
             </Grid>
             <Grid item
-md={6}
-xs={12}>
+              md={6}
+              xs={12}>
               <TextField
                 fullWidth
                 label="Phone Number"
@@ -263,8 +263,8 @@ xs={12}>
               />
             </Grid>
             <Grid item
-md={6}
-xs={12}>
+              md={6}
+              xs={12}>
               <TextField
                 fullWidth
                 label="Country"
@@ -278,8 +278,8 @@ xs={12}>
               />
             </Grid>
             <Grid item
-md={6}
-xs={12}>
+              md={6}
+              xs={12}>
               <TextField
                 fullWidth
                 label="Price"
@@ -295,8 +295,8 @@ xs={12}>
             </Grid>
 
             <Grid item
-md={6}
-xs={12}>
+              md={6}
+              xs={12}>
               <FormControlLabel
                 control={
                   <Checkbox
@@ -311,8 +311,8 @@ xs={12}>
             </Grid>
 
             <Grid item
-md={12}
-xs={12}>
+              md={12}
+              xs={12}>
               <TextField
                 fullWidth
                 label="Short Description"
@@ -326,8 +326,8 @@ xs={12}>
               />
             </Grid>
             <Grid item
-md={12}
-xs={12}>
+              md={12}
+              xs={12}>
               <TextField
                 fullWidth
                 label="Long Description"
@@ -347,14 +347,14 @@ xs={12}>
         <Divider />
         <CardContent>
           <Typography sx={{ mb: 3 }}
-variant="h6">
+            variant="h6">
             Payment Info
           </Typography>
           <Grid container
-spacing={3}>
+            spacing={3}>
             <Grid item
-md={12}
-xs={12}>
+              md={12}
+              xs={12}>
               <TextField
                 fullWidth
                 label="Account Name"
@@ -368,8 +368,8 @@ xs={12}>
               />
             </Grid>
             <Grid item
-md={6}
-xs={12}>
+              md={6}
+              xs={12}>
               <TextField
                 fullWidth
                 label="Bank Account Number"
@@ -383,8 +383,8 @@ xs={12}>
               />
             </Grid>
             <Grid item
-md={6}
-xs={12}>
+              md={6}
+              xs={12}>
               <TextField
                 fullWidth
                 label="Bank Name"
@@ -398,8 +398,8 @@ xs={12}>
               />
             </Grid>
             <Grid item
-md={6}
-xs={12}>
+              md={6}
+              xs={12}>
               <TextField
                 fullWidth
                 label="Bank Code"
@@ -414,8 +414,8 @@ xs={12}>
               />
             </Grid>
             <Grid item
-md={6}
-xs={12}>
+              md={6}
+              xs={12}>
               <TextField
                 fullWidth
                 label="Bank Address"
@@ -548,7 +548,7 @@ xs={12}>
             color="primary"
             variant="contained"
             type="submit"
-            // disabled={formik.isSubmitting}
+          // disabled={formik.isSubmitting}
           >
             Save details
           </Button>
@@ -561,8 +561,8 @@ xs={12}>
         onClose={() => setOpen(false)}
       >
         <Alert sx={{ width: "100%", color: "#fff" }}
-variant="filled"
-severity={severity}>
+          variant="filled"
+          severity={severity}>
           {msg}
         </Alert>
       </Snackbar>
