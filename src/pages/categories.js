@@ -4,7 +4,6 @@ import { DashboardLayout } from "../components/dashboard-layout";
 import { CategoryComponent } from "../components/master-data/categories/categories-component";
 import { CategoryList } from "../components/master-data/categories/categories-list"
 import { useCallback, useEffect, useState } from "react";
-import { useEffect, useState } from "react";
 import { baseUrl } from "../constants/api";
 import axios from "axios";
 
