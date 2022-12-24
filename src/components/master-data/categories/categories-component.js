@@ -12,6 +12,8 @@ import {
   Checkbox,
   FormControlLabel,
   TextareaAutosize,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 
 import Router from "next/router";
@@ -19,8 +21,15 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { baseUrl } from "../../../constants/api";
+import { useState } from "react";
 
 export const CategoryComponent = (props) => {
+  const {onCategorySubmit} = props;
+
+  const [severity, setSeverity] = useState("success");
+  const [open, setOpen] = useState(false);
+  const [msg, setMessage] = useState("");
+
   const formik = useFormik({
     initialValues: {
       category_name: "",
@@ -31,27 +40,50 @@ export const CategoryComponent = (props) => {
       category_name: Yup.string().required('Category Title is required')
     }),
     onSubmit: (data) => {
-      //Router.push("/").catch(console.error);
       handleSubmit(data);
       console.log(data);
     },
   });
 
-  const url = baseUrl + '/add_category';
 
   const handleSubmit = (data) => {
     let formdata = new FormData();
-    Object.keys(data).forEach(k => {
-      formdata.append(k, data[k])
-    })
+
+    //Object.keys(data).forEach(k=>{
+    formdata.append("category_name", data.category_name);
+    formdata.append("slug", data.slug);
+    formdata.append("image", data.image);
+    //});
+    console.log(formdata);
+
+    let axiosConfig = {
+      headers: {
+        "Content-Type": "multipart/form-data;",
+      },
+    };
+
     axios
-      .post(url, data)
+      .post( baseUrl + '/add_category', data, axiosConfig)
       .then((response) => {
-        console.log(response, "Cat Success");
+        onCategorySubmit();
+        if (response.data.success === 1) {
+          setSeverity("success");
+        } else if(response.data.success === 0){
+          setSeverity("warning");
+        } else {
+          setSeverity("error");
+        }
+        setOpen(true);
+        console.log("in success response", response);
+        setMessage(response.data.message);
+        formik.resetForm();
       })
       .catch((error) => {
-        console.log(response, "Cat Error");
+        setSeverity("error");
+        setOpen(true);
+        setMessage("Failed to create category, please try again later!!!");
       });
+      
   };
 
   return (
@@ -133,6 +165,16 @@ export const CategoryComponent = (props) => {
           </Button>
         </Box>
       </Card>
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        anchorOrigin={{ horizontal: "right", vertical: "top" }}
+        onClose={() => setOpen(false)}
+      >
+        <Alert sx={{ width: "100%", color: "#fff" }} variant="filled" severity={severity}>
+          {msg}
+        </Alert>
+      </Snackbar>
     </form>
   );
 };
