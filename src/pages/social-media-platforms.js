@@ -11,7 +11,7 @@ import {
   Button,
   Divider,
   Checkbox,
-  FormControlLabel
+  FormControlLabel,
 } from "@mui/material";
 import { DashboardLayout } from "../components/dashboard-layout";
 import { AddSocialMediaComponent } from "../components/master-data/social-media-platforms/create-social-media";
@@ -20,10 +20,7 @@ import { useCallback, useEffect, useState } from "react";
 import { baseUrl } from "../constants/api";
 import axios from "axios";
 
-
-
 const Page = () => {
-
   const [socialmedialist, setSocialMediaList] = useState([]);
 
   const url = baseUrl + '/get_all_social_media_platforms'

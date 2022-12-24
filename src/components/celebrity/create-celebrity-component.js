@@ -21,10 +21,15 @@ import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import { baseUrl } from "../../constants/api";
 import { useFormik } from "formik";
-import { createCelebritySchema } from "../../utils/validations";
+import { createCelebritySchema } from "../../utils/validators";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Router } from "next/router";
+
+
+//TODO: 
+// validation message check,
+// catergory validation check
 export const CreateCelebrity = (props) => {
   const [categoriesOptions, setCategoriesOptions] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState();
@@ -42,6 +47,7 @@ export const CreateCelebrity = (props) => {
       setCategoriesOptions(response?.data?.data);
     });
   }, []);
+
   const formik = useFormik({
     initialValues: {
       first_name: "",
@@ -52,7 +58,7 @@ export const CreateCelebrity = (props) => {
       tag_line: "",
       short_description: "",
       long_description: "",
-      categories: "",
+      categories: [],
       price: "",
       is_featured: true,
       country: "",
@@ -71,6 +77,7 @@ export const CreateCelebrity = (props) => {
   });
 
   const handleSubmit = (data) => {
+  
     let catIdArray = [];
     selectedCategories.map((cat) => {
       catIdArray.push(cat.category_id);
@@ -82,7 +89,7 @@ export const CreateCelebrity = (props) => {
     Object.keys(data).forEach((key) => {
       formData.append(key, data[key]);
     });
-
+    console.log("in handle submit",formData);
     axios
       .post(baseUrl + "/add_celebrity", formData, {
         headers: {
@@ -90,12 +97,16 @@ export const CreateCelebrity = (props) => {
         },
       })
       .then((response) => {
-        if (response.data.success) {
+  
+        if (response.data.success === 1) {
           setSeverity("success");
+        } else if(response.data.success === 0){
+          setSeverity("warning");
         } else {
           setSeverity("error");
         }
         setOpen(true);
+        console.log("in success response", response);
         setMessage(response.data.message);
       })
       .catch((error) => {
@@ -112,11 +123,11 @@ export const CreateCelebrity = (props) => {
       onSubmit={formik.handleSubmit}>
       <Card>
         <CardHeader subheader=""
-          title="Add Celebrity" />
+title="Add Celebrity" />
         <Divider />
         <CardContent>
           <Typography sx={{ mb: 3 }}
-            variant="h6">
+variant="h6">
             Basic Info
           </Typography>
           <Grid container
@@ -141,8 +152,8 @@ export const CreateCelebrity = (props) => {
               <span style={{ paddingLeft: "1rem" }}>{uploadProfilePicture?.name} </span>
             </Grid>
             <Grid item
-              md={6}
-              xs={12}>
+md={6}
+xs={12}>
               <TextField
                 fullWidth
                 label="First name"
@@ -156,8 +167,8 @@ export const CreateCelebrity = (props) => {
               />
             </Grid>
             <Grid item
-              md={6}
-              xs={12}>
+md={6}
+xs={12}>
               <TextField
                 fullWidth
                 label="Last name"
@@ -171,8 +182,8 @@ export const CreateCelebrity = (props) => {
               />
             </Grid>
             <Grid item
-              md={6}
-              xs={12}>
+md={6}
+xs={12}>
               <TextField
                 fullWidth
                 label="Title"
@@ -186,8 +197,8 @@ export const CreateCelebrity = (props) => {
               />
             </Grid>
             <Grid item
-              md={6}
-              xs={12}>
+md={6}
+xs={12}>
               <TextField
                 fullWidth
                 label="Tag Line"
@@ -201,8 +212,8 @@ export const CreateCelebrity = (props) => {
               />
             </Grid>
             <Grid item
-              md={6}
-              xs={12}>
+md={6}
+xs={12}>
               <Autocomplete
                 multiple
                 fullWidth
@@ -225,15 +236,15 @@ export const CreateCelebrity = (props) => {
                 )}
                 renderInput={(params) => (
                   <TextField {...params}
-                    label="Categories"
-                    placeholder="" />
+label="Categories"
+placeholder="" />
                 )}
               />
             </Grid>
 
             <Grid item
-              md={6}
-              xs={12}>
+md={6}
+xs={12}>
               <TextField
                 fullWidth
                 label="Email Address"
@@ -247,8 +258,8 @@ export const CreateCelebrity = (props) => {
               />
             </Grid>
             <Grid item
-              md={6}
-              xs={12}>
+md={6}
+xs={12}>
               <TextField
                 fullWidth
                 label="Phone Number"
@@ -263,8 +274,8 @@ export const CreateCelebrity = (props) => {
               />
             </Grid>
             <Grid item
-              md={6}
-              xs={12}>
+md={6}
+xs={12}>
               <TextField
                 fullWidth
                 label="Country"
@@ -278,8 +289,8 @@ export const CreateCelebrity = (props) => {
               />
             </Grid>
             <Grid item
-              md={6}
-              xs={12}>
+md={6}
+xs={12}>
               <TextField
                 fullWidth
                 label="Price"
@@ -295,8 +306,8 @@ export const CreateCelebrity = (props) => {
             </Grid>
 
             <Grid item
-              md={6}
-              xs={12}>
+md={6}
+xs={12}>
               <FormControlLabel
                 control={
                   <Checkbox
@@ -311,8 +322,8 @@ export const CreateCelebrity = (props) => {
             </Grid>
 
             <Grid item
-              md={12}
-              xs={12}>
+md={12}
+xs={12}>
               <TextField
                 fullWidth
                 label="Short Description"
@@ -326,8 +337,8 @@ export const CreateCelebrity = (props) => {
               />
             </Grid>
             <Grid item
-              md={12}
-              xs={12}>
+md={12}
+xs={12}>
               <TextField
                 fullWidth
                 label="Long Description"
@@ -347,14 +358,14 @@ export const CreateCelebrity = (props) => {
         <Divider />
         <CardContent>
           <Typography sx={{ mb: 3 }}
-            variant="h6">
+variant="h6">
             Payment Info
           </Typography>
           <Grid container
-            spacing={3}>
+spacing={3}>
             <Grid item
-              md={12}
-              xs={12}>
+md={12}
+xs={12}>
               <TextField
                 fullWidth
                 label="Account Name"
@@ -368,8 +379,8 @@ export const CreateCelebrity = (props) => {
               />
             </Grid>
             <Grid item
-              md={6}
-              xs={12}>
+md={6}
+xs={12}>
               <TextField
                 fullWidth
                 label="Bank Account Number"
@@ -383,8 +394,8 @@ export const CreateCelebrity = (props) => {
               />
             </Grid>
             <Grid item
-              md={6}
-              xs={12}>
+md={6}
+xs={12}>
               <TextField
                 fullWidth
                 label="Bank Name"
@@ -398,8 +409,8 @@ export const CreateCelebrity = (props) => {
               />
             </Grid>
             <Grid item
-              md={6}
-              xs={12}>
+md={6}
+xs={12}>
               <TextField
                 fullWidth
                 label="Bank Code"
@@ -414,8 +425,8 @@ export const CreateCelebrity = (props) => {
               />
             </Grid>
             <Grid item
-              md={6}
-              xs={12}>
+md={6}
+xs={12}>
               <TextField
                 fullWidth
                 label="Bank Address"
@@ -556,13 +567,13 @@ export const CreateCelebrity = (props) => {
       </Card>
       <Snackbar
         open={open}
-        autoHideDuration={1000}
+        autoHideDuration={6000}
         anchorOrigin={{ horizontal: "right", vertical: "top" }}
         onClose={() => setOpen(false)}
       >
         <Alert sx={{ width: "100%", color: "#fff" }}
-          variant="filled"
-          severity={severity}>
+variant="filled"
+severity={severity}>
           {msg}
         </Alert>
       </Snackbar>
