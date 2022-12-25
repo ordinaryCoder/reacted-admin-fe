@@ -26,8 +26,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Router } from "next/router";
 
-
-//TODO: 
+//TODO:
 // validation message check,
 // catergory validation check
 export const CreateCelebrity = (props) => {
@@ -35,7 +34,7 @@ export const CreateCelebrity = (props) => {
   const [selectedCategories, setSelectedCategories] = useState();
   const [uploadProfilePicture, setUploadProfilePicture] = useState("");
   const [severity, setSeverity] = useState("success");
-  const [socialMediaPlatforms, setPlatforms] = useState([])
+  const [socialMediaPlatforms, setPlatforms] = useState([]);
   const [open, setOpen] = useState(false);
   const [msg, setMessage] = useState("");
 
@@ -47,8 +46,8 @@ export const CreateCelebrity = (props) => {
       setCategoriesOptions(response?.data?.data);
     });
     axios.get(baseUrl + "/get_all_social_media_platforms").then((response) => {
-      setPlatforms(response?.data.data)
-    })
+      setPlatforms(response?.data.data);
+    });
   }, []);
 
   const formik = useFormik({
@@ -71,7 +70,10 @@ export const CreateCelebrity = (props) => {
       bank_name: "",
       bank_code: "",
       bank_address: "",
-      social_media_links: socialMediaPlatforms.map(p => ({ platformName: p.platform_name, value: "" }))
+      social_media_links: socialMediaPlatforms.map((p) => ({
+        platformName: p.platform_name,
+        value: "",
+      })),
     },
     validationSchema: createCelebritySchema,
     onSubmit: (data) => {
@@ -79,11 +81,10 @@ export const CreateCelebrity = (props) => {
       console.log(data);
     },
     enableReinitialize: true,
-    validateOnChange: true
+    validateOnChange: true,
   });
 
   const handleSubmit = (data) => {
-
     let catIdArray = [];
     selectedCategories.map((cat) => {
       catIdArray.push(cat.category_id);
@@ -97,8 +98,8 @@ export const CreateCelebrity = (props) => {
         formData.append(key, data[key]);
       }
     });
-    const mediaLinks = data.social_media_links.map(link => ({ [link.platformName]: link.value }))
-    formData.append("social_media_links", JSON.stringify(mediaLinks))
+    const mediaLinks = data.social_media_links.map((link) => ({ [link.platformName]: link.value }));
+    formData.append("social_media_links", JSON.stringify(mediaLinks));
     console.log("in handle submit", formData);
     axios
       .post(baseUrl + "/add_celebrity", formData, {
@@ -107,7 +108,6 @@ export const CreateCelebrity = (props) => {
         },
       })
       .then((response) => {
-
         if (response.data.success === 1) {
           setSeverity("success");
         } else if (response.data.success === 0) {
@@ -126,29 +126,20 @@ export const CreateCelebrity = (props) => {
   const handleChangeProfilePicture = (event) => {
     setUploadProfilePicture(event.currentTarget.files[0]);
   };
-  console.log('formik.err',formik.errors)
+  console.log("formik.err", formik.errors);
   return (
     <FormikProvider value={formik}>
-      <form autoComplete="off"
-        noValidate
-        onSubmit={formik.handleSubmit}>
+      <form autoComplete="off" noValidate onSubmit={formik.handleSubmit}>
         <Card>
-          <CardHeader subheader=""
-            title="Add Celebrity" />
+          <CardHeader subheader="" title="Add Celebrity" />
           <Divider />
           <CardContent>
-            <Typography sx={{ mb: 3 }}
-              variant="h6">
+            <Typography sx={{ mb: 3 }} variant="h6">
               Basic Info
             </Typography>
-            <Grid container
-              spacing={3}>
-              <Grid item
-                md={12}
-                xs={12}>
-                <Button
-                  variant="contained"
-                  component="label">
+            <Grid container spacing={3}>
+              <Grid item md={12} xs={12}>
+                <Button variant="contained" component="label">
                   Upload Profile Photos
                   <input
                     type="file"
@@ -162,9 +153,7 @@ export const CreateCelebrity = (props) => {
                 </Button>
                 <span style={{ paddingLeft: "1rem" }}>{uploadProfilePicture?.name} </span>
               </Grid>
-              <Grid item
-                md={6}
-                xs={12}>
+              <Grid item md={6} xs={12}>
                 <TextField
                   fullWidth
                   label="First name"
@@ -177,9 +166,7 @@ export const CreateCelebrity = (props) => {
                   required
                 />
               </Grid>
-              <Grid item
-                md={6}
-                xs={12}>
+              <Grid item md={6} xs={12}>
                 <TextField
                   fullWidth
                   label="Last name"
@@ -192,9 +179,7 @@ export const CreateCelebrity = (props) => {
                   required
                 />
               </Grid>
-              <Grid item
-                md={6}
-                xs={12}>
+              <Grid item md={6} xs={12}>
                 <TextField
                   fullWidth
                   label="Title"
@@ -207,9 +192,7 @@ export const CreateCelebrity = (props) => {
                   required
                 />
               </Grid>
-              <Grid item
-                md={6}
-                xs={12}>
+              <Grid item md={6} xs={12}>
                 <TextField
                   fullWidth
                   label="Tag Line"
@@ -222,15 +205,13 @@ export const CreateCelebrity = (props) => {
                   required
                 />
               </Grid>
-              <Grid item
-                md={6}
-                xs={12}>
+              <Grid item md={6} xs={12}>
                 <Autocomplete
                   multiple
                   fullWidth
                   onChange={(event, value) => {
-                    formik.setFieldValue('categories',value)
-                    setSelectedCategories(value)
+                    formik.setFieldValue("categories", value);
+                    setSelectedCategories(value);
                   }}
                   id="checkboxes-tags-demo"
                   options={categoriesOptions}
@@ -249,16 +230,12 @@ export const CreateCelebrity = (props) => {
                     </li>
                   )}
                   renderInput={(params) => (
-                    <TextField {...params}
-                      label="Categories"
-                      placeholder="" />
+                    <TextField {...params} label="Categories" placeholder="" />
                   )}
                 />
               </Grid>
 
-              <Grid item
-                md={6}
-                xs={12}>
+              <Grid item md={6} xs={12}>
                 <TextField
                   fullWidth
                   label="Email Address"
@@ -271,9 +248,7 @@ export const CreateCelebrity = (props) => {
                   required
                 />
               </Grid>
-              <Grid item
-                md={6}
-                xs={12}>
+              <Grid item md={6} xs={12}>
                 <TextField
                   fullWidth
                   label="Phone Number"
@@ -287,9 +262,7 @@ export const CreateCelebrity = (props) => {
                   required
                 />
               </Grid>
-              <Grid item
-                md={6}
-                xs={12}>
+              <Grid item md={6} xs={12}>
                 <TextField
                   fullWidth
                   label="Country"
@@ -302,9 +275,7 @@ export const CreateCelebrity = (props) => {
                   required
                 />
               </Grid>
-              <Grid item
-                md={6}
-                xs={12}>
+              <Grid item md={6} xs={12}>
                 <TextField
                   fullWidth
                   label="Price"
@@ -319,9 +290,7 @@ export const CreateCelebrity = (props) => {
                 />{" "}
               </Grid>
 
-              <Grid item
-                md={6}
-                xs={12}>
+              <Grid item md={6} xs={12}>
                 <FormControlLabel
                   control={
                     <Checkbox
@@ -335,9 +304,7 @@ export const CreateCelebrity = (props) => {
                 />
               </Grid>
 
-              <Grid item
-                md={12}
-                xs={12}>
+              <Grid item md={12} xs={12}>
                 <TextField
                   fullWidth
                   label="Short Description"
@@ -350,9 +317,7 @@ export const CreateCelebrity = (props) => {
                   required
                 />
               </Grid>
-              <Grid item
-                md={12}
-                xs={12}>
+              <Grid item md={12} xs={12}>
                 <TextField
                   fullWidth
                   label="Long Description"
@@ -371,15 +336,11 @@ export const CreateCelebrity = (props) => {
           </CardContent>
           <Divider />
           <CardContent>
-            <Typography sx={{ mb: 3 }}
-              variant="h6">
+            <Typography sx={{ mb: 3 }} variant="h6">
               Payment Info
             </Typography>
-            <Grid container
-              spacing={3}>
-              <Grid item
-                md={12}
-                xs={12}>
+            <Grid container spacing={3}>
+              <Grid item md={12} xs={12}>
                 <TextField
                   fullWidth
                   label="Account Name"
@@ -392,9 +353,7 @@ export const CreateCelebrity = (props) => {
                   required
                 />
               </Grid>
-              <Grid item
-                md={6}
-                xs={12}>
+              <Grid item md={6} xs={12}>
                 <TextField
                   fullWidth
                   label="Bank Account Number"
@@ -407,9 +366,7 @@ export const CreateCelebrity = (props) => {
                   required
                 />
               </Grid>
-              <Grid item
-                md={6}
-                xs={12}>
+              <Grid item md={6} xs={12}>
                 <TextField
                   fullWidth
                   label="Bank Name"
@@ -422,9 +379,7 @@ export const CreateCelebrity = (props) => {
                   required
                 />
               </Grid>
-              <Grid item
-                md={6}
-                xs={12}>
+              <Grid item md={6} xs={12}>
                 <TextField
                   fullWidth
                   label="Bank Code"
@@ -438,9 +393,7 @@ export const CreateCelebrity = (props) => {
                   required
                 />
               </Grid>
-              <Grid item
-                md={6}
-                xs={12}>
+              <Grid item md={6} xs={12}>
                 <TextField
                   fullWidth
                   label="Bank Address"
@@ -468,33 +421,28 @@ export const CreateCelebrity = (props) => {
               Social Media Links
             </Typography>
             <Grid container spacing={3}>
-              <FieldArray
-                validateOnChange={false}
-                name="social_media_links">
+              <FieldArray validateOnChange={false} name="social_media_links">
                 <>
-                  {
-                    formik.values.social_media_links.map((platform, index) => {
-                      return (
-                        <Grid key={index} item md={6} xs={12}>
-                          <Field name={`social_media_links.${index}.value`}>
-                            {({ field }) => (
-                              <TextField
-                                fullWidth
-                                label={platform.platformName}
-                                variant="outlined"
-                                {...field}
-                              />
-                            )}
-                          </Field>
-                        </Grid>
-                      )
-                    })
-                  }
+                  {formik.values.social_media_links.map((platform, index) => {
+                    return (
+                      <Grid key={index} item md={6} xs={12}>
+                        <Field name={`social_media_links.${index}.value`}>
+                          {({ field }) => (
+                            <TextField
+                              fullWidth
+                              label={platform.platformName}
+                              variant="outlined"
+                              {...field}
+                            />
+                          )}
+                        </Field>
+                      </Grid>
+                    );
+                  })}
                 </>
 
                 {/* )} */}
               </FieldArray>
-
 
               {/* {
               socialMediaPlatforms.map((platform, index) => {
@@ -513,64 +461,32 @@ export const CreateCelebrity = (props) => {
                 )
               })
             } */}
+            </Grid>
+          </CardContent>
 
-              <Grid item md={6} xs={12}>
-                <TextField
-                  fullWidth
-                  label="Instagram"
-                  name="instagram"
+          <Divider />
 
-                  variant="outlined"
-                  value={formik.values.instagram}
-                  onChange={formik.handleChange}
-                />
-              </Grid>
-              <Grid item md={6} xs={12}>
-                <TextField
-                  fullWidth
-                  label="TikTok"
-                  name="tiktok"
-
-                  variant="outlined"
-                  value={formik.values.tiktok}
-                  onChange={formik.handleChange}
-                />
-              </Grid>
-              <Grid item md={6} xs={12}>
-                <TextField
-                  fullWidth
-                  label="Youtube"
-                  name="youtube"
-                  type="number"
-                  variant="outlined"
-                  value={formik.values.youtube}
-                  onChange={formik.handleChange}
-                />
-              </Grid>
-              <Grid item md={6} xs={12}>
-                <TextField
-                  fullWidth
-                  label="Twitter"
-                  name="twitter"
-
-                  variant="outlined"
-                  value={formik.values.twitter}
-                  onChange={formik.handleChange}
-                />
-              </Grid>
-              <Grid item md={6} xs={12}>
-                <TextField
-                  fullWidth
-                  label="LinkedIn"
-                  name="linkedin"
-
-                  variant="outlined"
-                  value={formik.values.linkedin}
-                  onChange={formik.handleChange}
-                />
+          <CardContent>
+            <Typography sx={{ mb: 3 }} variant="h6">
+              W9 Form Upload
+            </Typography>
+            <Grid container spacing={3}>
+              <Grid item md={12} xs={12}>
+                <Button variant="contained" component="label">
+                  Upload W9 Form
+                  <input
+                    type="file"
+                    hidden
+                    name="w9_form"
+                    error={Boolean(formik.errors.w9_form)}
+                    helpertext={formik.errors.w9_form}
+                  />
+                </Button>
+                <span style={{ paddingLeft: "1rem" }}>{uploadProfilePicture?.name} </span>
               </Grid>
             </Grid>
           </CardContent>
+
           <Divider />
 
           {/* <CardContent>
@@ -608,7 +524,7 @@ export const CreateCelebrity = (props) => {
               color="primary"
               variant="contained"
               type="submit"
-            // disabled={formik.isSubmitting}
+              // disabled={formik.isSubmitting}
             >
               Save details
             </Button>
@@ -620,9 +536,7 @@ export const CreateCelebrity = (props) => {
           anchorOrigin={{ horizontal: "right", vertical: "top" }}
           onClose={() => setOpen(false)}
         >
-          <Alert sx={{ width: "100%", color: "#fff" }}
-            variant="filled"
-            severity={severity}>
+          <Alert sx={{ width: "100%", color: "#fff" }} variant="filled" severity={severity}>
             {msg}
           </Alert>
         </Snackbar>
