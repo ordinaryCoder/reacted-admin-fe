@@ -73,7 +73,7 @@ export const CreateMusicCreator = (props) => {
       catIdArray.push(cat.category_id);
     });
     data.categories = catIdArray.join(",");
-    data.profile_picture = uploadProfilePicture;
+    data['profile_picture[0]'] = uploadProfilePicture;
     data.music = uploadMusicFile;
     let formData = new FormData();
 

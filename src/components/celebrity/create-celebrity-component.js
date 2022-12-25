@@ -89,7 +89,7 @@ export const CreateCelebrity = (props) => {
       catIdArray.push(cat.category_id);
     });
     data.categories = catIdArray.join(",");
-    data.profile_picture = uploadProfilePicture;
+    data['profile_picture[0]'] = uploadProfilePicture;
     let formData = new FormData();
 
     Object.keys(data).forEach((key) => {
