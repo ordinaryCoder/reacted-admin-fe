@@ -16,7 +16,7 @@ const Page = () => {
 
   const getCategoryList = useCallback(() => {
     axios
-      .get(url)
+      .get(baseUrl + "/get_all_categories")
       .then((response) => {
         //console.log(response);
         setCategoryList(response.data.data.reverse());
@@ -24,7 +24,7 @@ const Page = () => {
       .catch((response) => {
         console.log(response);
       });
-  }, [url]);
+  }, []);
 
   return (
     <>
