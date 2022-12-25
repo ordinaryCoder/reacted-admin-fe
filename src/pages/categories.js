@@ -2,7 +2,7 @@ import Head from "next/head";
 import { Box, Container, Grid, Typography } from "@mui/material";
 import { DashboardLayout } from "../components/dashboard-layout";
 import { CategoryComponent } from "../components/master-data/categories/categories-component";
-import { CategoryList } from "../components/master-data/categories/categories-list"
+import { CategoryList } from "../components/master-data/categories/categories-list";
 import { useCallback, useEffect, useState } from "react";
 import { baseUrl } from "../constants/api";
 import axios from "axios";
@@ -14,17 +14,17 @@ const Page = () => {
     getCategoryList();
   }, [getCategoryList]);
 
-  const getCategoryList = useCallback(
-    () => {
-      axios.get(url).then((response) => {
-        //console.log(response); 
+  const getCategoryList = useCallback(() => {
+    axios
+      .get(url)
+      .then((response) => {
+        //console.log(response);
         setCategoryList(response.data.data.reverse());
-      }).catch((response) => {
+      })
+      .catch((response) => {
         console.log(response);
       });
-    },
-    [url],
-  )
+  }, [url]);
 
   return (
     <>

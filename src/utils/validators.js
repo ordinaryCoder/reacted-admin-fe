@@ -68,7 +68,13 @@ export const createCelebritySchema = Yup.object().shape({
   bank_address: Yup.string("Enter your Bank Name")
     .min(3, minErrorMessage(3))
     .required(requiredMessage("Bank Name")),
-  categories: Yup.array().required("At least one category is required")
+  categories: Yup.array().required("At least one category is required"),
+  social_media_links:Yup.array().of(
+    Yup.object().shape({
+      platformName:Yup.string(),
+      value:Yup.string()
+    })
+  )
 });
 
 export const createMusicCreatorSchema = Yup.object().shape({
@@ -79,6 +85,4 @@ export const createMusicCreatorSchema = Yup.object().shape({
   artist_name: Yup.string().required("Artist Name is required"),
   description: Yup.string().required("Description is required"),
   country: Yup.string().required("Country is required"),
-  instagram: Yup.string().required("Instagram Link is required").url("Enter correct url!"),
-  facebook: Yup.string().required("Facebook Link is required").url("Enter correct url!"),
 });
