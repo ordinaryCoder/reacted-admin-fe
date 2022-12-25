@@ -68,7 +68,13 @@ export const createCelebritySchema = Yup.object().shape({
   bank_address: Yup.string("Enter your Bank Name")
     .min(3, minErrorMessage(3))
     .required(requiredMessage("Bank Name")),
-  categories: Yup.array().required("At least one category is required")
+  categories: Yup.array().required("At least one category is required"),
+  social_media_links:Yup.array().of(
+    Yup.object().shape({
+      platformName:Yup.string(),
+      value:Yup.string()
+    })
+  )
 });
 
 export const createMusicCreatorSchema = Yup.object().shape({
