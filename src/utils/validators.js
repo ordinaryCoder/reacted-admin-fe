@@ -85,6 +85,4 @@ export const createMusicCreatorSchema = Yup.object().shape({
   artist_name: Yup.string().required("Artist Name is required"),
   description: Yup.string().required("Description is required"),
   country: Yup.string().required("Country is required"),
-  instagram: Yup.string().required("Instagram Link is required").url("Enter correct url!"),
-  facebook: Yup.string().required("Facebook Link is required").url("Enter correct url!"),
 });
