@@ -15,7 +15,10 @@ import {
   MenuItem,
   Snackbar,
   Alert,
+  styled,
+  Paper,
 } from "@mui/material";
+import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
 import Autocomplete from "@mui/material/Autocomplete";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
@@ -25,6 +28,8 @@ import { createCelebritySchema } from "../../utils/validators";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Router } from "next/router";
+import { Stack } from "@mui/system";
+import { removeItemAtIndex } from "../../utils/arrayUtils";
 
 //TODO:
 // validation message check,
@@ -32,11 +37,19 @@ import { Router } from "next/router";
 export const CreateCelebrity = (props) => {
   const [categoriesOptions, setCategoriesOptions] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState();
-  const [uploadProfilePicture, setUploadProfilePicture] = useState("");
+  const [uploadProfilePicture, setUploadProfilePicture] = useState([]);
   const [severity, setSeverity] = useState("success");
   const [socialMediaPlatforms, setPlatforms] = useState([]);
   const [open, setOpen] = useState(false);
   const [msg, setMessage] = useState("");
+
+  const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  }));
 
   const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
@@ -90,7 +103,10 @@ export const CreateCelebrity = (props) => {
       catIdArray.push(cat.category_id);
     });
     data.categories = catIdArray.join(",");
-    data['profile_picture[0]'] = uploadProfilePicture;
+    uploadProfilePicture.forEach((pic,i)=>{
+      data[`profile_picture[${i}]`] = pic;
+    })
+    // data['profile_picture[0]'] = uploadProfilePicture;
     let formData = new FormData();
 
     Object.keys(data).forEach((key) => {
@@ -124,9 +140,15 @@ export const CreateCelebrity = (props) => {
       });
   };
   const handleChangeProfilePicture = (event) => {
-    setUploadProfilePicture(event.currentTarget.files[0]);
+    let selectedFIles = [];
+    const targetFiles = event.target.files;
+    const targetFilesObject = [...targetFiles, ...uploadProfilePicture]
+    setUploadProfilePicture(targetFilesObject);
   };
-  console.log("formik.err", formik.errors);
+  const removeImage = (index) => {
+    const remove = removeItemAtIndex(uploadProfilePicture, index)
+    setUploadProfilePicture(remove);
+  }
   return (
     <FormikProvider value={formik}>
       <form autoComplete="off" noValidate onSubmit={formik.handleSubmit}>
@@ -144,6 +166,7 @@ export const CreateCelebrity = (props) => {
                   <input
                     type="file"
                     hidden
+                    multiple
                     name="profile_picture"
                     accept="image/*"
                     onChange={handleChangeProfilePicture}
@@ -152,6 +175,16 @@ export const CreateCelebrity = (props) => {
                   />
                 </Button>
                 <span style={{ paddingLeft: "1rem" }}>{uploadProfilePicture?.name} </span>
+              </Grid>
+              <Grid item md={12} xs={12}>
+                <Stack direction="row" spacing={2}>
+                  {uploadProfilePicture.map((pic, i) => {
+                    return <Item key={i} style={{ position: 'relative' }} className="imgPreview">
+                      <img style={{ width: '100px', height: '100px', objectFit: 'contain' }} src={URL.createObjectURL(pic)} />
+                      <CancelRoundedIcon style={{ cursor: "pointer" }} onClick={() => removeImage(i)} />
+                    </Item>
+                  })}
+                </Stack>
               </Grid>
               <Grid item md={6} xs={12}>
                 <TextField
@@ -524,7 +557,7 @@ export const CreateCelebrity = (props) => {
               color="primary"
               variant="contained"
               type="submit"
-              // disabled={formik.isSubmitting}
+            // disabled={formik.isSubmitting}
             >
               Save details
             </Button>

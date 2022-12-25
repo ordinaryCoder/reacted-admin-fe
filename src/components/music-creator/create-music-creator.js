@@ -132,7 +132,7 @@ export const CreateMusicCreator = (props) => {
                     onChange={(e) => handleChangeUpload(e, "profile")}
                     error={Boolean(formik.errors.profile_picture)}
                     helperText={formik.errors.profile_picture}
-                    multiple
+                    multiple={false}
                   />
                 </Button>
                 <span style={{ paddingLeft: "1rem" }}>{uploadProfilePicture?.name} </span>
