@@ -56,18 +56,6 @@ export const createCelebritySchema = Yup.object().shape({
   .required(requiredMessage("Price")),
   country: Yup.string("")
   .required(requiredMessage("Country")),
-  //profile_picture: Yup.string().required("Profile_pictureis required"),
-  account_name: Yup.string("Enter your Account Name")
-    .min(3, minErrorMessage(3))
-    .required(requiredMessage("Account Name")),
-  account_number: Yup.string().required("required").min(10, "too short").max(10, "too long"),
-  bank_name: Yup.string("Enter your Bank Name")
-    .min(3, minErrorMessage(3))
-    .required(requiredMessage("Bank Name")),
-  bank_code: Yup.string().required("required").min(10, "too short").max(10, "too long"),
-  bank_address: Yup.string("Enter your Bank Name")
-    .min(3, minErrorMessage(3))
-    .required(requiredMessage("Bank Name")),
   categories: Yup.array().required("At least one category is required"),
   social_media_links:Yup.array().of(
     Yup.object().shape({
