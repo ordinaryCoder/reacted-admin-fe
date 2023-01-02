@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { Box, Container, Grid, Pagination } from "@mui/material";
-import { DashboardLayout } from "../components/dashboard-layout";
-import { LatestOrders } from "../components/dashboard/latest-orders";
+import { DashboardLayout } from "../../components/dashboard-layout";
+import { LatestOrders } from "../../components/dashboard/latest-orders";
 
 const Page = () => (
   <>
