@@ -21,8 +21,11 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { EditOff, EditOffTwoTone, EditOutlined } from "@mui/icons-material";
+import { useRouter } from "next/router";
 
 export const MusicCreatorsList = ({ musicCreatorsList }) => {
+  const router = useRouter()
   return (
     <Card>
       <PerfectScrollbar>
@@ -82,11 +85,14 @@ export const MusicCreatorsList = ({ musicCreatorsList }) => {
                   </TableCell>
                   <TableCell>
                     <Stack direction="row">
-                      <IconButton aria-label="Facebook" color="primary" size="small">
+                      <IconButton aria-label="view" color="primary" size="small">
                         <VisibilityIcon color="primary" />
                       </IconButton>
-                      <IconButton aria-label="Instagram" color="error" size="small">
+                      <IconButton aria-label="delete" color="error" size="small">
                         <DeleteIcon />
+                      </IconButton>
+                      <IconButton onClick={()=>router.push(`/create-music-creator?edit=true&userId=${creator.user_id}`)} aria-label="delete" color="warning" size="small">
+                        <EditOutlined />
                       </IconButton>
                     </Stack>
                   </TableCell>
