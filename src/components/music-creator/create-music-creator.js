@@ -24,6 +24,7 @@ import { Field, FieldArray, FormikProvider, useFormik } from "formik";
 import axios from "axios";
 import { baseUrl } from "../../constants/api";
 import { createMusicCreatorSchema } from "../../utils/validators";
+import { useRouter } from "next/router";
 
 export const CreateMusicCreator = (props) => {
   const [categoriesOptions, setCategoriesOptions] = useState([]);
@@ -35,7 +36,17 @@ export const CreateMusicCreator = (props) => {
 
   const [open, setOpen] = useState(false);
   const [msg, setMessage] = useState("");
-
+  const [creatorValues, setCreator] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    phone: "",
+    artist_name: "",
+    description: "",
+    categories: "",
+    country: "",
+    social_media_links: socialMediaPlatforms.map(p => ({ platformName: p.platform_name, value: "" }))
+  })
   const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
   useEffect(() => {
@@ -46,18 +57,39 @@ export const CreateMusicCreator = (props) => {
       setPlatforms(response?.data.data)
     })
   }, []);
+  const { query: { edit, userId } } = useRouter()
+
+  useEffect(() => {
+    if (edit === 'true' && userId) {
+      fetchCreator(userId)
+    }
+  }, [edit, userId])
+  const fetchCreator = async (userId) => {
+    axios.get(baseUrl + `/get_music_creator?music_creator_id=${userId}`)
+      .then(response => {
+        if (response.data.success) {
+          const details = response.data.data[0]
+          const socialLinks = JSON.parse(response.data.data[0].social_media_links)
+          setCreator({
+            ...creatorValues,
+            first_name: details.first_name,
+            artist_name: details.artist_name,
+            categories: [],
+            description: details.description,
+            email: details.email,
+            last_name: details.last_name,
+            phone: details.phone,
+            social_media_links: Array.isArray(socialLinks) ? socialLinks.map(s => ({ platformName: Object.keys(s)[0], value: Object.values(s)[0] })) : [],
+            country: details.country
+          })
+        }
+      })
+      .catch(error => {
+        console.log('error', error)
+      })
+  }
   const formik = useFormik({
-    initialValues: {
-      first_name: "",
-      last_name: "",
-      email: "",
-      phone: "",
-      artist_name: "",
-      description: "",
-      categories: "",
-      country: "",
-      social_media_links: socialMediaPlatforms.map(p => ({ platformName: p.platform_name, value: "" }))
-    },
+    initialValues: creatorValues,
     validationSchema: createMusicCreatorSchema,
     onSubmit: (data) => {
       handleSubmit(data);
@@ -109,7 +141,7 @@ export const CreateMusicCreator = (props) => {
       ? setUploadProfilePicture(event?.currentTarget?.files[0])
       : setUploadMusicFile(event?.currentTarget?.files[0]);
   };
-  console.log('formni',formik.errors)
+  console.log('creatorValues', creatorValues)
   return (
     <FormikProvider value={formik}>
       <form autoComplete="off" noValidate onSubmit={formik.handleSubmit}>
@@ -221,8 +253,9 @@ export const CreateMusicCreator = (props) => {
                   multiple
                   fullWidth
                   onChange={(event, value) => {
-                    formik.setFieldValue('categories',value)
-                    setSelectedCategories(value)}}
+                    formik.setFieldValue('categories', value)
+                    setSelectedCategories(value)
+                  }}
                   id="checkboxes-tags-demo"
                   options={categoriesOptions}
                   disableCloseOnSelect

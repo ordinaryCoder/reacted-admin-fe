@@ -62,7 +62,7 @@ export const MusicCreatorsList = ({ musicCreatorsList }) => {
                       {creator.first_name} {creator.last_name}
                     </Box>
                   </TableCell>
-                  <TableCell>{creator.artist_name | creator.first_name}</TableCell>
+                  <TableCell>{creator?.artist_name ?? ""}</TableCell>
                   <TableCell>{creator.email} </TableCell>
                   <TableCell>
                     <Stack direction="row">
