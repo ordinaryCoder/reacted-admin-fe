@@ -20,21 +20,30 @@ const Page = () => {
   const fetchSocialMediaPlatforms = (platformsData, social_media_links = []) => {
     console.log("inside social media", platformsData, social_media_links);
     try {
-      if(social_media_links){
+      const socialMediaLinks = [];
+      const socialMediaMaster = platformsData?.data?.data || [];
+      if (social_media_links) {
         const convert = JSON.parse(social_media_links ?? "");
         const keyValuePair = JSON.parse(convert).map((link) => {
           const key = Object.keys(link)[0] ?? "";
           return { platform: key, url: link[key], value: link[key] };
         });
-  
-        const socialMediaLinks = [];
-        const socialMediaMaster = platformsData?.data?.data || [];
         socialMediaMaster.forEach((s) => {
           if (s.status === "Active") {
             const valueMap = keyValuePair.find((m) => m.platform === s.platform_name);
             if (valueMap) {
               socialMediaLinks.push(valueMap);
             }
+          }
+        });
+      } else {
+        socialMediaMaster.forEach((s) => {
+          if (s.status === "Active") {
+            socialMediaLinks.push({
+              platform: s.platform_name,
+              url: s.platform_link,
+              value: s.platform_link,
+            });
           }
         });
       }
@@ -47,7 +56,6 @@ const Page = () => {
 
   const getUserDetails = async () => {
     if (query && query.userid) {
-
       if (query.user.toUpperCase() === "CELEBRITY") {
         const celebDetails = await axios.get(
           baseUrl + `/get_celebrity?celebrity_id=${query.userid}`

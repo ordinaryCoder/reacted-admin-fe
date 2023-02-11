@@ -26,58 +26,49 @@ import { baseUrl } from "../../constants/api";
 import { createMusicCreatorSchema, UpdateMusicCreatorSchema } from "../../utils/validators";
 
 export const UpdateMusicCreator = (props) => {
-  
-  const {
-    first_name,
-    last_name,
-    email,
-    phone,
-    artist_name,
-    description,
-    categories,
-    country,
-  } = props.userDetails 
+  const { first_name, last_name, email, phone, artist_name, description, categories, country } =
+    props.userDetails;
 
-  const {socialLinks = []} = props;
+  const { socialLinks = [] } = props;
 
-//   const [categoriesOptions, setCategoriesOptions] = useState([]);
-//   const [selectedCategories, setSelectedCategories] = useState();
+  //   const [categoriesOptions, setCategoriesOptions] = useState([]);
+  //   const [selectedCategories, setSelectedCategories] = useState();
   const [uploadProfilePicture, setUploadProfilePicture] = useState("");
   const [severity, setSeverity] = useState("info");
   const [uploadMusicFile, setUploadMusicFile] = useState("");
-//   const [socialMediaPlatforms, setPlatforms] = useState([])
+  //   const [socialMediaPlatforms, setPlatforms] = useState([])
 
   const [open, setOpen] = useState(false);
   const [msg, setMessage] = useState("");
 
   const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
-//   useEffect(() => {
-//     axios.get(baseUrl + "/get_category").then((response) => {
-//       setCategoriesOptions(response?.data?.data);
-//     });
-//     axios.get(baseUrl + "/get_all_social_media_platforms").then((response) => {
-//       setPlatforms(response?.data.data)
-//     })
-//   }, []);
+  //   useEffect(() => {
+  //     axios.get(baseUrl + "/get_category").then((response) => {
+  //       setCategoriesOptions(response?.data?.data);
+  //     });
+  //     axios.get(baseUrl + "/get_all_social_media_platforms").then((response) => {
+  //       setPlatforms(response?.data.data)
+  //     })
+  //   }, []);
   const formik = useFormik({
     initialValues: {
-      first_name: first_name ,
+      first_name: first_name,
       last_name: last_name,
       email: email,
       phone: phone,
       artist_name: artist_name,
       description: description,
       categories: categories,
-    //   country: country,
-      social_media_links: socialLinks
+      //   country: country,
+      social_media_links: socialLinks,
     },
     validationSchema: UpdateMusicCreatorSchema,
     onSubmit: (data) => {
       handleSubmit(data);
     },
     enableReinitialize: true,
-    validateOnChange: false
+    validateOnChange: false,
   });
   const handleSubmit = (data) => {
     // let catIdArray = [];
@@ -96,9 +87,11 @@ export const UpdateMusicCreator = (props) => {
         formData.append(key, data[key]);
       }
     });
-    const mediaLinks = data?.social_media_links?.map(link => ({ [link.platformName]: link?.value }))
-    formData.append("social_media_links", JSON.stringify(mediaLinks))
-    console.log("inhandle submit", formData)
+    const mediaLinks = data?.social_media_links?.map((link) => ({
+      [link.platformName]: link?.value,
+    }));
+    formData.append("social_media_links", JSON.stringify(mediaLinks));
+    console.log("inhandle submit", formData);
     axios
       .post(baseUrl + "/update_music_creator", formData, {
         headers: {
@@ -123,7 +116,7 @@ export const UpdateMusicCreator = (props) => {
       ? setUploadProfilePicture(event?.currentTarget?.files[0])
       : setUploadMusicFile(event?.currentTarget?.files[0]);
   };
-  console.log('formni',formik.errors)
+  console.log("formni", formik.errors);
   return (
     <FormikProvider value={formik}>
       <form autoComplete="off" noValidate onSubmit={formik.handleSubmit}>
@@ -279,28 +272,24 @@ export const UpdateMusicCreator = (props) => {
               Social Media Links
             </Typography>
             <Grid container spacing={3}>
-              <FieldArray
-                validateOnChange={false}
-                name="social_media_links">
+              <FieldArray validateOnChange={false} name="social_media_links">
                 <>
-                  {
-                    formik.values.social_media_links.map((platform, index) => {
-                      return (
-                        <Grid key={index} item md={6} xs={12}>
-                          <Field name={`social_media_links.${index}.value`}>
-                            {({ field }) => (
-                              <TextField
-                                fullWidth
-                                label={platform.platformName}
-                                variant="outlined"
-                                {...field}
-                              />
-                            )}
-                          </Field>
-                        </Grid>
-                      )
-                    })
-                  }
+                  {formik.values.social_media_links.map((platform, index) => {
+                    return (
+                      <Grid key={index} item md={6} xs={12}>
+                        <Field name={`social_media_links.${index}.value`}>
+                          {({ field }) => (
+                            <TextField
+                              fullWidth
+                              label={platform.platform}
+                              variant="outlined"
+                              {...field}
+                            />
+                          )}
+                        </Field>
+                      </Grid>
+                    );
+                  })}
                 </>
 
                 {/* )} */}
