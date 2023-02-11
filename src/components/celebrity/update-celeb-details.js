@@ -24,7 +24,7 @@ import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import { baseUrl } from "../../constants/api";
 import { Field, FieldArray, FormikProvider, useFormik } from "formik";
-import { createCelebritySchema } from "../../utils/validators";
+import { createCelebritySchema, UpdateCelebritySchema } from "../../utils/validators";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Router } from "next/router";
@@ -35,48 +35,6 @@ import { removeItemAtIndex } from "../../utils/arrayUtils";
 // validation message check,
 // catergory validation
 
-// {
-//   "user_id": "88",
-//   "first_name,": "Noah",
-//   "last_name,": "Kahan",
-//   "email,": "noahkahan@gmail.com",
-//   "phone,": "3146777678",
-//   "role,": "Celebrity",
-//   "title,": "Noah Kahan",
-//   "tag_line,": "Pop / Folk",
-//   "short_description,": "As Noah Kahan changes, he casts those experiences onto songs like light through a film projector. At the core of the music’s upbeat energy and unfiltered lyrics, you’ll hear who he was before and who he became — almost in real-time. The Vermont singer still pens songs straight from the heart and still cracks jokes with his signature, self-deprecating sense of humor; he’s just changed in all of the right ways (and chronicled them via his songwriting). He gained that understanding through quite the journey from small town Vermont to global renown. He’s racked up over one billion streams, released two full length albums (Busyhead, 2019 and I Was/I Am, 2021) and a mid-pandemic EP (Cape Elizabeth, 2020), picked up a Gold Certification for “Hurt Somebody” feat. Julia Michaels, and performed on television shows such as The Late Show with Stephen Colbert, Late Night with Seth Meyers, and TODAY. Not to mention, he’s collaborated with everyone from Joy Oladokun to Chelsea Cutler to mxmtoon to Quinn XCII to Gryffin. After 5 years of critical acclaim and global touring, he sought an even purer style of writing and arrangement, a challenge from within to convey a vivid representation of what he loves, fears, and struggles with most passionately. Now, Noah continues to progress on his 2022 singles “Stick Season” and “Northern Attitude,” taken from his highly anticipated new album Stick Season out now.",
-//   "long_description,": "As Noah Kahan changes, he casts those experiences onto songs like light through a film projector. At the core of the music’s upbeat energy and unfiltered lyrics, you’ll hear who he was before and who he became — almost in real-time. The Vermont singer still pens songs straight from the heart and still cracks jokes with his signature, self-deprecating sense of humor; he’s just changed in all of the right ways (and chronicled them via his songwriting). He gained that understanding through quite the journey from small town Vermont to global renown. He’s racked up over one billion streams, released two full length albums (Busyhead, 2019 and I Was/I Am, 2021) and a mid-pandemic EP (Cape Elizabeth, 2020), picked up a Gold Certification for “Hurt Somebody” feat. Julia Michaels, and performed on television shows such as The Late Show with Stephen Colbert, Late Night with Seth Meyers, and TODAY. Not to mention, he’s collaborated with everyone from Joy Oladokun to Chelsea Cutler to mxmtoon to Quinn XCII to Gryffin. After 5 years of critical acclaim and global touring, he sought an even purer style of writing and arrangement, a challenge from within to convey a vivid representation of what he loves, fears, and struggles with most passionately. Now, Noah continues to progress on his 2022 singles “Stick Season” and “Northern Attitude,” taken from his highly anticipated new album Stick Season out now.",
-//   "price,": "500",
-//   "is_featured,": "",
-//   "bank_account_name,": "Test Account",
-//   "bank_account_number,": "3216553766",
-//   "bank_name,": "Test Bank",
-//   "bank_address,": "USA",
-//   "paypal_id,": null,
-//   "added_date,": "2023-01-13 10:27:57",
-//   "updated_date,": null,
-//   "categories,": "Pop, Hiphop",
-//   "images,": [],
-//   "w9form,": "http://s3-us-west-2.amazonaws.com/reacted/w9_form/_1673605677?X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAY4GBF6Z3MMICD4H7%2F20230208%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230208T115519Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Signature=51f66f431aba37bfda0292da68b3d1524d06fe22070a1df8269a8dccfaf8994b",
-//   "social_media_links,": "\"[{\\\"Youtube\\\":\\\"https:\\/\\/www.youtube.com\\/@NoahKahan\\\"},{\\\"Spotify\\\":\\\"https:\\/\\/open.spotify.com\\/artist\\/2RQXRUsr4IW1f3mKyKsy4B\\\"},{\\\"Apple Music\\\":\\\"\\\"},{\\\"Tiktok\\\":\\\"https:\\/\\/www.tiktok.com\\/@noahkahanmusic?lang=en\\\"},{\\\"Instagram\\\":\\\"https:\\/\\/www.instagram.com\\/noahkahanmusic\\/?hl=en\\\"}]\""
-// }
-
-// const getSocialMediaLinks = (links) => {
-//   try {
-//     const convert = JSON.parse(links);
-//     const keyValuePair = JSON.parse(convert).map((link) => {
-//       const key = Object.keys(link)[0] ?? "";
-//       return { platform: key, url: link[key] };
-//     });
-//     const socialLinksArr = keyValuePair.filter((kp) => kp.url !== "");
-//     return socialLinksArr.map((p) => ({
-//       platformName: p.platform_name,
-//       value: p.url,
-//     }));
-//   } catch (error) {
-//     // console.log('error', error);
-//   }
-// };
 
 export const UpdateCeleberityDetails = (props) => {
   
@@ -108,8 +66,8 @@ export const UpdateCeleberityDetails = (props) => {
 
   const {socialLinks = []} = props;
 
-  const [categoriesOptions, setCategoriesOptions] = useState([]);
-  const [selectedCategories, setSelectedCategories] = useState();
+  // const [categoriesOptions, setCategoriesOptions] = useState([]);
+  // const [selectedCategories, setSelectedCategories] = useState();
   // const [uploadProfilePicturecategoriesOptions, setUploadProfilePicture] = useState([]);
   const [severity, setSeverity] = useState("success");
 
@@ -126,7 +84,6 @@ export const UpdateCeleberityDetails = (props) => {
 
   // const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
   // const checkedIcon = <CheckBoxIcon fontSize="small" />;
-
 
   const formik = useFormik({
     initialValues: {
@@ -150,10 +107,9 @@ export const UpdateCeleberityDetails = (props) => {
       bank_address: bank_address,
       social_media_links: socialLinks,
     },
-    validationSchema: createCelebritySchema,
+    validationSchema: UpdateCelebritySchema,
     onSubmit: (data) => {
       handleSubmit(data);
-      console.log(data);
     },
     enableReinitialize: true,
     validateOnChange: true,
@@ -165,9 +121,10 @@ export const UpdateCeleberityDetails = (props) => {
     //   catIdArray.push(cat.category_id);
     // });
     // data.categories = catIdArray.join(",");
-    uploadProfilePicture.forEach((pic, i) => {
-      data[`profile_picture[${i}]`] = pic;
-    });
+
+    // uploadProfilePicture.forEach((pic, i) => {
+    //   data[`profile_picture[${i}]`] = pic;
+    // });
     // data['profile_picture[0]'] = uploadProfilePicture;
     let formData = new FormData();
 
@@ -176,6 +133,7 @@ export const UpdateCeleberityDetails = (props) => {
         formData.append(key, data[key]);
       }
     });
+    console.log("in handle submit", formData);
     const mediaLinks = data.social_media_links.map((link) => ({ [link.platformName]: link.value }));
     formData.append("social_media_links", JSON.stringify(mediaLinks));
     formData.append('celebrity_id', user_id ?? '');
@@ -210,6 +168,7 @@ export const UpdateCeleberityDetails = (props) => {
   //   const targetFilesObject = [...targetFiles, ...uploadProfilePicture];
   //   setUploadProfilePicture(targetFilesObject);
   // };
+
   // const removeImage = (index) => {
   //   const remove = removeItemAtIndex(uploadProfilePicture, index);
   //   setUploadProfilePicture(remove);
@@ -605,30 +564,6 @@ export const UpdateCeleberityDetails = (props) => {
           ) : null}
 
           <Divider />
-
-          {/* <CardContent>
-            <Typography sx={{ mb: 3 }} variant="h6">
-              Genre
-            </Typography>
-            <Grid container spacing={3}>
-              <Grid item md={6} xs={12}>
-                <FormControlLabel control={<Checkbox name="genere" value="Pop" />} label="Pop" />
-                <FormControlLabel
-                  control={<Checkbox name="genere" value="Electronic" />}
-                  label="Electronic"
-                />
-                <FormControlLabel
-                  control={<Checkbox name="genere" value="Hip Hop" />}
-                  label="Hip Hop"
-                />
-                <FormControlLabel
-                  control={<Checkbox name="genere" value="Country" />}
-                  label="Country"
-                />
-                <FormControlLabel control={<Checkbox name="genere" value="Latin" />} label="Latin" />
-              </Grid>
-            </Grid>
-          </CardContent> */}
 
           <Box
             sx={{

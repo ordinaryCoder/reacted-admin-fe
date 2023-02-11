@@ -7,32 +7,37 @@ import { baseUrl } from "../../../constants/api";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { UpdateCeleberityDetails } from "../../../components/celebrity/update-celeb-details";
+import { UpdateMusicCreator } from "../../../components/music-creator/update-music-creator";
 
 const Page = () => {
   const [celeb, setCeleb] = useState();
+  const [musicCreatorDetails, setMusicCreatorDetails] = useState();
   const { query } = useRouter();
+  console.log(query);
   const [loader, setLoader] = useState(true);
   const [socialLinks, setSocialLinks] = useState([]);
 
   const fetchSocialMediaPlatforms = (platformsData, social_media_links = []) => {
     console.log("inside social media", platformsData, social_media_links);
     try {
-      const convert = JSON.parse(social_media_links ?? "");
-      const keyValuePair = JSON.parse(convert).map((link) => {
-        const key = Object.keys(link)[0] ?? "";
-        return { platform: key, url: link[key], value: link[key] };
-      });
-
-      const socialMediaLinks = [];
-      const socialMediaMaster = platformsData?.data?.data || [];
-      socialMediaMaster.forEach((s) => {
-        if (s.status === "Active") {
-          const valueMap = keyValuePair.find((m) => m.platform === s.platform_name);
-          if (valueMap) {
-            socialMediaLinks.push(valueMap);
+      if(social_media_links){
+        const convert = JSON.parse(social_media_links ?? "");
+        const keyValuePair = JSON.parse(convert).map((link) => {
+          const key = Object.keys(link)[0] ?? "";
+          return { platform: key, url: link[key], value: link[key] };
+        });
+  
+        const socialMediaLinks = [];
+        const socialMediaMaster = platformsData?.data?.data || [];
+        socialMediaMaster.forEach((s) => {
+          if (s.status === "Active") {
+            const valueMap = keyValuePair.find((m) => m.platform === s.platform_name);
+            if (valueMap) {
+              socialMediaLinks.push(valueMap);
+            }
           }
-        }
-      });
+        });
+      }
       setSocialLinks(socialMediaLinks);
     } catch (error) {
       console.log("error", error);
@@ -40,21 +45,41 @@ const Page = () => {
     }
   };
 
-  const getCeleb = async () => {
+  const getUserDetails = async () => {
     if (query && query.userid) {
-      const celebDetails = await axios.get(baseUrl + `/get_celebrity?celebrity_id=${query.userid}`);
-      const platformsData = await axios.get(baseUrl + "/get_all_social_media_platforms");
 
-      Promise.all([celebDetails, platformsData]).then((responses) => {
-        fetchSocialMediaPlatforms(platformsData, celebDetails?.data?.data[0]?.social_media_links);
-        setCeleb(celebDetails?.data?.data[0]);
-        setLoader(false);
-      });
+      if (query.user.toUpperCase() === "CELEBRITY") {
+        const celebDetails = await axios.get(
+          baseUrl + `/get_celebrity?celebrity_id=${query.userid}`
+        );
+        const platformsData = await axios.get(baseUrl + "/get_all_social_media_platforms");
+
+        Promise.all([celebDetails, platformsData]).then((responses) => {
+          fetchSocialMediaPlatforms(platformsData, celebDetails?.data?.data[0]?.social_media_links);
+          setCeleb(celebDetails?.data?.data[0]);
+          setLoader(false);
+        });
+      }
+      if (query.user.toUpperCase() === "MUSIC-CREATOR") {
+        const musicCreatorDetails = await axios.get(
+          baseUrl + `/get_music_creator?music_creator_id=${query.userid}`
+        );
+        const platformsData = await axios.get(baseUrl + "/get_all_social_media_platforms");
+
+        Promise.all([musicCreatorDetails, platformsData]).then((responses) => {
+          fetchSocialMediaPlatforms(
+            platformsData,
+            musicCreatorDetails?.data?.data[0]?.social_media_links
+          );
+          setMusicCreatorDetails(musicCreatorDetails?.data?.data[0]);
+          setLoader(false);
+        });
+      }
     }
   };
 
   useEffect(() => {
-    getCeleb();
+    getUserDetails();
   }, [query]);
 
   return (
@@ -70,18 +95,45 @@ const Page = () => {
         }}
       >
         <Container maxWidth="lg">
-          <Typography sx={{ mb: 3 }} variant="h4">
-            Update {celeb && `${celeb?.first_name} ${celeb?.last_name}`} Profile Details
-          </Typography>
-          <Grid container spacing={2}>
-            <Grid item lg={12} md={12} xs={12}>
-              {!loader && celeb ? (
-                <UpdateCeleberityDetails socialLinks={socialLinks} userDetails={celeb} />
-              ) : (
-                <>Loading.....</>
-              )}
-            </Grid>
-          </Grid>
+          {query.user.toUpperCase() === "CELEBRITY" && (
+            <>
+              <Typography sx={{ mb: 3 }} variant="h4">
+                Update {celeb && `${celeb?.first_name} ${celeb?.last_name}`} Profile Details
+              </Typography>
+              <Grid container spacing={2}>
+                <Grid item lg={12} md={12} xs={12}>
+                  {!loader && celeb ? (
+                    <UpdateCeleberityDetails socialLinks={socialLinks} userDetails={celeb} />
+                  ) : (
+                    <>Loading.....</>
+                  )}
+                </Grid>
+              </Grid>
+            </>
+          )}
+
+          {query.user.toUpperCase() === "MUSIC-CREATOR" && (
+            <>
+              <Typography sx={{ mb: 3 }} variant="h4">
+                Update{" "}
+                {musicCreatorDetails &&
+                  `${musicCreatorDetails?.first_name} ${musicCreatorDetails?.last_name}`}{" "}
+                Profile Details
+              </Typography>
+              <Grid container spacing={2}>
+                <Grid item lg={12} md={12} xs={12}>
+                  {!loader && musicCreatorDetails ? (
+                    <UpdateMusicCreator
+                      socialLinks={socialLinks}
+                      userDetails={musicCreatorDetails}
+                    />
+                  ) : (
+                    <>Loading.....</>
+                  )}
+                </Grid>
+              </Grid>
+            </>
+          )}
         </Container>
       </Box>
     </>

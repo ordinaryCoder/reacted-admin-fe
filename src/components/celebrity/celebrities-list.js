@@ -80,8 +80,8 @@ export const CelebrityList = (props) => {
                     <Stack direction="row">
                       <Link
                         href={{
-                          pathname: "/update/[user]/[userid]",
-                          query: { user: cat?.role, userid: cat?.user_id },
+                          pathname: "/update/[role]/[userid]",
+                          query: { role: 'celebrity', userid: cat?.user_id },
                         }}
                       >
                         <IconButton aria-label="ViewDetails" color="primary" size="small">

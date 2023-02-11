@@ -25,6 +25,7 @@ import { TikTokIcon } from "../../icons/tik-tok";
 import { AppleMusicIcon } from "../../icons/apple-music";
 import { SpotifyIcon } from "../../icons/spotify";
 import { SocialLinks } from "../SocialTile";
+import Link from "next/link";
 
 export const MusicCreatorsList = ({ musicCreatorsList }) => {
   return (
@@ -75,10 +76,17 @@ export const MusicCreatorsList = ({ musicCreatorsList }) => {
                   </TableCell>
                   <TableCell>
                     <Stack direction="row">
-                      <IconButton aria-label="Facebook" color="primary" size="small">
-                        <VisibilityIcon color="primary" />
-                      </IconButton>
-                      <IconButton aria-label="Instagram" color="error" size="small">
+                    <Link
+                        href={{
+                          pathname: "/update/[role]/[userid]",
+                          query: { role: 'music-creator', userid: creator?.user_id },
+                        }}
+                      >
+                        <IconButton aria-label="ViewDetails" color="primary" size="small">
+                          <VisibilityIcon color="primary" />
+                        </IconButton>
+                      </Link>
+                      <IconButton aria-label="deactivate" color="error" size="small">
                         <DeleteIcon />
                       </IconButton>
                     </Stack>
