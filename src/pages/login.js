@@ -1,36 +1,50 @@
-import Head from 'next/head';
-import NextLink from 'next/link';
-import Router from 'next/router';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import { Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/material';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Facebook as FacebookIcon } from '../icons/facebook';
-import { Google as GoogleIcon } from '../icons/google';
-import axios from 'axios';
-import { baseUrl } from '../constants/api';
+import Head from "next/head";
+import { useRouter } from "next/router";
+import NextLink from "next/link";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { Box, Button, Container, Link, TextField, Typography, useTheme } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import axios from "axios";
+import { baseUrl } from "../constants/api";
+import { Logo } from "../components/logo";
 
 const Login = () => {
+  const router = useRouter();
+  const theme = useTheme();
+  const validationSchema = Yup.object({
+    email: Yup.string().email("Must be a valid email").max(255).required("Email is required"),
+    password: Yup.string().max(255).required("Password is required"),
+  });
+
+  const handleSubmit = async (data) => {
+    try {
+      const { email, password } = data;
+      const res = await axios.post(`${baseUrl}/login/`, data, {
+        params: {
+          email,
+          password,
+        },
+      });
+      localStorage.setItem('access-key', JSON.stringify(res.data.data[0].access_token));
+      if(localStorage.getItem('access-key')) {
+        router.push('/');
+      } else {
+        alert("Something went wrong, please try again later")
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const formik = useFormik({
     initialValues: {
-      email: 'demo@devias.io',
-      password: 'Password123'
+      email: "",
+      password: "",
     },
-    validationSchema: Yup.object({
-      email: Yup
-        .string()
-        .email('Must be a valid email')
-        .max(255)
-        .required('Email is required'),
-      password: Yup
-        .string()
-        .max(255)
-        .required('Password is required')
-    }),
+    validationSchema: validationSchema,
     onSubmit: (data) => {
-      console.log(data);
       handleSubmit(data);
-    }
+    },
   });
 
   return (
@@ -41,89 +55,39 @@ const Login = () => {
       <Box
         component="main"
         sx={{
-          alignItems: 'center',
-          display: 'flex',
+          alignItems: "center",
+          display: "flex",
           flexGrow: 1,
-          minHeight: '100%'
+          minHeight: "100%",
         }}
       >
-        <Container maxWidth="sm">
-          <NextLink
-            href="/"
-            passHref
-          >
+        <Container
+          maxWidth="sm"
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            backgroundColor: theme.palette.background.light,
+            py: 5,
+            px: 3,
+            borderRadius: 2,
+            boxShadow: 3,
+          }}
+        >
+          <Logo sx={{}} />
+          <NextLink href="/" passHref>
             <Button
+              sx={{ ml: 2, alignSelf: "flex-start" }}
               component="a"
               startIcon={<ArrowBackIcon fontSize="small" />}
             >
               Dashboard
             </Button>
           </NextLink>
-          <form onSubmit={formik.handleSubmit}>
-            <Box sx={{ my: 3 }}>
-              <Typography
-                color="textPrimary"
-                variant="h4"
-              >
+          <form onSubmit={formik.handleSubmit} sx={{ bgcolor: "text.secondary" }}>
+            <Box sx={{ my: 1 }}>
+              <Typography color="textPrimary" variant="h4">
                 Sign in
-              </Typography>
-              <Typography
-                color="textSecondary"
-                gutterBottom
-                variant="body2"
-              >
-                Sign in on the internal platform
-              </Typography>
-            </Box>
-            <Grid
-              container
-              spacing={3}
-            >
-              <Grid
-                item
-                xs={12}
-                md={6}
-              >
-                <Button
-                  color="info"
-                  fullWidth
-                  startIcon={<FacebookIcon />}
-                  onClick={() => formik.handleSubmit()}
-                  size="large"
-                  variant="contained"
-                >
-                  Login with Facebook
-                </Button>
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                md={6}
-              >
-                <Button
-                  color="error"
-                  fullWidth
-                  onClick={() => formik.handleSubmit()}
-                  size="large"
-                  startIcon={<GoogleIcon />}
-                  variant="contained"
-                >
-                  Login with Google
-                </Button>
-              </Grid>
-            </Grid>
-            <Box
-              sx={{
-                pb: 1,
-                pt: 3
-              }}
-            >
-              <Typography
-                align="center"
-                color="textSecondary"
-                variant="body1"
-              >
-                or login with email address
               </Typography>
             </Box>
             <TextField
@@ -164,27 +128,6 @@ const Login = () => {
                 Sign In Now
               </Button>
             </Box>
-            <Typography
-              color="textSecondary"
-              variant="body2"
-            >
-              Don&apos;t have an account?
-              {' '}
-              <NextLink
-                href="/register"
-              >
-                <Link
-                  to="/register"
-                  variant="subtitle2"
-                  underline="hover"
-                  sx={{
-                    cursor: 'pointer'
-                  }}
-                >
-                  Sign Up
-                </Link>
-              </NextLink>
-            </Typography>
           </form>
         </Container>
       </Box>
