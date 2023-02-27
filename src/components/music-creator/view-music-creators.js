@@ -22,7 +22,14 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import DeleteIcon from "@mui/icons-material/Delete";
 
+import { TikTokIcon } from "../../icons/tik-tok";
+import { AppleMusicIcon } from "../../icons/apple-music";
+import { SpotifyIcon } from "../../icons/spotify";
+import { SocialLinks } from "../SocialTile";
+import Link from "next/link";
+
 export const MusicCreatorsList = ({ musicCreatorsList }) => {
+  const router = useRouter()
   return (
     <Card>
       <PerfectScrollbar>
@@ -59,22 +66,11 @@ export const MusicCreatorsList = ({ musicCreatorsList }) => {
                       {creator.first_name} {creator.last_name}
                     </Box>
                   </TableCell>
-                  <TableCell>{creator.artist_name | creator.first_name}</TableCell>
+                  <TableCell>{creator?.artist_name ?? ""}</TableCell>
                   <TableCell>{creator.email} </TableCell>
                   <TableCell>
                     <Stack direction="row">
-                      <IconButton aria-label="Facebook" size="small">
-                        <FacebookIcon color="primary" />
-                      </IconButton>
-                      <IconButton aria-label="Instagram" color="secondary" size="small">
-                        <InstagramIcon />
-                      </IconButton>
-                      <IconButton color="error" aria-label="Youtube" size="small">
-                        <YouTubeIcon />
-                      </IconButton>
-                      <IconButton color="primary" aria-label="LinkedIn" size="small">
-                        <LinkedInIcon color="primary" />
-                      </IconButton>
+                      <SocialLinks links={creator?.social_media_links} />
                     </Stack>
                   </TableCell>
                   <TableCell>
@@ -82,11 +78,21 @@ export const MusicCreatorsList = ({ musicCreatorsList }) => {
                   </TableCell>
                   <TableCell>
                     <Stack direction="row">
-                      <IconButton aria-label="Facebook" color="primary" size="small">
-                        <VisibilityIcon color="primary" />
-                      </IconButton>
-                      <IconButton aria-label="Instagram" color="error" size="small">
+                    <Link
+                        href={{
+                          pathname: "/update/[role]/[userid]",
+                          query: { role: 'music-creator', userid: creator?.user_id },
+                        }}
+                      >
+                        <IconButton aria-label="ViewDetails" color="primary" size="small">
+                          <VisibilityIcon color="primary" />
+                        </IconButton>
+                      </Link>
+                      <IconButton aria-label="deactivate" color="error" size="small">
                         <DeleteIcon />
+                      </IconButton>
+                      <IconButton onClick={()=>router.push(`/create-music-creator?edit=true&userId=${creator.user_id}`)} aria-label="delete" color="warning" size="small">
+                        <EditOutlined />
                       </IconButton>
                     </Stack>
                   </TableCell>
