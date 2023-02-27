@@ -1,38 +1,74 @@
-import { Alert, Box, Button, Container, Snackbar, TextField, Typography } from '@mui/material';
-import axios from 'axios';
-import { useFormik } from 'formik';
-import Head from 'next/head';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
-import * as Yup from 'yup';
-import { loginUrl } from '../constants/api';
-import { useAuth } from '../contexts/auth-context';
+import Head from "next/head";
+import { useRouter } from "next/router";
+import NextLink from "next/link";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { Box, Button, Container, Link, TextField, Typography, useTheme } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import axios from "axios";
+import { baseUrl } from "../constants/api";
+import { Logo } from "../components/logo";
+import  useAuth  from "../contexts/auth-context";
+import { useEffect } from "react";
 
 const Login = () => {
-  const { replace } = useRouter()
-  const [severity, setSeverity] = useState("info");
-  const [open, setOpen] = useState(false);
-  const [msg, setMessage] = useState("");
-  const { signin } = useAuth()
+  const router = useRouter();
+  const theme = useTheme();
+
+  const { signIn,loading } = useAuth();
+  const validationSchema = Yup.object({
+    email: Yup.string().email("Must be a valid email").max(255).required("Email is required"),
+    password: Yup.string().max(255).required("Password is required"),
+  });
+
+  useEffect(() => {
+    const access_key = localStorage.getItem("access_key");
+    const role_id = localStorage.getItem("role_id");
+    if (access_key && role_id) {
+      router.replace("/");
+    } else
+      router.replace("/login");
+  }, []);
+  
+
+  const handleSubmit = async (data) => {
+    try {
+      const { email, password } = data;
+      const response = await axios.post(`${baseUrl}/login`,data, {
+        params: {
+          email,
+          password,
+        },
+      });
+      if (response.status === 200 && response.data.success) {
+        console.log("Logging in");
+        const userData = {
+          name: response.data?.data[0].first_name,
+          email: response.data.data[0].email,
+          userId: response.data.data[0].user_id,
+          access_token: response.data.data[0].access_token,
+          role_id: response.data.data[0].role_id,
+          role_id1: response.data.data[0].role_id1,
+          phone: response.data.data[0].phone,
+        }
+        signIn(userData);
+        router.replace("/");
+      } else {
+        console.log("Login Failed");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const formik = useFormik({
     initialValues: {
-      email: '',
-      password: ''
+      email: "",
+      password: "",
     },
-    validationSchema: Yup.object({
-      email: Yup
-        .string()
-        .email('Must be a valid email')
-        .max(255)
-        .required('Email is required'),
-      password: Yup
-        .string()
-        .max(255)
-        .required('Password is required')
-    }),
+    validationSchema: validationSchema,
     onSubmit: (data) => {
-      loginUser(data);
-    }
+      handleSubmit(data);
+    },
   });
   const loginUser = (data) => {
     axios.post(`${loginUrl}?email=${data.email}&password=${data.password}`)
@@ -59,32 +95,47 @@ const Login = () => {
   }
   return (
     <>
+      {loading && <div>Loading...</div>}
       <Head>
         <title>Login | Reacted</title>
       </Head>
       <Box
         component="main"
         sx={{
-          alignItems: 'center',
-          display: 'flex',
+          alignItems: "center",
+          display: "flex",
           flexGrow: 1,
-          minHeight: '100%'
+          minHeight: "100%",
         }}
       >
-        <Container maxWidth="sm">
-          <form onSubmit={formik.handleSubmit}>
-            <Box
-              sx={{
-                pb: 1,
-                pt: 3
-              }}
+
+        <Container
+          maxWidth="sm"
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            backgroundColor: theme.palette.background.light,
+            py: 5,
+            px: 3,
+            borderRadius: 2,
+            boxShadow: 3,
+          }}
+        >
+          <Logo sx={{}} />
+          <NextLink href="/" passHref>
+            <Button
+              sx={{ ml: 2, alignSelf: "flex-start" }}
+              component="a"
+              startIcon={<ArrowBackIcon fontSize="small" />}
             >
-              <Typography
-                align="center"
-                color="HighlightText"
-                variant="h4"
-              >
-                Admin Login
+              Dashboard
+            </Button>
+          </NextLink>
+          <form onSubmit={formik.handleSubmit} sx={{ bgcolor: "text.secondary" }}>
+            <Box sx={{ my: 1 }}>
+              <Typography color="textPrimary" variant="h4">
+                Sign in
               </Typography>
             </Box>
             <TextField

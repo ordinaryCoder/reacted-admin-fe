@@ -153,7 +153,8 @@ export const theme = createTheme({
     },
     background: {
       default: '#F9FAFC',
-      paper: '#FFFFFF'
+      paper: '#FFFFFF',
+      light:'#F1F6F5',
     },
     divider: '#E6E8F0',
     primary: {
