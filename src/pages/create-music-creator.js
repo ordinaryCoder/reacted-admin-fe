@@ -19,7 +19,7 @@ import { CreateMusicCreator } from "../components/music-creator/create-music-cre
 
 
 const Page = () => (
-  
+
   <>
     <Head>
       <title>Create Music Creator | Reacted</title>
@@ -33,16 +33,16 @@ const Page = () => (
     >
       <Container maxWidth="lg">
         <Typography sx={{ mb: 3 }}
-variant="h4">
+          variant="h4">
           Music Creator
         </Typography>
         <Grid container
-spacing={2}>
+          spacing={2}>
           <Grid item
-lg={12}
-md={12}
-xs={12}>
-            <CreateMusicCreator />            
+            lg={12}
+            md={12}
+            xs={12}>
+            <CreateMusicCreator />
           </Grid>
         </Grid>
       </Container>

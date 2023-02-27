@@ -21,6 +21,7 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import DeleteIcon from "@mui/icons-material/Delete";
+
 import { TikTokIcon } from "../../icons/tik-tok";
 import { AppleMusicIcon } from "../../icons/apple-music";
 import { SpotifyIcon } from "../../icons/spotify";
@@ -28,6 +29,7 @@ import { SocialLinks } from "../SocialTile";
 import Link from "next/link";
 
 export const MusicCreatorsList = ({ musicCreatorsList }) => {
+  const router = useRouter()
   return (
     <Card>
       <PerfectScrollbar>
@@ -64,7 +66,7 @@ export const MusicCreatorsList = ({ musicCreatorsList }) => {
                       {creator.first_name} {creator.last_name}
                     </Box>
                   </TableCell>
-                  <TableCell>{creator.artist_name | creator.first_name}</TableCell>
+                  <TableCell>{creator?.artist_name ?? ""}</TableCell>
                   <TableCell>{creator.email} </TableCell>
                   <TableCell>
                     <Stack direction="row">
@@ -88,6 +90,9 @@ export const MusicCreatorsList = ({ musicCreatorsList }) => {
                       </Link>
                       <IconButton aria-label="deactivate" color="error" size="small">
                         <DeleteIcon />
+                      </IconButton>
+                      <IconButton onClick={()=>router.push(`/create-music-creator?edit=true&userId=${creator.user_id}`)} aria-label="delete" color="warning" size="small">
+                        <EditOutlined />
                       </IconButton>
                     </Stack>
                   </TableCell>

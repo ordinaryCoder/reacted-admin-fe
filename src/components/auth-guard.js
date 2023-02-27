@@ -24,19 +24,19 @@ export const AuthGuard = (props) => {
       }
 
       ignore.current = true;
-      let isLoggedIn = localStorage.getItem('token')
+      let token = localStorage.getItem('reacted-admin-token')
 
-      // if (!isLoggedIn) {
-      //   console.log('Not authenticated, redirecting');
-      //   router
-      //     .replace({
-      //       pathname: '/login',
-      //       query: router.asPath !== '/' ? { continueUrl: router.asPath } : undefined
-      //     })
-      //     .catch(console.error);
-      // } else {
+      if (!token) {
+        console.log('Not authenticated, redirecting');
+        router
+          .replace({
+            pathname: '/login',
+            query: router.asPath !== '/' ? { continueUrl: router.asPath } : undefined
+          })
+          .catch(console.error);
+      } else {
         setChecked(true);
-     // }
+      }
     },
     [router.isReady]
   );

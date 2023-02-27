@@ -1,20 +1,23 @@
-import Head from 'next/head';
-import NextLink from 'next/link';
-import Router from 'next/router';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import { Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/material';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Facebook as FacebookIcon } from '../icons/facebook';
-import { Google as GoogleIcon } from '../icons/google';
+import { Alert, Box, Button, Container, Snackbar, TextField, Typography } from '@mui/material';
 import axios from 'axios';
-import { baseUrl } from '../constants/api';
+import { useFormik } from 'formik';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
+import * as Yup from 'yup';
+import { loginUrl } from '../constants/api';
+import { useAuth } from '../contexts/auth-context';
 
 const Login = () => {
+  const { replace } = useRouter()
+  const [severity, setSeverity] = useState("info");
+  const [open, setOpen] = useState(false);
+  const [msg, setMessage] = useState("");
+  const { signin } = useAuth()
   const formik = useFormik({
     initialValues: {
-      email: 'demo@devias.io',
-      password: 'Password123'
+      email: '',
+      password: ''
     },
     validationSchema: Yup.object({
       email: Yup
@@ -28,11 +31,32 @@ const Login = () => {
         .required('Password is required')
     }),
     onSubmit: (data) => {
-      console.log(data);
-      handleSubmit(data);
+      loginUser(data);
     }
   });
+  const loginUser = (data) => {
+    axios.post(`${loginUrl}?email=${data.email}&password=${data.password}`)
+      .then(res => {
+        if (res.data.success) {
+          console.log('push')
+          const token = res.data.data[0].access_token;
+          const user = res.data.data[0]
+          localStorage.setItem('reacted-admin-token', token)
+          signin(user, token)
+          setSeverity('success')
+          setMessage(res.data.message)
+          setOpen(true)
+          replace("/")
+        } else {
+          setOpen(true)
+          setSeverity('error')
+          setMessage(res.data.message)
+        }
+      })
+      .catch(err => {
 
+      })
+  }
   return (
     <>
       <Head>
@@ -48,70 +72,7 @@ const Login = () => {
         }}
       >
         <Container maxWidth="sm">
-          <NextLink
-            href="/"
-            passHref
-          >
-            <Button
-              component="a"
-              startIcon={<ArrowBackIcon fontSize="small" />}
-            >
-              Dashboard
-            </Button>
-          </NextLink>
           <form onSubmit={formik.handleSubmit}>
-            <Box sx={{ my: 3 }}>
-              <Typography
-                color="textPrimary"
-                variant="h4"
-              >
-                Sign in
-              </Typography>
-              <Typography
-                color="textSecondary"
-                gutterBottom
-                variant="body2"
-              >
-                Sign in on the internal platform
-              </Typography>
-            </Box>
-            <Grid
-              container
-              spacing={3}
-            >
-              <Grid
-                item
-                xs={12}
-                md={6}
-              >
-                <Button
-                  color="info"
-                  fullWidth
-                  startIcon={<FacebookIcon />}
-                  onClick={() => formik.handleSubmit()}
-                  size="large"
-                  variant="contained"
-                >
-                  Login with Facebook
-                </Button>
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                md={6}
-              >
-                <Button
-                  color="error"
-                  fullWidth
-                  onClick={() => formik.handleSubmit()}
-                  size="large"
-                  startIcon={<GoogleIcon />}
-                  variant="contained"
-                >
-                  Login with Google
-                </Button>
-              </Grid>
-            </Grid>
             <Box
               sx={{
                 pb: 1,
@@ -120,10 +81,10 @@ const Login = () => {
             >
               <Typography
                 align="center"
-                color="textSecondary"
-                variant="body1"
+                color="HighlightText"
+                variant="h4"
               >
-                or login with email address
+                Admin Login
               </Typography>
             </Box>
             <TextField
@@ -155,7 +116,7 @@ const Login = () => {
             <Box sx={{ py: 2 }}>
               <Button
                 color="primary"
-                disabled={formik.isSubmitting}
+                // disabled={formik.isSubmitting}
                 fullWidth
                 size="large"
                 type="submit"
@@ -164,30 +125,19 @@ const Login = () => {
                 Sign In Now
               </Button>
             </Box>
-            <Typography
-              color="textSecondary"
-              variant="body2"
-            >
-              Don&apos;t have an account?
-              {' '}
-              <NextLink
-                href="/register"
-              >
-                <Link
-                  to="/register"
-                  variant="subtitle2"
-                  underline="hover"
-                  sx={{
-                    cursor: 'pointer'
-                  }}
-                >
-                  Sign Up
-                </Link>
-              </NextLink>
-            </Typography>
           </form>
         </Container>
       </Box>
+      <Snackbar
+        open={open}
+        autoHideDuration={1000}
+        anchorOrigin={{ horizontal: "right", vertical: "top" }}
+        onClose={() => setOpen(false)}
+      >
+        <Alert sx={{ width: "100%", color: "#fff" }} variant="filled" severity={severity}>
+          {msg}
+        </Alert>
+      </Snackbar>
     </>
   );
 };
