@@ -1,5 +1,6 @@
 import { format } from 'date-fns';
 import { v4 as uuid } from 'uuid';
+import { useEffect, useState } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import {
   Box,
@@ -16,6 +17,10 @@ import {
 } from '@mui/material';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { SeverityPill } from '../severity-pill';
+import axios from 'axios';
+import { baseUrl } from '../../constants/api';
+import { useRouter } from 'next/router';
+
 
 const orders = [
   {
@@ -80,83 +85,112 @@ const orders = [
   }
 ];
 
-export const LatestOrders = (props) => (
-  <Card {...props}>
-    <CardHeader title="Latest Orders" />
-    <PerfectScrollbar>
-      <Box sx={{ minWidth: 800 }}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>
-                Order Ref
-              </TableCell>
-              <TableCell>
-                Customer
-              </TableCell>
-              <TableCell sortDirection="desc">
-                <Tooltip
-                  enterDelay={300}
-                  title="Sort"
-                >
-                  <TableSortLabel
-                    active
-                    direction="desc"
+export const LatestOrders = (props) => {
+  const [Orders, setOrders] = useState([])
+  const router = useRouter()
+  useEffect(() => {
+    axios.get(baseUrl + "/get_all_orders", {
+      headers: "Authorization:eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiNCIsIm5hbWUiOiJBYmhpc2hlayIsImVtYWlsIjoiYWJoaXJwb3RkYXJAZ21haWwuY29tIiwicm9sZV9pZCI6IjEiLCJBUElfVElNRSI6MTY3NzUwMDE1Mn0._6r_BOaQmlmylrlmmqCEJ8TY5FnT7PwWS8ONeqs2RGk",
+    }).then((response) => {
+      setOrders(response?.data?.data);
+      console.log("RESPONSE", response)
+    });
+    return (() => {
+      setOrders([])
+    })
+  }, []);
+  console.log("ORDERS :", Orders)
+  return (
+
+    <Card {...props}>
+      <CardHeader title="Latest Orders" />
+      <PerfectScrollbar>
+        <Box sx={{ minWidth: 800 }}>
+          {Orders?.length > 0 ? <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>
+                  Order Ref
+                </TableCell>
+                <TableCell>
+                  Customer
+                </TableCell>
+                <TableCell sortDirection="desc">
+                  <Tooltip
+                    enterDelay={300}
+                    title="Sort"
                   >
-                    Date
-                  </TableSortLabel>
-                </Tooltip>
-              </TableCell>
-              <TableCell>
-                Status
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {orders.map((order) => (
-              <TableRow
-                hover
-                key={order.id}
-              >
-                <TableCell>
-                  {order.ref}
+                    <TableSortLabel
+                      active
+                      direction="desc"
+                    >
+                      Date
+                    </TableSortLabel>
+                  </Tooltip>
                 </TableCell>
                 <TableCell>
-                  {order.customer.name}
+                  Status
                 </TableCell>
                 <TableCell>
-                  {format(order.createdAt, 'dd/MM/yyyy')}
-                </TableCell>
-                <TableCell>
-                  <SeverityPill
-                    color={(order.status === 'delivered' && 'success')
-                    || (order.status === 'refunded' && 'error')
-                    || 'warning'}
-                  >
-                    {order.status}
-                  </SeverityPill>
+                  View
                 </TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </Box>
-    </PerfectScrollbar>
-    <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'flex-end',
-        p: 2
-      }}
-    >
-      <Button
-        color="primary"
-        endIcon={<ArrowRightIcon fontSize="small" />}
-        size="small"
-        variant="text"
+            </TableHead>
+            <TableBody>
+              {Orders.map((order) => (
+                <TableRow
+                  hover
+                  key={order.id}
+                >
+                  <TableCell>
+                    {order.iOrderId}
+                  </TableCell>
+                  <TableCell>
+                    {`${order.vBillingFirstName} ${order.vBillingLastName}`}
+                  </TableCell>
+                  <TableCell>
+                    {/* {format(, 'dd/MM/yyyy')} */}
+                    {new Date(order.dtAddedDate).toLocaleDateString()}
+                  </TableCell>
+                  <TableCell>
+                    <SeverityPill
+                      color={(order.eOrderStatus === 'Completed' && 'success')
+                        || (order.eOrderStatus === 'Failed' && 'error')
+                        || 'warning'}
+                    >
+                      {order.eOrderStatus ?? "N.A."}
+                    </SeverityPill>
+                  </TableCell>
+                  <TableCell>
+                    <button onClick={() => {
+                      router.push(`orders/${order.iOrderId}`)
+                    }}>
+                      View Order
+                    </button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table> : <h3 style={{ textAlign: 'center' }}>No Orders Found</h3>}
+        </Box>
+      </PerfectScrollbar>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          p: 2
+        }}
       >
-        View all
-      </Button>
-    </Box>
-  </Card>
-);
+        <Button
+          color="primary"
+          endIcon={<ArrowRightIcon fontSize="small" />}
+          size="small"
+          variant="text"
+        >
+          View all
+        </Button>
+      </Box>
+    </Card>
+  )
+
+}

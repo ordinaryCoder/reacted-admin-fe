@@ -3,19 +3,19 @@ import { useRouter } from "next/router";
 import NextLink from "next/link";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { Box, Button, Container, Link, TextField, Typography, useTheme } from "@mui/material";
+import { Alert, Box, Button, Container, Link, Snackbar, TextField, Typography, useTheme } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import axios from "axios";
 import { baseUrl } from "../constants/api";
 import { Logo } from "../components/logo";
-import  useAuth  from "../contexts/auth-context";
+import useAuth from "../contexts/auth-context";
 import { useEffect } from "react";
 
 const Login = () => {
   const router = useRouter();
   const theme = useTheme();
 
-  const { signIn,loading } = useAuth();
+  const { signIn, loading } = useAuth();
   const validationSchema = Yup.object({
     email: Yup.string().email("Must be a valid email").max(255).required("Email is required"),
     password: Yup.string().max(255).required("Password is required"),
@@ -29,12 +29,12 @@ const Login = () => {
     } else
       router.replace("/login");
   }, []);
-  
+
 
   const handleSubmit = async (data) => {
     try {
       const { email, password } = data;
-      const response = await axios.post(`${baseUrl}/login`,data, {
+      const response = await axios.post(`${baseUrl}/login`, data, {
         params: {
           email,
           password,
@@ -179,7 +179,7 @@ const Login = () => {
           </form>
         </Container>
       </Box>
-      <Snackbar
+      {/* <Snackbar
         open={open}
         autoHideDuration={1000}
         anchorOrigin={{ horizontal: "right", vertical: "top" }}
@@ -188,7 +188,7 @@ const Login = () => {
         <Alert sx={{ width: "100%", color: "#fff" }} variant="filled" severity={severity}>
           {msg}
         </Alert>
-      </Snackbar>
+      </Snackbar> */}
     </>
   );
 };
