@@ -90,7 +90,7 @@ export const LatestOrders = (props) => {
   const router = useRouter()
   useEffect(() => {
     axios.get(baseUrl + "/get_all_orders", {
-      headers: "Authorization:eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiNCIsIm5hbWUiOiJBYmhpc2hlayIsImVtYWlsIjoiYWJoaXJwb3RkYXJAZ21haWwuY29tIiwicm9sZV9pZCI6IjEiLCJBUElfVElNRSI6MTY3NzUwMDE1Mn0._6r_BOaQmlmylrlmmqCEJ8TY5FnT7PwWS8ONeqs2RGk",
+      headers: `Authorization:${localStorage.getItem('access_token_reacted')}`
     }).then((response) => {
       setOrders(response?.data?.data);
       console.log("RESPONSE", response)
@@ -99,7 +99,6 @@ export const LatestOrders = (props) => {
       setOrders([])
     })
   }, []);
-  console.log("ORDERS :", Orders)
   return (
 
     <Card {...props}>
@@ -132,7 +131,7 @@ export const LatestOrders = (props) => {
                   Status
                 </TableCell>
                 <TableCell>
-                  View
+                  Action
                 </TableCell>
               </TableRow>
             </TableHead>
@@ -162,11 +161,11 @@ export const LatestOrders = (props) => {
                     </SeverityPill>
                   </TableCell>
                   <TableCell>
-                    <button onClick={() => {
+                    <Button onClick={() => {
                       router.push(`orders/${order.iOrderId}`)
                     }}>
                       View Order
-                    </button>
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))}
