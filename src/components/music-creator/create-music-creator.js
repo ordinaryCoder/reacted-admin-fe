@@ -97,11 +97,11 @@ export const CreateMusicCreator = (props) => {
     enableReinitialize: true,
     validateOnChange: false
   });
-  const handleSubmit = (data) => {
+  const handleSubmit = async (data) => {
     let catIdArray = [];
     let socialMediaLinksArray = [];
 
-    selectedCategories.map((cat) => {
+    selectedCategories?.map((cat) => {
       catIdArray.push(cat.category_id);
     });
     data.categories = catIdArray.join(",");
@@ -114,16 +114,18 @@ export const CreateMusicCreator = (props) => {
         formData.append(key, data[key]);
       }
     });
-    const mediaLinks = data.social_media_links.map(link => ({ [link.platformName]: link.value }))
+    const mediaLinks = data.social_media_links?.map(link => ({ [link.platformName]: link.value }))
     formData.append("social_media_links", JSON.stringify(mediaLinks))
 
     axios
-      .post(baseUrl + "/add_music_creator_by_admin", formData, {
+      .post(baseUrl + "/update_music_creator", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          'Authorization': `${localStorage.getItem('access_token_reacted')}`
         },
       })
       .then((response) => {
+        console.log('response', response)
         if (response.data.success) {
           setSeverity("success");
         } else {
@@ -133,7 +135,7 @@ export const CreateMusicCreator = (props) => {
         setMessage(response.data.message);
       })
       .catch((error) => {
-        console.log(response, "Could not add music creator");
+        console.log(error, "Could not add music creator");
       });
   };
   const handleChangeUpload = (event, type) => {

@@ -27,6 +27,8 @@ import { AppleMusicIcon } from "../../icons/apple-music";
 import { SpotifyIcon } from "../../icons/spotify";
 import { SocialLinks } from "../SocialTile";
 import Link from "next/link";
+import { useRouter } from 'next/router';
+import { EditOutlined } from '@mui/icons-material';
 
 export const MusicCreatorsList = ({ musicCreatorsList }) => {
   const router = useRouter()
@@ -78,7 +80,7 @@ export const MusicCreatorsList = ({ musicCreatorsList }) => {
                   </TableCell>
                   <TableCell>
                     <Stack direction="row">
-                    <Link
+                      <Link
                         href={{
                           pathname: "/update/[role]/[userid]",
                           query: { role: 'music-creator', userid: creator?.user_id },
@@ -91,7 +93,7 @@ export const MusicCreatorsList = ({ musicCreatorsList }) => {
                       <IconButton aria-label="deactivate" color="error" size="small">
                         <DeleteIcon />
                       </IconButton>
-                      <IconButton onClick={()=>router.push(`/create-music-creator?edit=true&userId=${creator.user_id}`)} aria-label="delete" color="warning" size="small">
+                      <IconButton onClick={() => router.push(`/create-music-creator?edit=true&userId=${creator.user_id}`)} aria-label="delete" color="warning" size="small">
                         <EditOutlined />
                       </IconButton>
                     </Stack>
