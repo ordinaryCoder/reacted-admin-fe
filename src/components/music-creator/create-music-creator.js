@@ -121,7 +121,7 @@ export const CreateMusicCreator = (props) => {
       .post(baseUrl + "/update_music_creator", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          'Authorization': `${localStorage.getItem('access_token_reacted')}`
+          'Authorization': `${localStorage.getItem('access_key')}`
         },
       })
       .then((response) => {

@@ -27,8 +27,8 @@ import { AppleMusicIcon } from "../../icons/apple-music";
 import { SpotifyIcon } from "../../icons/spotify";
 import { SocialLinks } from "../SocialTile";
 import Link from "next/link";
-import { useRouter } from 'next/router';
 import { EditOutlined } from '@mui/icons-material';
+import { useRouter } from 'next/router';
 
 export const MusicCreatorsList = ({ musicCreatorsList }) => {
   const router = useRouter()

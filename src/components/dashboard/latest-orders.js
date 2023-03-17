@@ -90,7 +90,7 @@ export const LatestOrders = (props) => {
   const router = useRouter()
   useEffect(() => {
     axios.get(baseUrl + "/get_all_orders", {
-      headers: `Authorization:${localStorage.getItem('access_token_reacted')}`
+      headers: `Authorization:${localStorage.getItem('access_key')}`
     }).then((response) => {
       setOrders(response?.data?.data);
       console.log("RESPONSE", response)
