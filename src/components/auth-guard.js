@@ -1,0 +1,30 @@
+import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/router";
+import PropTypes from "prop-types";
+import useAuth from '../contexts/auth-context';
+
+export const AuthGuard = (props) => {
+  const { children } = props;
+  const router = useRouter();
+  const { isLoggedIn } = useAuth();
+  const isAuth = useRef(false);
+  // Only do authentication check on component mount.
+  // This flow allows you to manually redirect the user after sign-out, otherwise this will be
+  // triggered and will automatically redirect to sign-in page.
+
+  useEffect(() => {
+    const access_key = localStorage.getItem("access_key");
+    const role_id = localStorage.getItem("role_id");
+    if (!access_key && !role_id) {
+      router.replace("/login");
+      isAuth.current = false
+    } else {
+      isAuth.current = true
+    }
+  }, [children, isLoggedIn, router]);
+  return !isAuth ? <></> : children;
+};
+
+AuthGuard.propTypes = {
+  children: PropTypes.node,
+};
