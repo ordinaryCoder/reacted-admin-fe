@@ -38,7 +38,7 @@ const Page = () => {
           </Typography>
           <Grid container spacing={2}>
             <Grid item lg={12} md={12} xs={12}>
-              <MusicCreatorsList musicCreatorsList={musicCreatorsList}/>
+              <MusicCreatorsList />
             </Grid>
           </Grid>
         </Container>

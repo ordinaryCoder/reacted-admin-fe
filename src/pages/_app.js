@@ -23,13 +23,13 @@ const App = (props) => {
         <title>Reacted Admin Panel</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <AuthProvider>
-            {getLayout(<Component {...pageProps} />)}
-          </AuthProvider>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <AuthProvider>
+          {getLayout(<Component {...pageProps} />)}
+        </AuthProvider>
 
-        </ThemeProvider>
+      </ThemeProvider>
     </CacheProvider>
   );
 };

@@ -10,10 +10,6 @@ import axios from "axios";
 const Page = () => {
   const [categoryList, setCategoryList] = useState([]);
 
-  useEffect(() => {
-    getCategoryList();
-  }, [getCategoryList]);
-
   const getCategoryList = useCallback(() => {
     axios
       .get(baseUrl + "/get_all_categories")
@@ -25,6 +21,11 @@ const Page = () => {
         console.log(response);
       });
   }, []);
+
+
+  useEffect(() => {
+    getCategoryList();
+  }, [getCategoryList]);
 
   return (
     <>

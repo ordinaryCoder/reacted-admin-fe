@@ -28,10 +28,54 @@ import { AppleMusicIcon } from "../../icons/apple-music";
 import { TikTokIcon } from "../../icons/tik-tok";
 import { SocialLinks } from "../SocialTile";
 import Link from "next/link";
+import { useRouter } from 'next/router';
+import axios from 'axios';
+import { deleteCelebrity } from '../../constants/api';
+import { HttpRequest } from '../../services/axios.service';
 
 export const CelebrityList = (props) => {
-  const { celebList } = props;
+  const [celebList, setcelebList] = useState([]);
+  const [severity, setSeverity] = useState("success");
+  const [open, setOpen] = useState(false);
+  const [msg, setMessage] = useState('')
+  // const { celebList } = props;
+  const router = useRouter()
+  const http = new HttpRequest()
+  console.log(celebList)
+  const FetchList = async () => {
+    const response = await http.axiosRequest("/get_celebrity", 'GET', true, {})
+    if (response.data?.success) {
+      setcelebList(response?.data?.data.reverse());
+    } else {
+      setOpen(true)
+      setSeverity('error')
+      setMessage(response.data.message)
+    }
+  }
 
+  const handleCelebDelete = async (id) => {
+    const formData = new FormData();
+    formData.append('celebrity_id', id)
+    const response = await http.axiosRequest(deleteCelebrity, 'POST', true, {}, formData, {
+      'Content-Type': 'multipart/formdata'
+    })
+    if (response?.data?.success) {
+      setOpen(true)
+      setSeverity('success')
+      setMessage(response.data.message)
+      FetchList()
+    } else {
+      setOpen(true)
+      setSeverity('error')
+      setMessage(response.data.message)
+    }
+  }
+
+
+
+  useEffect(() => {
+    FetchList()
+  }, []);
   return (
     <Card>
       <PerfectScrollbar>
@@ -74,22 +118,28 @@ export const CelebrityList = (props) => {
                     </Stack>
                   </TableCell>
                   <TableCell>
-                    <Chip label="Active" color="success" />
+                    <Chip label={cat?.status ?? 'N.A.'} color="success" />
                   </TableCell>
                   <TableCell>
                     <Stack direction="row">
-                      <Link
+                      {/* <Link
                         href={{
                           pathname: "/update/[role]/[userid]",
                           query: { role: 'celebrity', userid: cat?.user_id },
                         }}
-                      >
+                      > */}
+                      <div onClick={() => {
+                        router.push(`/update/celebrity/${cat?.user_id}`)
+                      }}>
                         <IconButton aria-label="ViewDetails" color="primary" size="small">
                           <VisibilityIcon color="primary" />
                         </IconButton>
-                      </Link>
+                      </div>
+                      {/* </Link> */}
 
-                      <IconButton aria-label="Delete" color="error" size="small">
+                      <IconButton aria-label="Delete" color="error" size="small" onClick={() => {
+                        handleCelebDelete(cat?.user_id)
+                      }}>
                         <DeleteIcon />
                       </IconButton>
                     </Stack>
@@ -110,6 +160,16 @@ export const CelebrityList = (props) => {
       rowsPerPage={limit}
       rowsPerPageOptions={[5, 10, 25]}
                 />*/}
+      <Snackbar
+        open={open}
+        autoHideDuration={1000}
+        anchorOrigin={{ horizontal: "right", vertical: "top" }}
+        onClose={() => setOpen(false)}
+      >
+        <Alert sx={{ width: "100%", color: "#fff" }} variant="filled" severity={severity}>
+          {msg}
+        </Alert>
+      </Snackbar>
     </Card>
   );
 };

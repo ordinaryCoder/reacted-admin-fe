@@ -114,6 +114,7 @@ export const CreateMusicCreator = (props) => {
         formData.append(key, data[key]);
       }
     });
+    formData.append('music_creator_id', userId)
     const mediaLinks = data.social_media_links?.map(link => ({ [link.platformName]: link.value }))
     formData.append("social_media_links", JSON.stringify(mediaLinks))
 
@@ -121,7 +122,7 @@ export const CreateMusicCreator = (props) => {
       .post(baseUrl + "/update_music_creator", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          'Authorization': `${localStorage.getItem('access_key')}`
+          'Authorization': `${localStorage.getItem('access_key')?.replaceAll('"', '')}`
         },
       })
       .then((response) => {
@@ -295,39 +296,6 @@ export const CreateMusicCreator = (props) => {
             </Grid>
           </CardContent>
           <Divider />
-          <CardContent>
-            <Typography sx={{ mb: 3 }} variant="h6">
-              Social Media Links
-            </Typography>
-            <Grid container spacing={3}>
-              <FieldArray
-                validateOnChange={false}
-                name="social_media_links">
-                <>
-                  {
-                    formik.values.social_media_links.map((platform, index) => {
-                      return (
-                        <Grid key={index} item md={6} xs={12}>
-                          <Field name={`social_media_links.${index}.value`}>
-                            {({ field }) => (
-                              <TextField
-                                fullWidth
-                                label={platform.platformName}
-                                variant="outlined"
-                                {...field}
-                              />
-                            )}
-                          </Field>
-                        </Grid>
-                      )
-                    })
-                  }
-                </>
-
-                {/* )} */}
-              </FieldArray>
-            </Grid>
-          </CardContent>
           <Divider />
 
           <Divider />

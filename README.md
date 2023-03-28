@@ -21,9 +21,27 @@ For production replace `localhost:3000` with your own domain.
 
 4. Open `.env` file and enable the Zalter authentication, then set your own Zalter project ID.
 
-```bash
-NEXT_PUBLIC_ENABLE_ZALTER_AUTH="true"
-NEXT_PUBLIC_ZALTER_PROJECT_ID="<your-project-id>"
+```shell
+.
+├── README.md                       # README file
+├── __mocks__                       # Mocks for testing
+├── .github                         # GitHub folder
+├── .husky                          # Husky configuration
+├── .vscode                         # VSCode configuration
+├── public                          # Public assets folder
+├── cypress                         # cypress tests
+│   ├── e2e                         
+│   ├── fixtures                    
+│   ├── support                     
+│   ├── tsconfig.json 
+├── src
+│   ├── layouts                     # Layouts components
+│   ├── pages                       # Next JS Pages
+│   ├── pages.test                  # Next JS Pages tests (this avoid test to treated as a Next.js pages)
+│   ├── styles                      # Styles folder
+│   ├── templates                   # Default template
+│   └── utils                       # Utility functions
+└── tsconfig.json                   # TypeScript configuration
 ```
 
 For more information about Zalter Authentication access [Zalter Developer Access ]https://developer.zalter.com.
@@ -70,5 +88,52 @@ material-kit-react
 
 ## License
 
-- Licensed under MIT [OVAA TECH](https://github.com/ordinaryCoder/reacted-admin-fe/blob/master/LICENSE)
+### VSCode information (optional)
 
+If you are VSCode users, you can have a better integration with VSCode by installing the suggested extension in `.vscode/extension.json`. The starter code comes up with Settings for a seamless integration with VSCode. The Debug configuration is also provided for frontend and backend debugging experience.
+
+With the plugins installed on your VSCode, ESLint and Prettier can automatically fix the code and show you the errors. Same goes for testing, you can install VSCode Jest extension to automatically run your tests and it also show the code coverage in context.
+
+Pro tips: if you need a project wide type checking with TypeScript, you can run a build with <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>B</kbd> on Mac.
+
+### Features
+
+Developer experience first:
+
+- ⚡ [Next.js](https://nextjs.org) for Static Site Generator
+- 🔥 Type checking [TypeScript](https://www.typescriptlang.org)
+- 💎 Integrate with [Material UI](https://mui.com)
+- ✅ Strict Mode for TypeScript and React 18
+- 📏 Linter with [ESLint](https://eslint.org) (default NextJS, NextJS Core Web Vitals, Material-UI and Airbnb configuration)
+- 💖 Code Formatter with [Prettier](https://prettier.io)
+- 🦊 Husky for Git Hooks
+- 🚫 Lint-staged for running linters on Git staged files
+- 🚓 Lint git commit with Commitlint with already configured rules[Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) 
+- 🦺 Unit Testing with Jest and React Testing Library
+- 🧪 E2E Testing with Cypress
+- 💡 Absolute Imports using `@` prefix
+- 🗂 VSCode configuration: Debug, Settings, Tasks and extension for ESLint, Prettier, TypeScript, Jest
+- 🤖 SEO metadata, JSON-LD and Open Graph tags with Next SEO
+- ⚙️ [Bundler Analyzer](https://www.npmjs.com/package/@next/bundle-analyzer)
+- 🖱️ One click deployment with Vercel or Netlify (or manual deployment to any hosting services)
+- 🌈 Include a FREE minimalist theme
+- 💯 Maximize lighthouse score
+
+Built-in feature from Next.js:
+
+- ☕ Minify HTML & CSS
+- 💨 Live reload
+- ✅ Cache busting
+
+### Philosophy
+
+- Minimal code
+- SEO-friendly
+- 🚀 Production-ready
+
+### License
+
+Licensed under the MIT License, Copyright © 2022
+
+
+---

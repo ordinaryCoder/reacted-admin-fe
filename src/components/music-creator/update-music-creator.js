@@ -24,6 +24,8 @@ import { Field, FieldArray, FormikProvider, useFormik } from "formik";
 import axios from "axios";
 import { baseUrl } from "../../constants/api";
 import { createMusicCreatorSchema, UpdateMusicCreatorSchema } from "../../utils/validators";
+import useAuth from '../../contexts/auth-context';
+import { useRouter } from 'next/router';
 
 export const UpdateMusicCreator = (props) => {
   const { first_name, last_name, email, phone, artist_name, description, categories, country } =
@@ -37,7 +39,9 @@ export const UpdateMusicCreator = (props) => {
   const [severity, setSeverity] = useState("info");
   const [uploadMusicFile, setUploadMusicFile] = useState("");
   //   const [socialMediaPlatforms, setPlatforms] = useState([])
-
+  const { query: { userid } } = useRouter()
+  // const { userid } = params.query
+  console.log(userid)
   const [open, setOpen] = useState(false);
   const [msg, setMessage] = useState("");
 
@@ -87,6 +91,8 @@ export const UpdateMusicCreator = (props) => {
         formData.append(key, data[key]);
       }
     });
+
+    formData.append('music_creator_id', userid)
     const mediaLinks = data?.social_media_links?.map((link) => ({
       [link.platformName]: link?.value,
     }));
@@ -96,6 +102,7 @@ export const UpdateMusicCreator = (props) => {
       .post(baseUrl + "/update_music_creator", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          'Authorization': `${localStorage.getItem('access_key')?.replaceAll('"', '')}`
         },
       })
       .then((response) => {

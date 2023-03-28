@@ -5,11 +5,13 @@ import {
 import { DashboardLayout } from "../../components/dashboard-layout";
 import { ViewOrderComponent } from '../../components/orders/view-orders';
 import { useRouter } from 'next/router';
+import AuthWrapper from '../../hoc/AuthWrapper';
 
 const Page = () => {
   const { ViewOrder } = useRouter().query
   return (
     <>
+      {/* <AuthWrapper> */}
       <Head>
         <title>Order No {ViewOrder} - Reacted</title>
       </Head>
@@ -22,6 +24,7 @@ const Page = () => {
       >
         <ViewOrderComponent />
       </Box>
+      {/* </AuthWrapper> */}
     </>
   )
 }

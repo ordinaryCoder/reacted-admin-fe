@@ -88,13 +88,16 @@ const orders = [
 export const LatestOrders = (props) => {
   const [Orders, setOrders] = useState([])
   const router = useRouter()
+
   useEffect(() => {
-    axios.get(baseUrl + "/get_all_orders", {
-      headers: `Authorization:${localStorage.getItem('access_key')}`
-    }).then((response) => {
-      setOrders(response?.data?.data);
-      console.log("RESPONSE", response)
-    });
+    if (window) {
+      axios.get(baseUrl + "/get_all_orders", {
+        headers: `authorization:${window.localStorage.getItem('access_key')?.replaceAll('"', '')}`
+      }).then((response) => {
+        setOrders(response?.data?.data);
+        console.log("RESPONSE", response)
+      });
+    }
     return (() => {
       setOrders([])
     })

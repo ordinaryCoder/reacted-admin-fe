@@ -6,22 +6,19 @@ import * as Yup from "yup";
 import { Alert, Box, Button, Container, Link, Snackbar, TextField, Typography, useTheme } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import axios from "axios";
-import { baseUrl } from "../constants/api";
+import { baseUrl, loginUrl } from "../constants/api";
 import { Logo } from "../components/logo";
 import useAuth from "../contexts/auth-context";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const Login = () => {
   const router = useRouter();
   const theme = useTheme();
-
-  const { signIn, loading } = useAuth();
-  const validationSchema = Yup.object({
-    email: Yup.string().email("Must be a valid email").max(255).required("Email is required"),
-    password: Yup.string().max(255).required("Password is required"),
-  });
-
-  useEffect(() => {
+  const [severity, setSeverity] = useState("success");
+  const [open, setOpen] = useState(false);
+  const [msg, setMessage] = useState('')
+  
+useEffect(()=>{
     const access_key = localStorage.getItem("access_key");
     const role_id = localStorage.getItem("role_id");
     if (access_key && role_id) {
@@ -40,7 +37,8 @@ const Login = () => {
           password,
         },
       });
-      if (response.status === 200 && response.data.success) {
+      console.log('RESPONSE', response?.data?.data)
+      if (response.status === 200 && response.data.success && response?.data?.data?.[0]?.role_id1 === '1') {
         console.log("Logging in");
         const userData = {
           name: response.data?.data[0].first_name,
@@ -51,10 +49,16 @@ const Login = () => {
           role_id1: response.data.data[0].role_id1,
           phone: response.data.data[0].phone,
         }
+        setSeverity('success')
+        setMessage(response.data.message)
+        setOpen(true)
         signIn(userData);
         router.replace("/");
       } else {
-        console.log("Login Failed");
+        console.log("Login Failed - Your are not allowed to Login");
+        setOpen(true)
+        setSeverity('error')
+        setMessage('Your are not allowed to Login')
       }
     } catch (error) {
       console.log(error);
@@ -70,29 +74,30 @@ const Login = () => {
       handleSubmit(data);
     },
   });
-  const loginUser = (data) => {
-    axios.post(`${loginUrl}?email=${data.email}&password=${data.password}`)
-      .then(res => {
-        if (res.data.success) {
-          console.log('push')
-          const token = res.data.data[0].access_token;
-          const user = res.data.data[0]
-          localStorage.setItem('reacted-admin-token', token)
-          signin(user, token)
-          setSeverity('success')
-          setMessage(res.data.message)
-          setOpen(true)
-          replace("/")
-        } else {
-          setOpen(true)
-          setSeverity('error')
-          setMessage(res.data.message)
-        }
-      })
-      .catch(err => {
-
-      })
-  }
+  // const loginUser = (data) => {
+  //   axios.post(`${loginUrl}?email=${data.email}&password=${data.password}`)
+  //     .then(res => {
+  //       if (res.data.success) {
+  //         // console.log('DATA', res.data)
+  //         console.log('push')
+  //         const token = res.data.data[0].access_token;
+  //         const user = res.data.data[0]
+  //         localStorage.setItem('reacted-admin-token', token)
+  //         signIn(user, token)
+  //         setSeverity('success')
+  //         setMessage(res.data.message)
+  //         setOpen(true)
+  //         replace("/")
+  //       } else {
+  //         setOpen(true)
+  //         setSeverity('error')
+  //         setMessage(res.data.message)
+  //       }
+  //     })
+  //     .catch(err => {
+  //       console.log(err.message)
+  //     })
+  // }
   return (
     <>
       {loading && <div>Loading...</div>}
@@ -179,7 +184,7 @@ const Login = () => {
           </form>
         </Container>
       </Box>
-      {/* <Snackbar
+      <Snackbar
         open={open}
         autoHideDuration={1000}
         anchorOrigin={{ horizontal: "right", vertical: "top" }}
@@ -188,7 +193,7 @@ const Login = () => {
         <Alert sx={{ width: "100%", color: "#fff" }} variant="filled" severity={severity}>
           {msg}
         </Alert>
-      </Snackbar> */}
+      </Snackbar>
     </>
   );
 };

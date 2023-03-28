@@ -85,11 +85,11 @@ const Page = () => {
       }
     }
   };
+  console.log('CELEB:', query.user?.toUpperCase())
 
   useEffect(() => {
     getUserDetails();
   }, [query]);
-
   return (
     <>
       <Head>
@@ -103,7 +103,7 @@ const Page = () => {
         }}
       >
         <Container maxWidth="lg">
-          {query.user.toUpperCase() === "CELEBRITY" && (
+          {query.user?.toUpperCase() === "CELEBRITY" && (
             <>
               <Typography sx={{ mb: 3 }} variant="h4">
                 Update {celeb && `${celeb?.first_name} ${celeb?.last_name}`} Profile Details
@@ -120,7 +120,7 @@ const Page = () => {
             </>
           )}
 
-          {query.user.toUpperCase() === "MUSIC-CREATOR" && (
+          {query.user?.toUpperCase() === "MUSIC-CREATOR" && (
             <>
               <Typography sx={{ mb: 3 }} variant="h4">
                 Update{" "}

@@ -5,7 +5,6 @@ import PropTypes from "prop-types";
 export const AuthGuard = (props) => {
   const { children } = props;
   const router = useRouter();
-
   // Only do authentication check on component mount.
   // This flow allows you to manually redirect the user after sign-out, otherwise this will be
   // triggered and will automatically redirect to sign-in page.

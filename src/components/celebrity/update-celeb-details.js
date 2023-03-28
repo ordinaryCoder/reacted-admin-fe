@@ -37,7 +37,6 @@ import { removeItemAtIndex } from "../../utils/arrayUtils";
 
 
 export const UpdateCeleberityDetails = (props) => {
-  
   const {
     user_id,
     first_name,
@@ -64,12 +63,8 @@ export const UpdateCeleberityDetails = (props) => {
     // social_media_links,
   } = props.userDetails;
 
-  const {socialLinks = []} = props;
-
-  // const [categoriesOptions, setCategoriesOptions] = useState([]);
-  // const [selectedCategories, setSelectedCategories] = useState();
+  const { socialLinks = [] } = props;
   // const [uploadProfilePicturecategoriesOptions, setUploadProfilePicture] = useState([]);
-  const [severity, setSeverity] = useState("success");
 
   const [open, setOpen] = useState(false);
   const [msg, setMessage] = useState("");
@@ -144,6 +139,7 @@ export const UpdateCeleberityDetails = (props) => {
       .post(baseUrl + "/update_celebrity", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          'Authorization': `${localStorage.getItem('access_key')?.replaceAll('"', '')}`
         },
       })
       .then((response) => {
@@ -501,7 +497,7 @@ export const UpdateCeleberityDetails = (props) => {
                 <>
                   {formik.values.social_media_links.map((platform, index) => {
                     return (
-                      <Grid key={index} item md={6} xs={12}>    
+                      <Grid key={index} item md={6} xs={12}>
                         <Field name={`social_media_links.${index}.value`}>
                           {({ field }) => (
                             <TextField
@@ -576,7 +572,7 @@ export const UpdateCeleberityDetails = (props) => {
               color="primary"
               variant="contained"
               type="submit"
-              // disabled={formik.isSubmitting}
+            // disabled={formik.isSubmitting}
             >
               Save details
             </Button>

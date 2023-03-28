@@ -15,7 +15,7 @@ export const ViewOrderComponent = () => {
   const { viewOrder } = useRouter().query;
   const fetchOrderDetails = async () => {
     const response = await axios.get(baseUrl + `/get_music_creator_orders?order_id=${viewOrder}`, {
-      headers: `Authorization:${localStorage.getItem('access_key')}`
+      headers: `Authorization:${localStorage.getItem('access_key')?.replaceAll('"', '')}`
     })
     setOrderDetails(response.data.data)
   }
