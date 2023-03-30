@@ -93,7 +93,13 @@ export const AccountPopover = (props) => {
           }
         }}
       >
-        <MenuItem onClick={handleSignOut}>
+        <MenuItem onClick={()=>{
+          if(window){
+            window.localStorage.clear();
+            window.location.reload();
+            
+          }
+        }}>
           Sign out
         </MenuItem>
       </MenuList>

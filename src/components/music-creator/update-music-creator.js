@@ -23,91 +23,67 @@ import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import { Field, FieldArray, FormikProvider, useFormik } from "formik";
 import axios from "axios";
 import { baseUrl } from "../../constants/api";
-import { createMusicCreatorSchema } from "../../utils/validators";
-import { useRouter } from "next/router";
+import { createMusicCreatorSchema, UpdateMusicCreatorSchema } from "../../utils/validators";
+import useAuth from '../../contexts/auth-context';
+import { useRouter } from 'next/router';
 
-export const CreateMusicCreator = (props) => {
-  const [categoriesOptions, setCategoriesOptions] = useState([]);
-  const [selectedCategories, setSelectedCategories] = useState();
+export const UpdateMusicCreator = (props) => {
+  
+    const { first_name, last_name, email, phone, artist_name, description, categories, country } =  props.userDetails;
+
+  const { socialLinks = [] } = props;
+
+  //   const [categoriesOptions, setCategoriesOptions] = useState([]);
+  //   const [selectedCategories, setSelectedCategories] = useState();
   const [uploadProfilePicture, setUploadProfilePicture] = useState("");
   const [severity, setSeverity] = useState("info");
   const [uploadMusicFile, setUploadMusicFile] = useState("");
-  const [socialMediaPlatforms, setPlatforms] = useState([])
-
+  //   const [socialMediaPlatforms, setPlatforms] = useState([])
+  const { query: { userid } } = useRouter()
+  // const { userid } = params.query
+  console.log(userid)
   const [open, setOpen] = useState(false);
   const [msg, setMessage] = useState("");
-  const [creatorValues, setCreator] = useState({
-    first_name: "",
-    last_name: "",
-    email: "",
-    phone: "",
-    artist_name: "",
-    description: "",
-    categories: "",
-    country: "",
-    social_media_links: socialMediaPlatforms.map(p => ({ platformName: p.platform_name, value: "" }))
-  })
+
   const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
-  useEffect(() => {
-    axios.get(baseUrl + "/get_category").then((response) => {
-      setCategoriesOptions(response?.data?.data);
-    });
-    axios.get(baseUrl + "/get_all_social_media_platforms").then((response) => {
-      setPlatforms(response?.data.data)
-    })
-  }, []);
-  const { query: { edit, userId } } = useRouter()
-
-  useEffect(() => {
-    if (edit === 'true' && userId) {
-      fetchCreator(userId)
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [edit, userId])
-  const fetchCreator = async (userId) => {
-    axios.get(baseUrl + `/get_music_creator?music_creator_id=${userId}`)
-      .then(response => {
-        if (response.data.success) {
-          const details = response.data.data[0]
-          const socialLinks = JSON.parse(response.data.data[0].social_media_links)
-          setCreator({
-            ...creatorValues,
-            first_name: details.first_name,
-            artist_name: details.artist_name,
-            categories: [],
-            description: details.description,
-            email: details.email,
-            last_name: details.last_name,
-            phone: details.phone,
-            social_media_links: Array.isArray(socialLinks) ? socialLinks.map(s => ({ platformName: Object.keys(s)[0], value: Object.values(s)[0] })) : [],
-            country: details.country
-          })
-        }
-      })
-      .catch(error => {
-        console.log('error', error)
-      })
-  }
+  //   useEffect(() => {
+  //     axios.get(baseUrl + "/get_category").then((response) => {
+  //       setCategoriesOptions(response?.data?.data);
+  //     });
+  //     axios.get(baseUrl + "/get_all_social_media_platforms").then((response) => {
+  //       setPlatforms(response?.data.data)
+  //     })
+  //   }, []);
   const formik = useFormik({
-    initialValues: creatorValues,
-    validationSchema: createMusicCreatorSchema,
+    initialValues: {
+      first_name: first_name,
+      last_name: last_name,
+      email: email,
+      phone: phone,
+      artist_name: artist_name,
+      description: description,
+      categories: categories,
+      //   country: country,
+      social_media_links: socialLinks,
+    },
+    validationSchema: UpdateMusicCreatorSchema,
     onSubmit: (data) => {
       handleSubmit(data);
     },
     enableReinitialize: true,
-    validateOnChange: false
+    validateOnChange: false,
   });
-  const handleSubmit = async (data) => {
-    let catIdArray = [];
-    let socialMediaLinksArray = [];
+  const handleSubmit = (data) => {
+    // let catIdArray = [];
+    // let socialMediaLinksArray = [];
 
-    selectedCategories?.map((cat) => {
-      catIdArray.push(cat.category_id);
-    });
-    data.categories = catIdArray.join(",");
-    data['profile_picture[0]'] = uploadProfilePicture;
-    data.music = uploadMusicFile;
+    // selectedCategories.map((cat) => {
+    //   catIdArray.push(cat.category_id);
+    // });
+    // data.categories = catIdArray.join(",");
+    // data['profile_picture[0]'] = uploadProfilePicture;
+    // data.music = uploadMusicFile;
     let formData = new FormData();
 
     Object.keys(data).forEach((key) => {
@@ -115,10 +91,13 @@ export const CreateMusicCreator = (props) => {
         formData.append(key, data[key]);
       }
     });
-    formData.append('music_creator_id', userId)
-    const mediaLinks = data.social_media_links?.map(link => ({ [link.platformName]: link.value }))
-    formData.append("social_media_links", JSON.stringify(mediaLinks))
 
+    formData.append('music_creator_id', userid)
+    const mediaLinks = data?.social_media_links?.map((link) => ({
+      [link.platformName]: link?.value,
+    }));
+    formData.append("social_media_links", JSON.stringify(mediaLinks));
+    console.log("inhandle submit", formData);
     axios
       .post(baseUrl + "/update_music_creator", formData, {
         headers: {
@@ -127,7 +106,6 @@ export const CreateMusicCreator = (props) => {
         },
       })
       .then((response) => {
-        console.log('response', response)
         if (response.data.success) {
           setSeverity("success");
         } else {
@@ -137,7 +115,7 @@ export const CreateMusicCreator = (props) => {
         setMessage(response.data.message);
       })
       .catch((error) => {
-        console.log(error, "Could not add music creator");
+        console.log(response, "Could not add music creator");
       });
   };
   const handleChangeUpload = (event, type) => {
@@ -145,7 +123,7 @@ export const CreateMusicCreator = (props) => {
       ? setUploadProfilePicture(event?.currentTarget?.files[0])
       : setUploadMusicFile(event?.currentTarget?.files[0]);
   };
-  console.log('creatorValues', creatorValues)
+  console.log("formni", formik.errors);
   return (
     <FormikProvider value={formik}>
       <form autoComplete="off" noValidate onSubmit={formik.handleSubmit}>
@@ -239,7 +217,7 @@ export const CreateMusicCreator = (props) => {
                   required
                 />
               </Grid>
-              <Grid item md={6} xs={12}>
+              {/* <Grid item md={6} xs={12}>
                 <TextField
                   fullWidth
                   label="Country"
@@ -251,15 +229,14 @@ export const CreateMusicCreator = (props) => {
                   helperText={formik.errors.country}
                   required
                 />
-              </Grid>
-              <Grid item md={6} xs={12}>
+              </Grid> */}
+              {/* <Grid item md={6} xs={12}>
                 <Autocomplete
                   multiple
                   fullWidth
                   onChange={(event, value) => {
-                    formik.setFieldValue('categories', value)
-                    setSelectedCategories(value)
-                  }}
+                    formik.setFieldValue('categories',value)
+                    setSelectedCategories(value)}}
                   id="checkboxes-tags-demo"
                   options={categoriesOptions}
                   disableCloseOnSelect
@@ -280,7 +257,7 @@ export const CreateMusicCreator = (props) => {
                     <TextField {...params} label="Categories" placeholder="" />
                   )}
                 />
-              </Grid>
+              </Grid> */}
               <Grid item md={6} xs={12}>
                 <TextField
                   fullWidth
@@ -297,10 +274,39 @@ export const CreateMusicCreator = (props) => {
             </Grid>
           </CardContent>
           <Divider />
+          <CardContent>
+            <Typography sx={{ mb: 3 }} variant="h6">
+              Social Media Links
+            </Typography>
+            <Grid container spacing={3}>
+              <FieldArray validateOnChange={false} name="social_media_links">
+                <>
+                  {formik.values.social_media_links.map((platform, index) => {
+                    return (
+                      <Grid key={index} item md={6} xs={12}>
+                        <Field name={`social_media_links.${index}.value`}>
+                          {({ field }) => (
+                            <TextField
+                              fullWidth
+                              label={platform.platform}
+                              variant="outlined"
+                              {...field}
+                            />
+                          )}
+                        </Field>
+                      </Grid>
+                    );
+                  })}
+                </>
+
+                {/* )} */}
+              </FieldArray>
+            </Grid>
+          </CardContent>
           <Divider />
 
           <Divider />
-          <CardContent>
+          {/* <CardContent>
             <Grid item md={12} xs={12}>
               <Typography sx={{ mb: 3 }} variant="h6">
                 Upload Celebrity Music
@@ -321,7 +327,7 @@ export const CreateMusicCreator = (props) => {
                 <span style={{ paddingLeft: "1rem" }}>{uploadMusicFile?.name} </span>
               </Grid>
             </Grid>
-          </CardContent>
+          </CardContent> */}
           <Box
             sx={{
               display: "flex",

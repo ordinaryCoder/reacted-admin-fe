@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import {
   Avatar,
@@ -11,6 +11,8 @@ import {
   TableHead,
   TableRow,
   Chip,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
@@ -22,7 +24,55 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-export const MusicCreatorsList = ({ musicCreatorsList }) => {
+import { TikTokIcon } from "../../icons/tik-tok";
+import { AppleMusicIcon } from "../../icons/apple-music";
+import { SpotifyIcon } from "../../icons/spotify";
+import { SocialLinks } from "../SocialTile";
+import Link from "next/link";
+import { EditOutlined } from '@mui/icons-material';
+import { useRouter } from 'next/router';
+import { HttpRequest } from '../../services/axios.service';
+import { deleteCreator } from '../../constants/api';
+
+export const MusicCreatorsList = () => {
+  const [CreatorList, setCreatorList] = useState([])
+  const router = useRouter();
+  const http = new HttpRequest()
+  const [severity, setSeverity] = useState("success");
+  const [open, setOpen] = useState(false);
+  const [msg, setMessage] = useState('')
+
+  const FetchCreatorList = async () => {
+    const response = await http.axiosRequest("/get_music_creator", 'GET', true)
+    if (response?.data?.success) {
+      setCreatorList(response?.data?.data.reverse())
+    } else {
+      setOpen(true)
+      setSeverity('error')
+      setMessage(response.data?.message)
+    }
+  }
+  const deleteMusicCreator = async (id) => {
+    const formData = new FormData();
+    formData.append('music_creator_id', id)
+    const response = await http.axiosRequest(deleteCreator, 'POST', true, {}, formData, {
+      'Content-Type': 'multipart/formdata'
+    })
+    if (response.data?.success) {
+      setOpen(true)
+      setSeverity('success')
+      setMessage(response.data.message)
+      FetchCreatorList()
+    } else {
+      setOpen(true)
+      setSeverity('error')
+      setMessage(response.data.message)
+    }
+  }
+  useEffect(() => {
+    FetchCreatorList()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   return (
     <Card>
       <PerfectScrollbar>
@@ -43,7 +93,7 @@ export const MusicCreatorsList = ({ musicCreatorsList }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {musicCreatorsList.map((creator, index) => (
+              {CreatorList.map((creator, index) => (
                 <TableRow key={index} hover>
                   <TableCell padding="checkbox">
                     <Checkbox />
@@ -59,22 +109,11 @@ export const MusicCreatorsList = ({ musicCreatorsList }) => {
                       {creator.first_name} {creator.last_name}
                     </Box>
                   </TableCell>
-                  <TableCell>{creator.artist_name | creator.first_name}</TableCell>
+                  <TableCell>{creator?.artist_name ?? ""}</TableCell>
                   <TableCell>{creator.email} </TableCell>
                   <TableCell>
                     <Stack direction="row">
-                      <IconButton aria-label="Facebook" size="small">
-                        <FacebookIcon color="primary" />
-                      </IconButton>
-                      <IconButton aria-label="Instagram" color="secondary" size="small">
-                        <InstagramIcon />
-                      </IconButton>
-                      <IconButton color="error" aria-label="Youtube" size="small">
-                        <YouTubeIcon />
-                      </IconButton>
-                      <IconButton color="primary" aria-label="LinkedIn" size="small">
-                        <LinkedInIcon color="primary" />
-                      </IconButton>
+                      <SocialLinks links={creator?.social_media_links} />
                     </Stack>
                   </TableCell>
                   <TableCell>
@@ -82,11 +121,27 @@ export const MusicCreatorsList = ({ musicCreatorsList }) => {
                   </TableCell>
                   <TableCell>
                     <Stack direction="row">
-                      <IconButton aria-label="Facebook" color="primary" size="small">
-                        <VisibilityIcon color="primary" />
-                      </IconButton>
-                      <IconButton aria-label="Instagram" color="error" size="small">
+                      {/* <Link
+                        href={{
+                          pathname: "/update/[role]/[userid]",
+                          query: { role: 'music-creator', userid: creator?.user_id },
+                        }}
+                      > */}
+                      <div onClick={() => {
+                        router.push(`/update/music-creator/${creator?.user_id}`)
+                      }}>
+                        <IconButton aria-label="ViewDetails" color="primary" size="small">
+                          <VisibilityIcon color="primary" />
+                        </IconButton>
+                      </div>
+                      {/* </Link> */}
+                      <IconButton aria-label="deactivate" color="error" size="small" onClick={() => {
+                        deleteMusicCreator(creator?.user_id)
+                      }}>
                         <DeleteIcon />
+                      </IconButton>
+                      <IconButton onClick={() => router.push(`/create-music-creator?edit=true&userId=${creator.user_id}`)} aria-label="delete" color="warning" size="small">
+                        <EditOutlined />
                       </IconButton>
                     </Stack>
                   </TableCell>
@@ -106,6 +161,16 @@ export const MusicCreatorsList = ({ musicCreatorsList }) => {
       rowsPerPage={limit}
       rowsPerPageOptions={[5, 10, 25]}
                 />*/}
+      <Snackbar
+        open={open}
+        autoHideDuration={1000}
+        anchorOrigin={{ horizontal: "right", vertical: "top" }}
+        onClose={() => setOpen(false)}
+      >
+        <Alert sx={{ width: "100%", color: "#fff" }} variant="filled" severity={severity}>
+          {msg}
+        </Alert>
+      </Snackbar>
     </Card>
   );
 };

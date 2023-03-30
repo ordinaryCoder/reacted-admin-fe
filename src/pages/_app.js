@@ -7,7 +7,10 @@ import { registerChartJs } from "../utils/register-chart-js";
 import { theme } from "../theme";
 import { AuthProvider, useAuth } from "../contexts/auth-context";
 
-registerChartJs();
+
+if(typeof registerChartJs() == 'function'){
+  registerChartJs() 
+}
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -22,12 +25,13 @@ const App = (props) => {
         <title>Reacted Admin Panel</title>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <AuthProvider>
-            {getLayout(<Component {...pageProps} />)}
-          </AuthProvider>
-        </ThemeProvider>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <AuthProvider>
+          {getLayout(<Component {...pageProps} />)}
+        </AuthProvider>
+
+      </ThemeProvider>
     </CacheProvider>
   );
 };

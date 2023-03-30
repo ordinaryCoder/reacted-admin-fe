@@ -23,11 +23,7 @@ import axios from "axios";
 const Page = () => {
   const [socialmedialist, setSocialMediaList] = useState([]);
 
-  const url = baseUrl + '/get_all_social_media_platforms'
-  useEffect(() => {
-    getSocialMediaList();
-  }, [getSocialMediaList]);
-
+  const url = baseUrl + '/get_all_social_media_platforms';
   const getSocialMediaList = useCallback(
     () => {
       axios.get(url).then((response) => {
@@ -40,6 +36,11 @@ const Page = () => {
     },
     [url],
   )
+  useEffect(() => {
+    getSocialMediaList();
+  }, [getSocialMediaList]);
+
+ 
 
   return (
 
