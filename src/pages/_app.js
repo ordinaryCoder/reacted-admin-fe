@@ -8,7 +8,9 @@ import { theme } from "../theme";
 import { AuthProvider, useAuth } from "../contexts/auth-context";
 
 
-registerChartJs();
+if(typeof registerChartJs() == 'function'){
+  registerChartJs() 
+}
 
 const clientSideEmotionCache = createEmotionCache();
 

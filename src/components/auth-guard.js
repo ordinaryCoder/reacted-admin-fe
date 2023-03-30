@@ -6,7 +6,6 @@ import useAuth from '../contexts/auth-context';
 export const AuthGuard = (props) => {
   const { children } = props;
   const router = useRouter();
-  const { isLoggedIn } = useAuth();
   const isAuth = useRef(false);
   // Only do authentication check on component mount.
   // This flow allows you to manually redirect the user after sign-out, otherwise this will be
@@ -21,7 +20,7 @@ export const AuthGuard = (props) => {
     } else {
       isAuth.current = true
     }
-  }, [children, isLoggedIn, router]);
+  }, [children,  router]);
   return !isAuth ? <></> : children;
 };
 
