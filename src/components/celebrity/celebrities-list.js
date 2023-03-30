@@ -75,6 +75,7 @@ export const CelebrityList = (props) => {
 
   useEffect(() => {
     FetchList()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <Card>

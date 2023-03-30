@@ -15,8 +15,8 @@ export const AuthGuard = (props) => {
     if (!access_key || !role_id) {
       router.replace("/login");
     }
-  }, [children]);
-  return children;
+  }, [children,  router]);
+  return !isAuth ? <></> : children;
 };
 
 AuthGuard.propTypes = {

@@ -63,6 +63,7 @@ export const CreateMusicCreator = (props) => {
     if (edit === 'true' && userId) {
       fetchCreator(userId)
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [edit, userId])
   const fetchCreator = async (userId) => {
     axios.get(baseUrl + `/get_music_creator?music_creator_id=${userId}`)

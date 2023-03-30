@@ -24,10 +24,6 @@ import { baseUrl } from "../../constants/api";
 export const CustomerSupportList = (props) => {
   const [contactFormList, setcontactFormList] = useState([]);
 
-  useEffect(() => {
-    getContactFormList();
-  }, [getContactFormList]);
-
   const getContactFormList = useCallback(() => {
     axios
       .get(baseUrl + "/get_contact_us")
@@ -39,6 +35,12 @@ export const CustomerSupportList = (props) => {
         console.log(response);
       });
   }, []);
+
+  useEffect(() => {
+    getContactFormList();
+  }, [getContactFormList]);
+
+ 
 
   return (
     <Card>

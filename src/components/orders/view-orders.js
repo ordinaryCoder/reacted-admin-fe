@@ -21,6 +21,7 @@ export const ViewOrderComponent = () => {
   }
   useEffect(() => {
     fetchOrderDetails()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [viewOrder]);
   return (
     <>

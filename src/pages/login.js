@@ -25,6 +25,7 @@ useEffect(()=>{
       router.replace("/");
     } else
       router.replace("/login");
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
 
