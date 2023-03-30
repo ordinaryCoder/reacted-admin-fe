@@ -29,7 +29,7 @@ import { useRouter } from 'next/router';
 
 export const UpdateMusicCreator = (props) => {
   
-    const { first_name, last_name, email, phone, artist_name, description, categories, country } = props !== undefined ? props.userDetails : {};
+    const { first_name, last_name, email, phone, artist_name, description, categories, country } =  props.userDetails;
 
   const { socialLinks = [] } = props;
 

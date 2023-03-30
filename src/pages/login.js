@@ -17,8 +17,13 @@ const Login = () => {
   const [severity, setSeverity] = useState("success");
   const [open, setOpen] = useState(false);
   const [msg, setMessage] = useState('')
-  
-useEffect(()=>{
+  const { signIn, loading } = useAuth();
+  const validationSchema = Yup.object({
+    email: Yup.string().email("Must be a valid email").max(255).required("Email is required"),
+    password: Yup.string().max(255).required("Password is required"),
+  });
+
+  useEffect(() => {
     const access_key = localStorage.getItem("access_key");
     const role_id = localStorage.getItem("role_id");
     if (access_key && role_id) {

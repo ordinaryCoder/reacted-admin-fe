@@ -11,7 +11,6 @@ import { DashboardLayout } from "../components/dashboard-layout";
 import { CelebrityList } from "../components/celebrity/celebrities-list";
 
 const Page = () => {
-
   return (
     <>
       <Head>
@@ -39,7 +38,6 @@ const Page = () => {
   );
 
 }
-
 
 Page.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
