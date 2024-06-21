@@ -65,6 +65,46 @@ export const createCelebritySchema = Yup.object().shape({
   )
 });
 
+
+export const UpdateCelebritySchema = Yup.object().shape({
+  first_name: Yup.string("Enter your first name")
+    .min(3, minErrorMessage(3))
+    .required(requiredMessage("First Name")),
+  last_name: Yup.string("Enter your last name")
+    .min(3, minErrorMessage(3))
+    .required(requiredMessage("Last Name")),
+  email: emailValidator,
+  phone: Yup.string()
+    .required("required")
+    .matches(phoneRegExp, "Phone number is not valid")
+    .min(10, "too short")
+    .max(10, "too long"),
+  title: Yup.string("")
+  .min(3, minErrorMessage(3))
+  .required(requiredMessage("Title")),
+  tag_line: Yup.string("")
+  .min(3, minErrorMessage(3))
+  .required(requiredMessage("Tag Line")),
+  short_description: Yup.string("")
+  .min(3, minErrorMessage(3))
+  .required(requiredMessage("Short Description")),
+  long_description: Yup.string("")
+  .min(100, minErrorMessage(100))
+  .required(requiredMessage("Long Description")),
+  price:Yup.number()
+  .min(0)
+  .required(requiredMessage("Price")),
+  // country: Yup.string("")
+  // .required(requiredMessage("Country")),
+  // categories: Yup.array().required("At least one category is required"),
+  social_media_links:Yup.array().of(
+    Yup.object().shape({
+      platformName:Yup.string(),
+      value:Yup.string()
+    })
+  )
+});
+
 export const createMusicCreatorSchema = Yup.object().shape({
   first_name: Yup.string().required("First Name is required"),
   last_name: Yup.string().required("Last Name is required"),
@@ -73,4 +113,14 @@ export const createMusicCreatorSchema = Yup.object().shape({
   artist_name: Yup.string().required("Artist Name is required"),
   description: Yup.string().required("Description is required"),
   country: Yup.string().required("Country is required"),
+});
+
+
+export const UpdateMusicCreatorSchema = Yup.object().shape({
+  first_name: Yup.string().required("First Name is required"),
+  last_name: Yup.string().required("Last Name is required"),
+  email: Yup.string().email("Must be a valid email").required("Email is required"),
+  phone: Yup.string().required("Phone is required"),
+  artist_name: Yup.string().required("Artist Name is required"),
+  description: Yup.string().required("Description is required"),
 });

@@ -70,7 +70,29 @@ const Login = () => {
       handleSubmit(data);
     },
   });
+  const loginUser = (data) => {
+    axios.post(`${loginUrl}?email=${data.email}&password=${data.password}`)
+      .then(res => {
+        if (res.data.success) {
+          console.log('push')
+          const token = res.data.data[0].access_token;
+          const user = res.data.data[0]
+          localStorage.setItem('reacted-admin-token', token)
+          signin(user, token)
+          setSeverity('success')
+          setMessage(res.data.message)
+          setOpen(true)
+          replace("/")
+        } else {
+          setOpen(true)
+          setSeverity('error')
+          setMessage(res.data.message)
+        }
+      })
+      .catch(err => {
 
+      })
+  }
   return (
     <>
       {loading && <div>Loading...</div>}
@@ -86,6 +108,7 @@ const Login = () => {
           minHeight: "100%",
         }}
       >
+
         <Container
           maxWidth="sm"
           sx={{
@@ -156,6 +179,16 @@ const Login = () => {
           </form>
         </Container>
       </Box>
+      <Snackbar
+        open={open}
+        autoHideDuration={1000}
+        anchorOrigin={{ horizontal: "right", vertical: "top" }}
+        onClose={() => setOpen(false)}
+      >
+        <Alert sx={{ width: "100%", color: "#fff" }} variant="filled" severity={severity}>
+          {msg}
+        </Alert>
+      </Snackbar>
     </>
   );
 };

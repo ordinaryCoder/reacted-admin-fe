@@ -7,6 +7,7 @@ import { registerChartJs } from "../utils/register-chart-js";
 import { theme } from "../theme";
 import { AuthProvider, useAuth } from "../contexts/auth-context";
 
+
 registerChartJs();
 
 const clientSideEmotionCache = createEmotionCache();
@@ -27,6 +28,7 @@ const App = (props) => {
           <AuthProvider>
             {getLayout(<Component {...pageProps} />)}
           </AuthProvider>
+
         </ThemeProvider>
     </CacheProvider>
   );
